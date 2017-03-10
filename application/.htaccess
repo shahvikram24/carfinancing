@@ -1,0 +1,8 @@
+Options -Indexes
+RewriteEngine on
+
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_URI} !^/web/(assets|css)/
+    RewriteRule .* index.php [L]
+
+</IfModule>
