@@ -62,7 +62,7 @@
 				    ?>
 
 
-    				<p>Thank you for choosing Spin Dry Clean!</p>
+    				<p>Thank you for choosing Car Financing Affiliate Program!</p>
                     </div>
                   </div>
 

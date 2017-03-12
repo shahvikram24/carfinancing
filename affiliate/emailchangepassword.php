@@ -2,7 +2,7 @@
     require_once("../include/files.php");
 
     if(!(isset($ResetAccount) || isset($_POST['change'])))
-        header("Location:index.php");
+        header("Location:login.php");
 
 
     if(isset($ResetAccount) && $ResetAccount == "true") 
@@ -26,7 +26,7 @@
            if(Security::ChangeUserPassword($login->affiliate_id, NULL, $_POST['NewPassword'])) 
             {
                 if($login->sendConfirmedRecoveredPassword($login->email))
-                header("Location:".AFFILIATEURL . 'index.php?' . $Encrypt->encrypt("Message=The password has been reset successfully.&Success=true"));
+                header("Location:".AFFILIATEURL . 'login.php?' . $Encrypt->encrypt("Message=The password has been reset successfully.&Success=true"));
             }
        
     }
@@ -39,7 +39,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<?php require_once("inc/title.php"); ?>
+<?php require_once ("../include/title.php"); ?> 
 <script language = "Javascript">
   
 function confirmPass() {
@@ -55,22 +55,26 @@ function confirmPass() {
 
 </head>
 
-<body>
+<body class="login">
 
 
 <!-- Header -->
-    <div class="content-section-a">
-
-        <div class="container">
-
-            <div class="contact-form" id="contact-form">
-                <form name="login_form" method="post">
-                    
+ 
+        <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+            <form method="post" action="#">
+                <h1>Reset password</h1>
+                      <header class="major">
+                  <?php 
+                    if($Message)
+                      echo '<h2 style="text-align: left;color:#555;background:#e9ffd9;">'. $Message.'</h2>';
+                  ?>              
+                </header>    
                         <div class="full">
                             
                             <div class="col-lg-12">
-                                <legend>Enter your new password below.</legend>
-
+                               
                                 <?php 
                                     if( isset ($Message) && $Message != "" ) 
                                     {
@@ -82,25 +86,60 @@ function confirmPass() {
                                 <input type="hidden" name="affiliate_id" value="<?php echo $affiliate_id; ?>"/>
                                 
 
-                                <div class="form-group">
+                                <div>
                                     <input type="password" placeholder="New Password" name="NewPassword" id="NewPassword" class="form-control required" autocomplete="off">
                                 </div>
-                                <div class="form-group">
+                                <div>
                                     <input type="password" placeholder="Confirm New Password" name="RepeatPassword" id="RepeatPassword" class="form-control required" onBlur="confirmPass();"  autocomplete="off">
                                 </div>
 
                                
-                                <div class="form-group pull-right">
-                                    <button type="submit" class="btn btn-success" name="change" value="change" >Get New Password
+                                <div>
+                                    <button type="submit" class="btn btn-default submit" name="change" value="change" >Get New Password
                                         &nbsp;<i class="fa fa-chevron-circle-right"></i></button>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                             
                         </div>
+
+                        <div class="clearfix"></div>
+
+                          <div class="separator">
+                            <p class="change_link">New to site?
+                              <a href="#" onclick="myFunction()" class="to_register"> Create Account </a>
+                            </p>
+
+                            <div class="clearfix"></div>
+                            <br />
+
+                            <p class="change_link">Already a member ?
+                                  <a href="login.php" class="to_register"> Log in </a>
+                                </p>
+
+                                <div class="clearfix"></div>
+                                <br />
+
+
+                            <div>
+                              <h1><i class="fa fa-car"></i> CAR FINANCING</h1>
+                              <p>&copy; CAR FINANCING. All rights reserved. <br/> Powered By:  
+                                  <a href="http://www.vstudiozzz.com" title="Vstudiozzz" target="_blank">Vstudiozzz </a>
+                              </p>
+                            </div>
+                          </div>
+
+
                     </form>
+                    </section>
                 </div>
             </div>
-        </div>
+        
+    <script>
+    function myFunction() {
+        window.location.href = "<?=  AFFILIATEURL . 'register.php' ?>";
+    }
+  </script>
+
 </body>
 </html>

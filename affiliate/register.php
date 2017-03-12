@@ -1,12 +1,6 @@
 <?php
     
     require_once("../include/files.php");
-    $path_info = parse_path();
-        
-        /*echo "<br/><br/><br/><br/><br/>";
-        debugObj($path_info['query']);
-        debugObj($Decrypt->decrypt($path_info['query']));*/
-
     
     if(isset($_POST['signup']) && $_POST['signup'] == 'Register')
     {
@@ -16,7 +10,7 @@
                 $affiliate->lastname = $_POST['lname'];
                 $affiliate->email = $_POST['email'];
                 $affiliate->telephone = $_POST['phone'];
-                $affiliate->fax = $_POST['fax'];
+                $affiliate->fax = '';
                 $affiliate->code = uniqid();
                 
                 $Salt = GenerateSALT();
@@ -33,17 +27,11 @@
                 $affiliate->cheque = $_POST['cheque'];
                 $affiliate->ip = $_SERVER['REMOTE_ADDR'];
                 $affiliate->status = 1;
-                $affiliate->approved = 2;
+                $affiliate->approved = 1;
                 $affiliateId = $affiliate->addAffiliate();
 
 
-                 $subscribe = new subscribers();
-                 $subscribe->name = $_POST['fname'] . " " . $_POST['lname'];
-                 $subscribe->email = $_POST['email'];
-                 $subscribe->status = 1;
-                 $subscribe->insert();
-
-                    header("Location:".AFFILIATEURL . 'index.php?' . $Encrypt->encrypt("Message=We have received your application.One of our team member will contact you to verify your information.&Success=true"));
+                    header("Location:".AFFILIATEURL . 'login.php?' . $Encrypt->encrypt("Message=We have received your application.One of our team member will contact you to verify your information.&Success=true"));
                     exit();
                 
 
@@ -52,197 +40,190 @@
 
 ?>
 
- 
-
-               
 <!DOCTYPE html>
 <html lang="en">
-<?php require_once("../include/title.php"); ?>
+<?php require_once ("inc/title.php"); ?>
 
-<body>
+<body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
 
-<!-- Header -->
-    <div class="content-section-a">
+            <!-- Header Wrapper -->
+            <?php require_once ("inc/sidebar.php"); ?>  
+            
+      
 
-        <div class="container">
-            <form method="post" action="#">
-                            <legend>AFFILIATE REGISTRATION FORM</legend>
-                            <div id="login-form" class="login-form">
-                                
-                                 <h3>Personal&nbsp;Info</h3>
-                                    <div class="full">
-                                        <div class="col-sm-6">
-                                            <span><label>First&nbsp;Name</label></span>
-                                            <span><input name="fname" id="fname" type="text" value="" class="textbox" required></span>
-                                        </div>
+            <!-- page content -->
+            <div class="right_col" role="main">  
+                <div class="row">
+              <div class="col-md-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Registration Form</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    <form class="form-horizontal form-label-left input_mask" method="post" action="#">
 
-                                        <div class="col-sm-6">
-                                            <span><label>Last&nbsp;Name</label></span>
-                                            <span><input name="lname" id="lname" type="text" value="" class="textbox"  required></span>
-                                        </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">First Name<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" id="inputSuccess4" placeholder="Please Enter First Name" name="fname" value="" required>
+                        </div>
+                      </div>
 
-                                        
-                                        <div class="col-sm-6">
-                                            <span><label>Phone</label></span>
-                                            <span><input name="phone" id="phone" type="text" value="" required class="textbox" ></span>
-                                        </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">Last Name<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" id="inputSuccess4" placeholder="Please Enter Last Name" name="lname" value="" required>
+                        </div>
+                      </div>
 
-                                        <div class="col-sm-6">
-                                            <span><label>Email</label></span>
-                                            <span><input name="email" id="email" type="text" value="" required  class="textbox" ></span>
-                                        </div>
-                                        
-                                        <div class="col-sm-6">
-                                            <span><label>Fax</label></span>
-                                            <span><input name="fax" id="fax" type="text" value="" class="textbox" ></span>
-                                        </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">Phone Number<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" id="inputSuccess4" placeholder="Please Enter Phone Number" name="phone" value="" required  data-inputmask="'mask' : '(999) 999-9999'">
+                        </div>
+                      </div>
 
-                                    <div class="clearfix"></div>
-                                    </div> <!-- end of toggle div -->
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">Email Address<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" id="inputSuccess4" placeholder="Please Enter Email Address" name="email" value="" required>
+                        </div>
+                      </div>
 
-                                    <h3>Address&nbsp;Info</h3>
-                                    <div class="full">
-                                        <div class="col-sm-6">
-                                            <span><label>Company&nbsp;Name</label></span>
-                                            <span><input name="company" id="company" type="text" value="" class="textbox" ></span>
-                                        </div>
+                      
+                      <div class="clearfix"></div>
+                      <div class="x_title">
+                        <h2>Address&nbsp;Info</h2>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="clearfix"></div>
 
-                                        <div class="col-sm-6">
-                                            <span><label>Website</label></span>
-                                            <span><input name="website" id="website" type="text" value="" class="textbox" ></span>
-                                        </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">Business Name
+                        </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" id="inputSuccess4" placeholder="Please Enter Business Name" name="company" value="">
+                        </div>
+                      </div>
 
-                                        
-                                        <div class="col-sm-6">
-                                            <span><label>Adrdress1</label></span>
-                                            <span><input name="address1" id="address1" type="text" value="" required class="textbox" ></span>
-                                        </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">Website Name
+                        </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" id="inputSuccess4" placeholder="Please Enter Website Name" name="website" value="" >
+                        </div>
+                      </div>
 
-                                        
-                                        
-                                        <div class="col-sm-6">
-                                            <span><label>City</label></span>
-                                            <span><input name="city" id="city" type="text" value="" required class="textbox" ></span>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <span><label>Province/State</label></span>
-                                            <span><input name="address2" id="address2" type="text" value=""  class="textbox" ></span>
-                                        </div>
-                                        
-                                        <div class="col-sm-6">
-                                            <span><label>Postal&nbsp;Code</label></span>
-                                            <span><input name="postalcode" id="postalcode" type="text" value="" required class="textbox" ></span>
-                                        </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">Address<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" id="inputSuccess4" placeholder="Please Enter Address" name="address1" value="" required>
+                        </div>
+                      </div>
 
-                                    <div class="clearfix"></div>
-                                    </div> <!-- end of toggle div -->
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">City<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" id="inputSuccess4" placeholder="Please Enter City" name="city" value="" required>
+                        </div>
+                      </div>
 
-                                    <h3>Payment&nbsp;Information</h3>
-                                    <div class="full">
-                                        <!-- <div class="col-sm-6">
-                                            <span><label>Tax&nbsp;ID</label></span>
-                                            <span><input name="tax" id="tax" type="text" value="<?= $affiliate->tax ?>" class="textbox" ></span>
-                                        </div> -->
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">Province<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" id="inputSuccess4" placeholder="Please Enter Province" name="address2" value="" required>
+                        </div>
+                      </div>
 
-                                        <div class="col-sm-6">
-                                            <span><label>Affiliate&nbsp;Payment&nbsp;Method</label></span>
-                                            <!-- <span>
-                                                 <ul class="form-menu-main">
-                                                    <li class="no-border-top">
-                                                        <label for="cheque"><input type="radio" name="payment" value="cheque" id="cheque" <?= ($affiliate->payment == 'cheque') ? 'checked' : '' ?> />Cheque</label>  
-                                                
-                                                        <label for="paypal"><input type="radio" name="payment" value="paypal" id="paypal" <?= ($affiliate->payment == 'paypal') ? 'checked' : '' ?> />PayPal</label>
-                                                
-                                                        <label for="bank"><input type="radio" name="payment" value="bank" id="bank" <?= ($affiliate->payment == 'bank') ? 'checked' : '' ?> />Bank Transfer</label>
-                                                    </li>
-                                                </ul> 
-                                                
-                                            </span> -->
-                                            <span><input name="payment" id="payment" type="text" value="cheque" class="textbox" readonly></span>
-                                        </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">Postal Code<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" id="inputSuccess4" placeholder="Please Enter Postal Code" name="postalcode" value="" required>
+                        </div>
+                      </div>
+                      
+                     
+                      <div class="clearfix"></div>
+                      <div class="x_title">
+                        <h2>Payment Information <small>Cheque Payee Name</small></h2>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="clearfix"></div>
 
-                                        <div id="payment-cheque" class="payment">
-                                            <div class="col-sm-6">
-                                                <span><label>Cheque&nbsp;Payee&nbsp;Name</label></span>
-                                                <span><input name="cheque" id="cheque" type="text" value="" class="textbox"  required></span>
-                                            </div>
-                                        </div>
-                                        <!-- <div id="payment-paypal" class="payment">
-                                            <div class="col-sm-6">
-                                                <span><label>Paypal&nbsp;Email&nbsp;Address</label></span>
-                                                <span><input name="paypal" id="paypal" type="text" value="" class="textbox" ></span>
-                                            </div>
-                                        </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">Affiliate Payment Method: Cheque <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" id="inputSuccess4" placeholder="Cheque Payee Name" name="cheque" value="" required>
+                        </div>
+                      </div>
 
-                                        <div id="payment-bank" class="payment">
-                                            <div class="col-sm-6">
-                                                <span><label>Bank&nbsp;Name</label></span>
-                                                <span><input name="bank_name" id="bank_name" type="text" value="" class="textbox" ></span>
-                                            </div>
-                                        
-                                            <div class="col-sm-6">
-                                                <span><label>ABA/BSB&nbsp;number(Branch&nbsp;Number)</label></span>
-                                                <span><input name="bank_branch_number" id="bank_branch_number" type="text" value="" class="textbox" ></span>
-                                            </div>
+                      <div class="clearfix"></div>
+                      <div class="x_title">
+                        <h2>Login Credentials <small>Enter Passowrd Information</small></h2>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="clearfix"></div>
 
-                                            <div class="col-sm-6">
-                                                <span><label>SWIFT&nbsp;Code</label></span>
-                                                <span><input name="bank_swift_code" id="paypal" type="text" value="" class="textbox" ></span>
-                                            </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">Password<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6">
+                          <input type="password" class="form-control" id="inputSuccess4" placeholder="Please Enter Password" name="password" value="" required>
+                        </div>
+                      </div>
 
-                                            <div class="col-sm-6">
-                                                <span><label>Account&nbsp;Name</label></span>
-                                                <span><input name="bank_account_name" id="paypal" type="text" value="" class="textbox" ></span>
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <span><label>Account&nbsp;Number</label></span>
-                                                <span><input name="bank_account_number" id="paypal" type="text" value="" class="textbox" ></span>
-                                            </div>
-                                        </div> -->
-
-                                        
-                                        
-
-                                    <div class="clearfix"></div>
-                                    </div> <!-- end of toggle div -->
+                      <div class="form-group">
+                        <label class="control-label col-md-6" for="first-name">Confirm Password<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6">
+                          <input type="password" class="form-control" id="inputSuccess4" placeholder="Please Confirm Password" name="confirmpassword" value="" required>
+                        </div>
+                      </div>
 
 
-                                    <h3>Password&nbsp;Info</h3>
-                                    <div class="full">
-                                        <div class="col-sm-6">
-                                            <span><label>Password</label></span>
-                                            <span><input name="password" id="password" type="password" value="" class="textbox"  required></span>
-                                        </div>
 
-                                        <div class="col-sm-6">
-                                            <span><label>Confirm&nbsp;Password</label></span>
-                                            <span><input name="confirmpassword" id="confirmpassword" type="password" value="" class="textbox"  required></span>
-                                        </div>
+                      <div class="clearfix"></div>
+                      <h2><input type="checkbox" id="AgreeTerms" checked readonly disabled="" /> By Signing up, you agree to our <a href="" class="" data-toggle="modal" data-target="#TermsandConditions">Terms and Conditions</a></h2>
+                      <div class="clearfix"></div>
 
-                                        
-                                    <div class="clearfix"></div>
-                                    </div> <!-- end of toggle div -->
-                                    <div class="col-sm-12">
-                                        <span>
-                                            <input type="checkbox" id="AgreeTerms" checked readonly/> By clicking Register, you agree to our <a href="" class="" data-toggle="modal" data-target="#TermsandConditions">Terms and Conditions</a>
-                                        </span>
 
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="col-sm-3"><input type="submit" class="btn btn-info" id="" name="" value="Back&nbsp;to&nbsp;Login" onclick="location.href='index.php';"/></div>
-                                    <div class="col-sm-3"><input name="submit" type="submit" value="Back Home" onclick="javascript:location.href='../affiliate.php'"/></div>
-                                    <div class="col-sm-3">&nbsp;</div>
-                                        <div class="col-sm-3">
-                                            <input type="submit" class="btn btn-info" id="signup" name="signup" value="Register" />
-                                        </div>
-                                        <div class="clearfix"></div>
-                            </div>
-                       
-            </form>
-            <div class="clearfix"></div>
-        </div>
-    </div>
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                          <a href='index.php' class="btn btn-primary">Cancel</a>
+                          <button type="submit" class="btn btn-success" name="signup" value="Register">Submit Form</button>
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+              
+            </div>  
+
+                <div class="clearfix"></div>
+
+                  
+            <!-- /top tiles -->
+            </div>
+
+        <!-- Footer Wrapper -->
+        <?php require_once ("inc/footer.php"); ?>  
 
     <div class="modal fade" id="TermsandConditions" tabindex="-1" role="dialog" aria-labelledby="TermsandConditionsLabel">
       <div class="modal-dialog" role="document">
@@ -253,9 +234,9 @@
             </h4>
           </div>
           <div class="modal-body">
-                <p>ADVANCED PAID LEAD REFERRAL PROGRAM FOR SupeCarLoans</p>
+                <p>ADVANCED PAID LEAD REFERRAL PROGRAM FOR Car Financing</p>
                 <div class="row">
-                    <div class="col-lg-12">1. SERVICES TO BE PROVIDED. The Affiliate will generate and submit sales leads for individuals who want to purchase motor vehicles. The Affiliate works independently and is NOT an employee of SupeCarLoans. 
+                    <div class="col-lg-12">1. SERVICES TO BE PROVIDED. The Affiliate will generate and submit sales leads for individuals who want to purchase motor vehicles. The Affiliate works independently and is NOT an employee of Car Financing. 
                     </div>
 
                     <div class="clearfix"></div>
@@ -263,16 +244,7 @@
                     <div class="clearfix"></div>
 
                     <div class="col-lg-12">
-                    2. COMPENSATION. The Affiliate will be paid a $500 CAD flat referral fee for every lead that he/she supplies that results in a vehicle purchase. Payment will be submitted within two (2) business days after the deal is completed and funds received from the In addition to the $500 referral fee per deal, the Affiliate will receive monthly bonuses as outlined below, for deals accumulated withing the same calendar month: 
-                    
-                    <ul style="list-style:disc;padding:20px;">
-                        <li class="no-border-top">5th Deal within a calendar month pays an additional $500</li>
-                        <li class="no-border-top">10th Deal within a calendar month pays and additional 1000</li>
-                        <li class="no-border-top">15th Deal within a calendar month the months pays and additional $500</li>
-                        <li class="no-border-top">20th Deal within a calendar month pays and additional $2000</li>
-                    </ul>
-
-                    Payment(s) shall be made via cheques and either mailed or deposited into the bank account specified by, and in the name of the Affiliate.
+                    2. COMPENSATION. The Affiliate will be paid upto $500 CAD referral fee for every lead that he/she supplies that results in a vehicle purchase. Payment will be submitted within two (2) business days after the deal is completed and funds received from the bank. Payment(s) shall be made via cheques and either mailed or deposited into the bank account specified by, and in the name of the Affiliate.
 
                     </div>
 
@@ -290,7 +262,7 @@
                     <div class="clearfix"></div>
 
                     <div class="col-lg-12">
-                    4. TAXES. The Affiliate is responsible for calculating, collecting, reporting, and remitting all applicable sales / income taxes and statutory deductions arising from the provision of the Services under this Understanding. SupeCarLoans shall NOT be responsible for calculating, reporting, or remitting any taxes, statutory deductions or related documentation on behalf of the Affiliate.
+                    4. TAXES. The Affiliate is responsible for calculating, collecting, reporting, and remitting all applicable sales / income taxes and statutory deductions arising from the provision of the Services under this Understanding. Car Financing shall NOT be responsible for calculating, reporting, or remitting any taxes, statutory deductions or related documentation on behalf of the Affiliate.
 
                     </div>
 
@@ -312,18 +284,7 @@
         </div>
       </div>
     </div>
-
-    <script type="text/javascript"><!--
-                    <!--
-                    $('input[name=\'payment\']').bind('change', function() {
-                        $('.payment').hide();
-                        
-                        $('#payment-' + this.value).show();
-                    });
-
-                    $('input[name=\'payment\']:checked').trigger('change');
-                    //-->
-            </script>
+    
 
         <script type="text/javascript">
             function confirmPass() {
@@ -352,3 +313,15 @@
                 return true;
             }
         </script> 
+
+        <!-- input_mask -->
+          <script>
+            $(document).ready(function() {
+              $(":input").inputmask();
+            });
+          </script>
+          <!-- /input mask -->
+
+
+</body>
+</html>

@@ -11,25 +11,24 @@
   if(isset($_POST['Finish']) && $_POST['Finish'] == 'Send Manual Lead')
 {
 
-    /*$ContactInfo = new ContactInfo();
-    $ContactInfo->FirstName = $_POST['FirstName'];
-     $ContactInfo->LastName = $_POST['LastName'];
-     $ContactInfo->Email = $_POST['EmailAddress'] ;
-     $ContactInfo->Phone1 = $_POST['Phone'];
-     $ContactInfo->Created = date('Y-m-d H:i:s');
-     $ContactInfo->Notes = $_POST['Notes'];
-     $ContactInfo->Notification = 1;
-     $ContactInfo->Status = 3;
-     $ContactInfoId = $ContactInfo->addContactInfo();
+     $Contact = new Contact();
+     $Contact->first_name = $_POST['FirstName'];
+     $Contact->last_name = $_POST['LastName'];
+     $Contact->email = $_POST['EmailAddress'] ;
+     $Contact->phone = $_POST['Phone'];
+     $Contact->created = date('Y-m-d H:i:s');
+     $Contact->notes = $_POST['Notes'];
+     $Contact->status = 1;
+     $ContactId = $Contact->addContact();
 
         $affiliateTransaction = new AffiliateTransaction();
         $affiliateTransaction->affiliateid = $_SESSION['affiliate_id'];
-        $affiliateTransaction->contactinfoid = $ContactInfoId;
+        $affiliateTransaction->contactinfoid = $ContactId;
         $affiliateTransaction->description = 1;
         $affiliateTransaction->amount = 0.00;
         $affiliateTransaction->dateadded = date("Y-m-d H:i:s");
         $affiliateTransaction->status = 3;
-*/
+
         $affiliateTransaction->addTransaction();
         header('Location:dashboard.php?' . $Encrypt->encrypt("Message=Lead information has been sent to our team.&Success=true&affiliate_id=".$_SESSION['affiliate_id']));
     exit();
@@ -86,7 +85,7 @@
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Phone Number" name="telephone" value=""  >
+                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Phone Number" name="telephone" value=""  data-inputmask="'mask' : '(999) 999-9999'">
                         <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
@@ -132,5 +131,13 @@
 
 		<!-- Footer Wrapper -->
 		<?php require_once ("inc/footer.php"); ?>  
+    <!-- input_mask -->
+          <script>
+            $(document).ready(function() {
+              $(":input").inputmask();
+            });
+          </script>
+          <!-- /input mask -->
+          
 </body>
 </html>

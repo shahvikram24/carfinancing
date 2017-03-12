@@ -30,13 +30,15 @@
 		
 		
 		require_once(APPLICATIONREQUIREROOT."contactinfo.php");
+		require_once(APPLICATIONREQUIREROOT."contact.php");
+		require_once(APPLICATIONREQUIREROOT."support.php");
 
 
 		require_once(APPLICATIONREQUIREROOT."employment.php");
 		require_once(APPLICATIONREQUIREROOT."previousemployment.php");
 		require_once(APPLICATIONREQUIREROOT."mortgage.php");
 		require_once(APPLICATIONREQUIREROOT."coapplicant.php");
-		require_once(APPLICATIONREQUIREROOT."contact.php");
+		
 		
 		require_once(APPLICATIONREQUIREROOT."files.php");
 		require_once(APPLICATIONREQUIREROOT."filerelations.php");

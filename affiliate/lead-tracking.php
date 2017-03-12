@@ -26,7 +26,6 @@
 			<!-- Header Wrapper -->
 			<?php require_once ("inc/header.php"); ?>  
 			
-      
 
 			<!-- page content -->
 			<div class="right_col" role="main">  
@@ -41,16 +40,10 @@
             ?>
 
 		        <div class="row">
-              <div class="col-md-6 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Referral&nbsp;Code<small>Tracking&nbsp;Link - Works very well with Facebook, Google+ and Twitter</small></h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="col-md-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Transaction History <small>History</small></h2>
+                      <h2>Transaction History <small>Lead Tracking History</small></h2>
                       <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -58,14 +51,15 @@
                       <?php if($ResultTransaction)
                           {
                       ?>
-            <form name="DeleteFrm" method="post" action="orderhistory.php?act=action" id="DeleteFrm">
-                        <table id="datatable" class="table table-striped table-bordered">
+                      
+                        <table id="datatable-buttons" class="table table-striped table-bordered">
                           <thead>
                             <tr>
                               <th>Sr#</th>
                               <th>Contact&nbsp;Name</th>
                               <th>Description</th>
                               <th>Referal&nbsp;Amount</th>
+                              <th>Date&nbsp;Send</th>
                             </tr>
                           </thead>
 
@@ -82,9 +76,10 @@
                     <tr class="">
                       
                       <td><?= $count ?></td>
-                      <td><?= ContactInfo::GetFullName($ResultTransaction->Result[$x]['contactinfoid']) ?></td>
+                      <td><?= Contact::GetFullName($ResultTransaction->Result[$x]['contactinfoid']) ?></td>
                       <td><?= DealStatus::getStatusText($ResultTransaction->Result[$x]['description']) ?></td>
                       <td><?= $ResultTransaction->Result[$x]['amount'] ?></td>
+                      <td><?= FormatDate($ResultTransaction->Result[$x]['dateadded'],'Y-m-d h:i A')?></td>
                     </tr>       
                   <?php 
                   }

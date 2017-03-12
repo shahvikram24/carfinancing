@@ -31,6 +31,9 @@
     <!-- iCheck -->
     <script src="<?= APPROOT ?>vendors/iCheck/icheck.min.js"></script>
     
+    <!-- input mask -->
+    <script src="<?= APPROOT ?>vendors/input_mask/jquery.inputmask.js"></script>
+
     <!-- bootstrap-wysiwyg -->
     <script src="<?= APPROOT ?>vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
     <script src="<?= APPROOT ?>vendors/jquery.hotkeys/jquery.hotkeys.js"></script>

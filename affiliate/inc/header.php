@@ -41,7 +41,7 @@
           </li>
           
           <li><a href="support.php"><i class="fa fa-support"></i> Support </a></li>
-          <li><a href="index.php?logout=true"><i class="fa fa-power-off"></i>Logout </a></li>
+          <li><a href="logout.php"><i class="fa fa-power-off"></i>Logout </a></li>
         </ul>
       </div>
 
@@ -50,7 +50,7 @@
 
     <!-- /menu footer buttons -->
     <div class="sidebar-footer hidden-small">
-      <a data-toggle="tooltip" data-placement="top" title="Home">
+      <a data-toggle="tooltip" data-placement="top" title="Home"  href="dashboard.php">
         <span class="fa fa-home" aria-hidden="true"></span>
       </a>
       <a data-toggle="tooltip" data-placement="top" title="">
@@ -59,7 +59,7 @@
        <a data-toggle="tooltip" data-placement="top" title="">
         <span >&nbsp;</span>
       </a>
-      <a data-toggle="tooltip" data-placement="top" title="Logout">
+      <a data-toggle="tooltip" data-placement="top" title="Logout"  href="logout.php">
         <span class="fa fa-power-off" aria-hidden="true"></span>
       </a>
     </div>

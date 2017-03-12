@@ -142,7 +142,7 @@
                         <label class="control-label col-md-6" for="first-name">Affiliate Payment Method: Cheque <span class="required">*</span>
                         </label>
                         <div class="col-md-6">
-                          <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Cheque Payee Name" name="website" value="<?= $affiliate->cheque ?>" required>
+                          <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Cheque Payee Name" name="cheque" value="<?= $affiliate->cheque ?>" required>
                           <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                         </div>
                       </div>

@@ -19,12 +19,12 @@ if( isset($_POST['LostPassword']) && $_POST['LostPassword'] == 'AddIt' )
       
       if($login->sendRecoverPasswordLink($login->email,$Encryption))
       {
-        header("Location:".AFFILIATEURL . 'index.php?' . $Encrypt->encrypt("Message=Check your e-mail for the confirmation link.&Success=true"));
+        header("Location:".AFFILIATEURL . 'login.php?' . $Encrypt->encrypt("Message=Check your e-mail for the confirmation link.&Success=true"));
         exit();
       }
     }
     else{
-      header("Location:".AFFILIATEURL . 'index.php?' . $Encrypt->encrypt("Message=User does not exist.&Success=false"));
+      header("Location:".AFFILIATEURL . 'login.php?' . $Encrypt->encrypt("Message=User does not exist.&Success=false"));
         exit();
     }
 

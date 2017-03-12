@@ -117,7 +117,7 @@ class Affiliate extends BaseClass{
 						approved = " . $this->approved . ", 
 						date_added = NOW()";
 				
-				//echo "<br/>".$SQL;
+				echo "<br/><br/><br/><br/>".$SQL;
 
 				$this->Id = parent::GetDALInstance()->SQLQuery($SQL, 2);
 				return $this->Id;
@@ -356,7 +356,7 @@ class Affiliate extends BaseClass{
   				 $to = $Email;
 
   				//define the subject of the email 
-				$subject = "Affiliate Password Reset from SupeCarLoans";
+				$subject = "Affiliate Password Reset from Car Financing";
 				//create a boundary string. It must be unique 
 				//so we use the MD5 algorithm to generate a random hash 
 				$random_hash = md5(date('r', time())); 
@@ -366,7 +366,7 @@ class Affiliate extends BaseClass{
 				// To send HTML mail, the Content-type header must be set
 				$headers  = 'MIME-Version: 1.0' . "\r\n";
 				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-				$headers .= "From: no-reply@SupeCarLoans.ca" .  "\r\n";
+				$headers .= "From: no-reply@carfinancing.help" .  "\r\n";
 				//add boundary string and mime type specification 
 				//$headers .= "\r\nContent-Type: multipart/mixed; boundary=\"PHP-mixed-".$random_hash."\""; 
 
@@ -429,7 +429,7 @@ class Affiliate extends BaseClass{
   				 $to = $Email;
 
   				//define the subject of the email 
-				$subject = "Password Successfully Reset on SuperCarLoans";
+				$subject = "Password Successfully Reset on Car Financing";
 				//create a boundary string. It must be unique 
 				//so we use the MD5 algorithm to generate a random hash 
 				$random_hash = md5(date('r', time())); 
@@ -440,7 +440,7 @@ class Affiliate extends BaseClass{
 				// To send HTML mail, the Content-type header must be set
 				$headers  = 'MIME-Version: 1.0' . "\r\n";
 				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-				$headers .= "From: no-reply@SupeCarLoans.ca" .  "\r\n";
+				$headers .= "From: no-reply@carfinancing.help" .  "\r\n";
 				//add boundary string and mime type specification 
 				//$headers .= "\r\nContent-Type: multipart/mixed; boundary=\"PHP-mixed-".$random_hash."\""; 
 
@@ -504,7 +504,7 @@ class Affiliate extends BaseClass{
   				 $to = $affiliate->email;
 
   				//define the subject of the email 
-				$subject = "Account Activation Instruction on SuperCarLoans Affiliate Program";
+				$subject = "Account Activation Instruction on Car Financing Affiliate Program";
 				//create a boundary string. It must be unique 
 				//so we use the MD5 algorithm to generate a random hash 
 				$random_hash = md5(date('r', time())); 
@@ -514,7 +514,7 @@ class Affiliate extends BaseClass{
 				// To send HTML mail, the Content-type header must be set
 				$headers  = 'MIME-Version: 1.0' . "\r\n";
 				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-				$headers .= "From: no-reply@SupeCarLoans.ca" .  "\r\n";
+				$headers .= "From: no-reply@carfinancing.help" .  "\r\n";
 				//add boundary string and mime type specification 
 				//$headers .= "\r\nContent-Type: multipart/mixed; boundary=\"PHP-mixed-".$random_hash."\"";
 

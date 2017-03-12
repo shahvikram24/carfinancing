@@ -2,38 +2,35 @@
 class Contact extends BaseClass
 {
 	
-	public $Id;
-	public $ContactInfoId =0;
-	public $MortgageId=0;
-	public $EmploymentId=0;
-	public $PreviousEmpId=0;
-	public $CreateDate = '';
-	public $Timestamp;
-	public $Status=0;
+	public $id;
+	public $vehicle_type_id = 1;
+	public $first_name;
+	public $last_name;
+	public $email;
+	public $phone;
+	public $month_of_birth = 0;
+	public $day_of_birth = 0;
+	public $year_of_birth = 0;
+	public $address = '';
+	public $postal_code = '';
+	public $province_id = 1;
+	public $city = '';
+	public $rent_or_own = 'rent';
+	public $residence_years = 0;
+	public $monthly_payment = '';
+	public $company_name = '';
+	public $job_title = '';
+	public $work_phone = '';
+	public $monthly_income = '';
+	public $sin_number = '';
+	public $years_on_job = 0;
+	public $months_on_job = 0;
+	public $notes = '';
+	public $created;
+	public $status = 1;
 
-	public $ContactInfoRelation = false;
-	public $MortgageRelation = false;
-	public $EmploymentRelation = false;
-	public $PreviousEmpRelation = false;
-
-	function __construct($InstantiateRelations = false) {
+	function __construct() {
         parent::__construct();
-
-        if($InstantiateRelations) {
-            $this->ContactInfoRelation = new ContactInfo(true);
-            $this->ContactInfoRelation->Status = 1;
-
-             $this->MortgageRelation = new Mortgage();
-            $this->MortgageRelation->Status = 1;
-
-            $this->EmploymentRelation = new Employment();
-            $this->EmploymentRelation->Status = 1;
-
-             $this->PreviousEmpRelation = new PreviousEmployment();
-            $this->PreviousEmpRelation->Status = 1;
-            
-            $this->CreateDate = date('Y-m-d H:i:s');
-        }
     }
 	
 	
@@ -41,7 +38,7 @@ class Contact extends BaseClass
   	{
 		
 				
-		$SQL = "SELECT * FROM tblcontact WHERE Id = " . $Id . " AND Status IN (0,1,2)  ";
+		$SQL = "SELECT * FROM contact WHERE id = " . $Id . " AND status IN (0,1,2)  ";
 		//echo "<br/><br/><br/><br/><br/><br/>".$SQL;		
 		parent::GetDALInstance()->SQLQuery($SQL);
 		$row = parent::GetDALInstance()->GetRow(false);
@@ -50,38 +47,32 @@ class Contact extends BaseClass
 
 			if($row)
 			{
-				$this->Id = $row['Id'];
-				$this->ContactInfoId = $row['ContactInfoId'];
-				$this->MortgageId = $row['MortgageId'];
-				$this->EmploymentId = $row['EmploymentId'];
-				$this->PreviousEmpId = $row['PreviousEmpId'];
-				$this->CreateDate = $row['CreateDate'];
-				$this->Timestamp = $row['Timestamp'];
-				$this->Status = $row['Status'];
-				
-				if(NumberCheck($this->ContactInfoId)) {
-                    $this->ContactInfoRelation = new ContactInfo();
-                    if(!$this->ContactInfoRelation->loadContactInfo($this->ContactInfoId))
-                        $this->ContactInfoRelation = false;
-                }
-
-                if(NumberCheck($this->MortgageId)) {
-                    $this->MortgageRelation = new Mortgage();
-                    if(!$this->MortgageRelation->loadMortgage($this->MortgageId))
-                        $this->MortgageRelation = false;
-                }
-
-                if(NumberCheck($this->EmploymentId)) {
-                    $this->EmploymentRelation = new Employment();
-                    if(!$this->EmploymentRelation->loadEmployment($this->EmploymentId))
-                        $this->EmploymentRelation = false;
-                }
-
-                if(NumberCheck($this->PreviousEmpId)) {
-                    $this->PreviousEmpRelation = new PreviousEmployment();
-                    if(!$this->PreviousEmpRelation->loadPreviousEmployment($this->PreviousEmpId))
-                        $this->PreviousEmpRelation = false;
-                }
+				 $this->id = $row['id'];
+				 $this->vehicle_type_id = $row['vehicle_type_id'];
+				 $this->first_name = $row['first_name'];
+				 $this->last_name = $row['last_name'];
+				 $this->email = $row['email'];
+				 $this->phone = $row['phone'];
+				 $this->month_of_birth = $row['month_of_birth'];
+				 $this->day_of_birth = $row['day_of_birth'];
+				 $this->year_of_birth = $row['year_of_birth'];
+				 $this->address = $row['address'];
+				 $this->postal_code = $row['postal_code'];
+				 $this->province_id = $row['province_id'];
+				 $this->city = $row['city'];
+				 $this->rent_or_own = $row['rent_or_own'];
+				 $this->residence_years = $row['residence_years'];
+				 $this->monthly_payment = $row['monthly_payment'];
+				 $this->company_name = $row['company_name'];
+				 $this->job_title = $row['job_title'];
+				 $this->work_phone = $row['work_phone'];
+				 $this->monthly_income = $row['monthly_income'];
+				 $this->sin_number = $row['sin_number'];
+				 $this->years_on_job = $row['years_on_job'];
+				 $this->months_on_job = $row['months_on_job'];
+				 $this->notes = $row['notes'];
+				 $this->created = $row['created'];
+				 $this->status = $row['status'];
 
 				return $this;
 			}
@@ -92,15 +83,37 @@ class Contact extends BaseClass
 		
 	public function addContact() 
 	{
-			$SQL = " INSERT INTO tblcontact 
+			$SQL = " INSERT INTO contact 
 				SET 
-					ContactInfoId = " . $this->ContactInfoId . ", 
-					MortgageId = " . $this->MortgageId . ", 
-					EmploymentId = " . $this->EmploymentId . ", 
-					PreviousEmpId = " . $this->PreviousEmpId . ", 
-					CreateDate = '" . $this->CreateDate . "', 
-					Status = " . $this->Status . "
+					 vehicle_type_id = " . $this->vehicle_type_id . ", 
+					 first_name = '" . $this->first_name . "', 
+					 last_name = '" . $this->last_name . "', 
+					 email = '" . $this->email . "', 
+					 phone = '" . $this->phone . "', 
+					 month_of_birth = " . $this->month_of_birth . ", 
+					 day_of_birth = " . $this->day_of_birth . ", 
+					 year_of_birth = " . $this->year_of_birth . ", 
+					 address = '" . $this->address . "', 
+					 postal_code = '" . $this->postal_code . "', 
+					 province_id = " . $this->province_id . ", 
+					 city = '" . $this->city . "', 
+					 rent_or_own = '" . $this->rent_or_own . "', 
+					 residence_years = " . $this->residence_years . ", 
+					 monthly_payment = '" . $this->monthly_payment . "', 
+					 company_name = '" . $this->company_name . "', 
+					 job_title = '" . $this->job_title . "', 
+					 work_phone = '" . $this->work_phone . "', 
+					 monthly_income = '" . $this->monthly_income . "', 
+					 sin_number = '" . $this->sin_number . "', 
+					 years_on_job = " . $this->years_on_job . ", 
+					 months_on_job = " . $this->months_on_job . ", 
+					 created = '" . date('Y-m-d H:i:s') . "', 
+					 notes = '" . $this->notes . "', 
+					 status = " . $this->status . "
 					";
+
+					 
+
 			//echo "<br/><br/><br/><br/><br/><br/>".$SQL;		
 			$this->Id = parent::GetDALInstance()->SQLQuery($SQL,2);
 			return $this->Id;
@@ -110,16 +123,34 @@ class Contact extends BaseClass
 	public function updateContact() 
 	{
 		
-		$SQL = " UPDATE tblcontact 
+		$SQL = " UPDATE contact 
 			SET 
-					ContactInfoId = " . $this->ContactInfoId . ", 
-					MortgageId = " . $this->MortgageId . ", 
-					EmploymentId = " . $this->EmploymentId . ", 
-					PreviousEmpId = " . $this->PreviousEmpId . ", 
-					CreateDate = '" . $this->CreateDate . "', 
-					Status=".$this->Status. " 
+					vehicle_type_id = " . $this->vehicle_type_id . ", 
+					 first_name = '" . $this->first_name . "', 
+					 last_name = '" . $this->last_name . "', 
+					 email = '" . $this->email . "', 
+					 phone = '" . $this->phone . "', 
+					 month_of_birth = " . $this->month_of_birth . ", 
+					 day_of_birth = " . $this->day_of_birth . ", 
+					 year_of_birth = " . $this->year_of_birth . ", 
+					 address = '" . $this->address . "', 
+					 postal_code = '" . $this->postal_code . "', 
+					 province_id = " . $this->province_id . ", 
+					 city = '" . $this->city . "', 
+					 rent_or_own = '" . $this->rent_or_own . "', 
+					 residence_years = " . $this->residence_years . ", 
+					 monthly_payment = '" . $this->monthly_payment . "', 
+					 company_name = '" . $this->company_name . "', 
+					 job_title = '" . $this->job_title . "', 
+					 work_phone = '" . $this->work_phone . "', 
+					 monthly_income = '" . $this->monthly_income . "', 
+					 sin_number = '" . $this->sin_number . "', 
+					 years_on_job = " . $this->years_on_job . ", 
+					 months_on_job = " . $this->months_on_job . ", 
+					 notes = " . $this->notes . ", 
+					 status = " . $this->status . "
 
-        			WHERE Id=".$this->Id;
+        			WHERE id=".$this->Id;
 					;
 		
 		//echo "<br/><br/><br/><br/><br/><br/>".$SQL;
@@ -130,113 +161,11 @@ class Contact extends BaseClass
 	}
 
 
-	public function loadAllContact($GetChildren = false) 
-  	{
-		
-				
-		$SQL = "SELECT * FROM tblcontact WHERE Status = 1  ";
-
-		parent::GetDALInstance()->SQLQuery($SQL);
-
-            $Result = parent::GetDALInstance()->GetArray(false);
-
-            if($Result) 
-            {
-                $ReturnArray = array();
-                $ResultLength = count($Result);
-
-                for($x = 0; $x < $ResultLength ; $x++) 
-                {
-                    $Contact = new Contact();
-                    $Contact->Id = $Result[$x]["Id"];
-                    $Contact->ContactInfoId = $Result[$x]["ContactInfoId"];
-                    $Contact->MortgageId = $Result[$x]["MortgageId"];
-                    $Contact->EmploymentId = $Result[$x]["EmploymentId"];
-                    $Contact->PreviousEmpId = $Result[$x]["PreviousEmpId"];
-                    $Contact->CreateDate = $row['CreateDate'];
-                    $Contact->Timestamp = $Result[$x]["Timestamp"];
-                    $Contact->Status = $Result[$x]["Status"];
-
-
-                    if(NumberCheck($Contact->ContactInfoId)) 
-                    {
-                    	$Contact->ContactInfoRelation = new ContactInfo();
-                    	if(!$Contact->ContactInfoRelation->loadContactInfo($Contact->ContactInfoId))
-                        	$Contact->ContactInfoRelation = false;
-               		 }
-
-               		 
-
-               		 if(NumberCheck($Contact->MortgageId)) 
-               		 {
-	                    $Contact->MortgageRelation = new Mortgage();
-	                    if(!$Contact->MortgageRelation->loadMortgage($Contact->MortgageId))
-	                        $Contact->MortgageRelation = false;
-	                }
-
-	                if(NumberCheck($Contact->EmploymentId)) 
-	                {
-	                    $Contact->EmploymentRelation = new Employment();
-	                    if(!$Contact->EmploymentRelation->loadEmployment($Contact->EmploymentId))
-	                        $Contact->EmploymentRelation = false;
-	                }
-
-	                if(NumberCheck($Contact->PreviousEmpId)) 
-	                {
-	                    $Contact->PreviousEmpRelation = new PreviousEmployment();
-	                    if(!$Contact->PreviousEmpRelation->loadPreviousEmployment($Contact->PreviousEmpId))
-	                        $Contact->PreviousEmpRelation = false;
-	                }
-
-
-               		  $ReturnArray[] = $Contact;
-
-
-                }
-                 
-                return $ReturnArray;
-            }
-	    
-		return false;
-
-	}
-	
-	public function loadSearchInfo($Condition = '')
-  	{
-				
-		$SQL = "SELECT CI.*, C.Id AS ContactId, C.Status AS 'AccountStatus' FROM tblcontact C 
-				JOIN tblcontactinfo CI ON CI.Id = C.ContactInfoId 
-				LEFT JOIN tblmortgage MO ON MO.Id = C.MortgageId 
-				LEFT JOIN tblemployment EMP ON EMP.Id = C.EmploymentId 
-				LEFT JOIN tblpreviousemployment PrevEmp ON PrevEmp.Id = C.PreviousEmpId 
-				WHERE C.Status IN (1,2) 
-				  ";
-
-		if($Condition !='')
-			$SQL .= $Condition;
-
-		$SQL .= ' ORDER BY C.Id DESC';
-		//echo "<br/><br/><br/><br/><br/><br/>".$SQL;
-
-		parent::GetDALInstance()->SQLQuery($SQL);
-		$row = parent::GetDALInstance()->GetRow(false);			
-
-
-		$ResultSet = new ResultSet();
-	    if($ResultSet->LoadResult($SQL))
-	        return $ResultSet;
-
-	    
-		return false;
-
-	}
-
-
 	public function LeadsCount()
 	{
 		$SQL = "SELECT count(*) AS 'TotalLeads'
-				FROM tblcontact 
-				WHERE Status IN (1,2)
+				FROM contact 
+				WHERE status IN (1,2)
 
 		";
 
@@ -249,8 +178,8 @@ class Contact extends BaseClass
 	public function NewLeadsCount()
 	{
 		$SQL = "SELECT count(*) AS 'TotalLeads'
-				FROM tblcontact 
-				WHERE Status IN (2)
+				FROM contact 
+				WHERE status IN (2)
 
 		";
 
@@ -275,8 +204,8 @@ class Contact extends BaseClass
     public function PendingCount($Condition = '')
 	{
 		$SQL = "SELECT count(*) AS 'TotalLeads'
-				FROM tblcontact 
-				WHERE Status IN (2)
+				FROM contact 
+				WHERE status IN (2)
 
 		";
 
@@ -286,11 +215,28 @@ class Contact extends BaseClass
 		return ($row) ? $row["TotalLeads"] : 0;
 	}
 
-	public function GetId($ContactInfoId)
+	
+
+	public function HiddenCount()
 	{
-		$SQL = "SELECT Id  
-				FROM tblcontact 
-				WHERE ContactInfoId = " . $ContactInfoId . " AND Status IN (0,1,3)
+		$SQL = "SELECT count(*) AS 'TotalLeads'
+				FROM contact 
+				WHERE status IN (0)
+
+		";
+
+		parent::GetDALInstance()->SQLQuery($SQL);
+		$row = parent::GetDALInstance()->GetRow();
+
+		return ($row) ? $row["TotalLeads"] : 0;
+	}
+
+	
+	public function GetFullName($Id)
+	{
+		$SQL = "SELECT first_name AS 'Fname', last_name AS 'Lname' 
+				FROM contact 
+				WHERE id = " . $Id . " AND status IN (0,1,3)
 
 		";
 
@@ -299,120 +245,8 @@ class Contact extends BaseClass
 		parent::GetDALInstance()->SQLQuery($SQL);
 		$row = parent::GetDALInstance()->GetRow();
 
-		return ($row) ? $row["Id"]  : 0;
+		return ($row) ? $row["Fname"] . " " . $row["Lname"] : 0;
 		
 	}
-
-
-	public function loadHiddenApplication($Condition = '') 
-  	{
-		
-				
-		$SQL = "SELECT * FROM tblcontact WHERE Status = 0 ORDER BY Timestamp DESC";
-
-		parent::GetDALInstance()->SQLQuery($SQL);
-
-            $Result = parent::GetDALInstance()->GetArray(false);
-
-            if($Result) 
-            {
-                $ReturnArray = array();
-                $ResultLength = count($Result);
-
-                for($x = 0; $x < $ResultLength ; $x++) 
-                {
-                    $Contact = new Contact();
-                    $Contact->Id = $Result[$x]["Id"];
-                    $Contact->ContactInfoId = $Result[$x]["ContactInfoId"];
-                    $Contact->MortgageId = $Result[$x]["MortgageId"];
-                    $Contact->EmploymentId = $Result[$x]["EmploymentId"];
-                    $Contact->PreviousEmpId = $Result[$x]["PreviousEmpId"];
-                    $Contact->CreateDate = $row['CreateDate'];
-                    $Contact->Timestamp = $Result[$x]["Timestamp"];
-                    $Contact->Status = $Result[$x]["Status"];
-
-
-                    if(NumberCheck($Contact->ContactInfoId)) 
-                    {
-                    	$Contact->ContactInfoRelation = new ContactInfo();
-                    	if(!$Contact->ContactInfoRelation->loadContactInfo($Contact->ContactInfoId))
-                        	$Contact->ContactInfoRelation = false;
-               		 }
-
-               		 
-
-               		 if(NumberCheck($Contact->MortgageId)) 
-               		 {
-	                    $Contact->MortgageRelation = new Mortgage();
-	                    if(!$Contact->MortgageRelation->loadMortgage($Contact->MortgageId))
-	                        $Contact->MortgageRelation = false;
-	                }
-
-	                if(NumberCheck($Contact->EmploymentId)) 
-	                {
-	                    $Contact->EmploymentRelation = new Employment();
-	                    if(!$Contact->EmploymentRelation->loadEmployment($Contact->EmploymentId))
-	                        $Contact->EmploymentRelation = false;
-	                }
-
-	                if(NumberCheck($Contact->PreviousEmpId)) 
-	                {
-	                    $Contact->PreviousEmpRelation = new PreviousEmployment();
-	                    if(!$Contact->PreviousEmpRelation->loadPreviousEmployment($Contact->PreviousEmpId))
-	                        $Contact->PreviousEmpRelation = false;
-	                }
-
-
-               		  $ReturnArray[] = $Contact;
-
-
-                }
-                 
-                return $ReturnArray;
-            }
-	    
-		return false;
-
-
-	}
-
-	public function HiddenCount()
-	{
-		$SQL = "SELECT count(*) AS 'TotalLeads'
-				FROM tblcontact 
-				WHERE Status IN (0)
-
-		";
-
-		parent::GetDALInstance()->SQLQuery($SQL);
-		$row = parent::GetDALInstance()->GetRow();
-
-		return ($row) ? $row["TotalLeads"] : 0;
-	}
-
-	public function HiddenNotification($Condition = '') 
-  	{
-		$SQL = "SELECT * FROM tblcontact C
-				JOIN tblcontactinfo CI ON CI.Id=C.ContactInfoId 
-				WHERE C.Status = 0  AND CI.ArchiveNotification IS NOT NULL 
-				 ";
-		
-		if($Condition !='')
-			$SQL .= $Condition;
-		//echo "<br/><br/><br/><br/><br/><br/>".$SQL;
-
-		//$SQL .= " ORDER BY CI.ArchiveNotification DESC ";
-		parent::GetDALInstance()->SQLQuery($SQL);
-		$row = parent::GetDALInstance()->GetRow(false);
-			
-		$ResultSet = new ResultSet();
-	    if($ResultSet->LoadResult($SQL))
-	        return $ResultSet;
-
-	    
-		return false;
-
-	}
-
 }
 ?>
