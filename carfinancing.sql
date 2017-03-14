@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 09, 2017 at 06:06 AM
+-- Generation Time: Mar 14, 2017 at 01:49 PM
 -- Server version: 5.7.17-log
 -- PHP Version: 5.6.30
 
@@ -87,7 +87,8 @@ CREATE TABLE `affiliate` (
 --
 
 INSERT INTO `affiliate` (`affiliate_id`, `firstname`, `lastname`, `email`, `telephone`, `fax`, `salt`, `HASH`, `company`, `website`, `address_1`, `address_2`, `city`, `postcode`, `country_id`, `zone_id`, `code`, `commission`, `tax`, `payment`, `cheque`, `paypal`, `bank_name`, `bank_branch_number`, `bank_swift_code`, `bank_account_name`, `bank_account_number`, `ip`, `status`, `approved`, `date_added`) VALUES
-(1, 'Vikram', 'Shah', 'shahvikram24@gmail.com', '7809200324', '7809200324', '14438578653b8fc50d869a72ff3cae4a', '102dd38d7a9df30c645432debcad0ee32621a624', 'vstudiozzz', 'vstudiozzz.com', '201C - 3624 119 Street NW', '', 'EDMONTON', 'T6J 2X6', 43, 2, '527f4abd08412', '5.00', '546545454', 'cheque', 'Hirva Shah', 'shahvikram24@gmail.com', 'TD Canda Trust', '1709', '004', 'Vikram Shah', '34534543', '127.0.0.1', 1, 1, '2013-11-10 02:24:25');
+(1, 'Vikram', 'Shah', 'shahvikram24@gmail.com', '7809200324', '7809200324', '14438578653b8fc50d869a72ff3cae4a', '102dd38d7a9df30c645432debcad0ee32621a624', 'vstudiozzz', 'vstudiozzz.com', '3624 119 Street NW', '201C', 'EDMONTON', 'T6J 2X6', 43, 2, '527f4abd08412', '5.00', '546545454', 'cheque', 'Hirva Shah', 'shahvikram24@gmail.com', 'TD Canda Trust', '1709', '004', 'Vikram Shah', '34534543', '127.0.0.1', 1, 1, '2013-11-10 02:24:25'),
+(0, 'Hirva', 'Shah', 'ahah@gmail.com', '(782) 025-4545', '', '20e5134043ec1e77c4f8649077801946', 'b2eb969f505a129397ba48a9d17dab9f513c8a54', 'nsmgjkdghsjkd', '', 'gghf hfghfghf', 'SK', 'sdgdfgd', 't6t6t6', 43, 2, '58c5657537602', '5.00', '', '', 'sdfgdfgdf', '', '', '', '', '', '', '::1', 1, 1, '2017-03-12 09:12:53');
 
 -- --------------------------------------------------------
 
@@ -99,51 +100,65 @@ CREATE TABLE `affiliatetransaction` (
   `affiliatetransactionid` int(11) NOT NULL,
   `affiliateid` int(11) NOT NULL,
   `contactinfoid` int(11) NOT NULL,
-  `description` text NOT NULL,
+  `description` text NOT NULL COMMENT 'tbldealstatus',
   `amount` decimal(15,4) NOT NULL,
   `dateadded` datetime NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `affiliatetransaction`
+--
+
+INSERT INTO `affiliatetransaction` (`affiliatetransactionid`, `affiliateid`, `contactinfoid`, `description`, `amount`, `dateadded`, `status`) VALUES
+(1, 1, 4, '1', '0.0000', '2017-03-10 21:53:59', 3),
+(2, 0, 5, '1', '0.0000', '2017-03-12 09:15:53', 3);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `applicant`
+-- Table structure for table `contact`
 --
 
-CREATE TABLE `applicant` (
+CREATE TABLE `contact` (
   `id` int(11) NOT NULL,
-  `vehicle_type_id` int(11) NOT NULL,
+  `vehicle_type_id` int(11) NOT NULL DEFAULT '1',
   `first_name` varchar(40) NOT NULL,
   `last_name` varchar(40) NOT NULL,
   `email` varchar(40) NOT NULL,
   `phone` varchar(15) NOT NULL,
-  `month_of_birth` tinyint(2) NOT NULL,
-  `day_of_birth` tinyint(2) NOT NULL,
-  `year_of_birth` int(4) NOT NULL,
-  `address` varchar(80) NOT NULL,
-  `postal_code` varchar(10) NOT NULL,
-  `province_id` int(11) NOT NULL,
-  `city` varchar(20) NOT NULL,
-  `rent_or_own` enum('rent','own') DEFAULT NULL,
-  `residence_years` tinyint(1) NOT NULL,
-  `monthly_payment` varchar(10) NOT NULL,
-  `company_name` varchar(20) NOT NULL,
-  `job_title` varchar(20) NOT NULL,
-  `work_phone` varchar(15) NOT NULL,
-  `monthly_income` varchar(10) NOT NULL,
-  `sin_number` varchar(40) NOT NULL,
-  `years_on_job` tinyint(2) NOT NULL,
-  `months_on_job` tinyint(2) NOT NULL
+  `month_of_birth` tinyint(2) DEFAULT NULL,
+  `day_of_birth` tinyint(2) DEFAULT NULL,
+  `year_of_birth` int(4) DEFAULT NULL,
+  `address` varchar(80) DEFAULT NULL,
+  `postal_code` varchar(10) DEFAULT NULL,
+  `province_id` int(11) DEFAULT NULL,
+  `city` varchar(20) DEFAULT NULL,
+  `rent_or_own` enum('rent','own') DEFAULT 'rent',
+  `residence_years` tinyint(1) DEFAULT NULL,
+  `monthly_payment` varchar(10) DEFAULT NULL,
+  `company_name` varchar(20) DEFAULT NULL,
+  `job_title` varchar(20) DEFAULT NULL,
+  `work_phone` varchar(15) DEFAULT NULL,
+  `monthly_income` varchar(10) DEFAULT NULL,
+  `sin_number` varchar(40) DEFAULT NULL,
+  `years_on_job` tinyint(2) DEFAULT NULL,
+  `months_on_job` tinyint(2) DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `notes` text,
+  `status` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `applicant`
+-- Dumping data for table `contact`
 --
 
-INSERT INTO `applicant` (`id`, `vehicle_type_id`, `first_name`, `last_name`, `email`, `phone`, `month_of_birth`, `day_of_birth`, `year_of_birth`, `address`, `postal_code`, `province_id`, `city`, `rent_or_own`, `residence_years`, `monthly_payment`, `company_name`, `job_title`, `work_phone`, `monthly_income`, `sin_number`, `years_on_job`, `months_on_job`) VALUES
-(1, 2, 'Alex', 'Lesan', 'alex.lesan@gmail.com', '069630914', 2, 2, 1988, 'Chisinau, Moldova', 'MD2051', 11, 'Chisinau', 'own', 5, '150', 'Artsintez', 'PHP developer', '123456789', '1000', '9874561234567', 7, 10),
-(2, 1, 'asdfasd', 'asdfasdf', 'asdfasdf@asdfas.com', 'asdfasdf', 3, 5, 2003, 'asdf', 'asdf', 4, 'asdf', 'rent', 2, 'asdfasdf', 'asdfadsf', 'asdfasdf', 'asdfasdf', 'asdfasdf', 'asdfasdf', 16, 10);
+INSERT INTO `contact` (`id`, `vehicle_type_id`, `first_name`, `last_name`, `email`, `phone`, `month_of_birth`, `day_of_birth`, `year_of_birth`, `address`, `postal_code`, `province_id`, `city`, `rent_or_own`, `residence_years`, `monthly_payment`, `company_name`, `job_title`, `work_phone`, `monthly_income`, `sin_number`, `years_on_job`, `months_on_job`, `created`, `notes`, `status`) VALUES
+(1, 2, 'Alex', 'Lesan', 'alex.lesan@gmail.com', '069630914', 2, 2, 1988, 'Chisinau, Moldova', 'MD2051', 11, 'Chisinau', 'own', 5, '150', 'Artsintez', 'PHP developer', '123456789', '1000', '9874561234567', 7, 10, '2017-03-11 04:41:48', NULL, 1),
+(2, 1, 'asdfasd', 'asdfasdf', 'asdfasdf@asdfas.com', 'asdfasdf', 3, 5, 2003, 'asdf', 'asdf', 4, 'asdf', 'rent', 2, 'asdfasdf', 'asdfadsf', 'asdfasdf', 'asdfasdf', 'asdfasdf', 'asdfasdf', 16, 10, '2017-03-11 04:41:48', NULL, 1),
+(3, 2, 'Vikram', 'Shah', 'vip_vicks@sify.com', '896789696', 5, 22, 1984, 'dfghdfhdfh dfhdfhdfhdf dfhdfhdf ', 't6t6t6', 3, 'dfghdfhdf dfhdfhdfh', 'rent', 5, '500', 'dfh dfhdfhdfh ', 'jkhjkh', '089789789', '897897.00', '', 3, 2, '2017-03-11 04:41:48', NULL, 1),
+(4, 1, 'Dhaval', 'Patel', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-11 11:53:58', 'dfdfmng dghjkdfgh djkfghjkdf ghdfjkg \r\n                        ', 1),
+(5, 1, 'snehal', 'panchal', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-12 21:15:53', 'jhfghfgh ghfgh fghf  \r\n                        ', 1);
 
 -- --------------------------------------------------------
 
@@ -208,6 +223,31 @@ INSERT INTO `provinces` (`id`, `name`, `is_active`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbldealstatus`
+--
+
+CREATE TABLE `tbldealstatus` (
+  `Id` int(11) NOT NULL,
+  `StatusText` varchar(100) NOT NULL,
+  `Status` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbldealstatus`
+--
+
+INSERT INTO `tbldealstatus` (`Id`, `StatusText`, `Status`) VALUES
+(1, 'Application Received', 1),
+(2, 'Processing Application', 1),
+(3, 'Deal Completed', 1),
+(4, 'Application Withdrawn', 1),
+(5, 'Deal Not Completed', 1),
+(6, 'Deal Booked', 1),
+(7, 'Deal Funded', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblfile`
 --
 
@@ -238,6 +278,29 @@ CREATE TABLE `tblfilerelations` (
   `DealId` int(11) DEFAULT NULL,
   `Status` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblsupport`
+--
+
+CREATE TABLE `tblsupport` (
+  `Id` int(11) NOT NULL,
+  `AffiliateId` int(11) NOT NULL COMMENT 'affiliate',
+  `Subject` text NOT NULL,
+  `Message` text NOT NULL,
+  `DateAdded` datetime NOT NULL,
+  `SupportStatus` int(1) NOT NULL DEFAULT '1',
+  `Status` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tblsupport`
+--
+
+INSERT INTO `tblsupport` (`Id`, `AffiliateId`, `Subject`, `Message`, `DateAdded`, `SupportStatus`, `Status`) VALUES
+(1, 1, 'jkdfjkghjkdfhgdf', 'djkfghjkdf dfjkghdfjkghjdfkhgjkdf dfjkghdfjkghkdfjghdf ', '2017-03-11 05:54:43', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -311,9 +374,9 @@ ALTER TABLE `affiliatetransaction`
   ADD PRIMARY KEY (`affiliatetransactionid`);
 
 --
--- Indexes for table `applicant`
+-- Indexes for table `contact`
 --
-ALTER TABLE `applicant`
+ALTER TABLE `contact`
   ADD PRIMARY KEY (`id`),
   ADD KEY `vehicle_type_id` (`vehicle_type_id`),
   ADD KEY `provinces` (`province_id`);
@@ -344,6 +407,12 @@ ALTER TABLE `tblfilerelations`
   ADD KEY `FK_tblfilerelations_fileid_tblfile_id` (`FileId`);
 
 --
+-- Indexes for table `tblsupport`
+--
+ALTER TABLE `tblsupport`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -363,10 +432,15 @@ ALTER TABLE `vehicle_types`
 --
 
 --
--- AUTO_INCREMENT for table `applicant`
+-- AUTO_INCREMENT for table `affiliatetransaction`
 --
-ALTER TABLE `applicant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `affiliatetransaction`
+  MODIFY `affiliatetransactionid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `pages`
 --
@@ -388,6 +462,11 @@ ALTER TABLE `tblfile`
 ALTER TABLE `tblfilerelations`
   MODIFY `Id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
+-- AUTO_INCREMENT for table `tblsupport`
+--
+ALTER TABLE `tblsupport`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
@@ -402,9 +481,9 @@ ALTER TABLE `vehicle_types`
 --
 
 --
--- Constraints for table `applicant`
+-- Constraints for table `contact`
 --
-ALTER TABLE `applicant`
+ALTER TABLE `contact`
   ADD CONSTRAINT `provinces` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`),
   ADD CONSTRAINT `vehicles` FOREIGN KEY (`vehicle_type_id`) REFERENCES `vehicle_types` (`id`);
 

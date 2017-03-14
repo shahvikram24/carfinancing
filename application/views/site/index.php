@@ -15,7 +15,7 @@
 
 
 
-<div class="vehicle-picker-container not-animating hidden-xs hidden-sm">
+                    <div class="vehicle-picker-container not-animating hidden-xs hidden-sm">
                         <div id="vehicle-picker">
 	                        <div id="showcase" class="noselect">
 		                        <?php if(!empty($vehicles)){ ?>
