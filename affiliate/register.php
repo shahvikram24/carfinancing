@@ -6,8 +6,8 @@
     {
                 
                 $affiliate = new Affiliate();
-                $affiliate->firstname = $_POST['fname'];
-                $affiliate->lastname = $_POST['lname'];
+                $affiliate->firstname = FormatInitCap($_POST['fname']);
+                $affiliate->lastname = FormatInitCap($_POST['lname']);
                 $affiliate->email = $_POST['email'];
                 $affiliate->telephone = $_POST['phone'];
                 $affiliate->fax = '';

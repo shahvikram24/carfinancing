@@ -718,7 +718,10 @@ function FormatUserDate($Date, $Format, $DisplayTime = false) {
 }
 
 
-
+Function FormatInitCap($string)
+{
+    return ucwords(strtolower($string));
+}
 
 
 function FormatNumber($Number, $Decimals = "2", $Sign = '') {

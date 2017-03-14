@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 14, 2017 at 01:49 PM
+-- Generation Time: Mar 14, 2017 at 08:02 PM
 -- Server version: 5.7.17-log
 -- PHP Version: 5.6.30
 
@@ -88,7 +88,7 @@ CREATE TABLE `affiliate` (
 
 INSERT INTO `affiliate` (`affiliate_id`, `firstname`, `lastname`, `email`, `telephone`, `fax`, `salt`, `HASH`, `company`, `website`, `address_1`, `address_2`, `city`, `postcode`, `country_id`, `zone_id`, `code`, `commission`, `tax`, `payment`, `cheque`, `paypal`, `bank_name`, `bank_branch_number`, `bank_swift_code`, `bank_account_name`, `bank_account_number`, `ip`, `status`, `approved`, `date_added`) VALUES
 (1, 'Vikram', 'Shah', 'shahvikram24@gmail.com', '7809200324', '7809200324', '14438578653b8fc50d869a72ff3cae4a', '102dd38d7a9df30c645432debcad0ee32621a624', 'vstudiozzz', 'vstudiozzz.com', '3624 119 Street NW', '201C', 'EDMONTON', 'T6J 2X6', 43, 2, '527f4abd08412', '5.00', '546545454', 'cheque', 'Hirva Shah', 'shahvikram24@gmail.com', 'TD Canda Trust', '1709', '004', 'Vikram Shah', '34534543', '127.0.0.1', 1, 1, '2013-11-10 02:24:25'),
-(0, 'Hirva', 'Shah', 'ahah@gmail.com', '(782) 025-4545', '', '20e5134043ec1e77c4f8649077801946', 'b2eb969f505a129397ba48a9d17dab9f513c8a54', 'nsmgjkdghsjkd', '', 'gghf hfghfghf', 'SK', 'sdgdfgd', 't6t6t6', 43, 2, '58c5657537602', '5.00', '', '', 'sdfgdfgdf', '', '', '', '', '', '', '::1', 1, 1, '2017-03-12 09:12:53');
+(2, 'Hirva', 'Shah', 'ahah@gmail.com', '(782) 025-4545', '', '20e5134043ec1e77c4f8649077801946', 'b2eb969f505a129397ba48a9d17dab9f513c8a54', 'nsmgjkdghsjkd', '', 'gghf hfghfghf', 'SK', 'sdgdfgd', 't6t6t6', 43, 2, '58c5657537602', '5.00', '', '', 'sdfgdfgdf', '', '', '', '', '', '', '::1', 1, 1, '2017-03-12 09:12:53');
 
 -- --------------------------------------------------------
 
@@ -112,7 +112,12 @@ CREATE TABLE `affiliatetransaction` (
 
 INSERT INTO `affiliatetransaction` (`affiliatetransactionid`, `affiliateid`, `contactinfoid`, `description`, `amount`, `dateadded`, `status`) VALUES
 (1, 1, 4, '1', '0.0000', '2017-03-10 21:53:59', 3),
-(2, 0, 5, '1', '0.0000', '2017-03-12 09:15:53', 3);
+(2, 1, 5, '2', '0.0000', '2017-03-12 09:15:53', 3),
+(3, 1, 6, '3', '0.0000', '2017-03-14 11:35:53', 3),
+(4, 1, 7, '4', '0.0000', '2017-03-14 11:59:22', 3),
+(5, 1, 8, '5', '0.0000', '2017-03-14 11:59:45', 3),
+(6, 1, 9, '6', '500.0000', '2017-03-14 12:00:10', 3),
+(7, 1, 10, '6', '500.0000', '2017-03-14 12:00:41', 3);
 
 -- --------------------------------------------------------
 
@@ -158,7 +163,12 @@ INSERT INTO `contact` (`id`, `vehicle_type_id`, `first_name`, `last_name`, `emai
 (2, 1, 'asdfasd', 'asdfasdf', 'asdfasdf@asdfas.com', 'asdfasdf', 3, 5, 2003, 'asdf', 'asdf', 4, 'asdf', 'rent', 2, 'asdfasdf', 'asdfadsf', 'asdfasdf', 'asdfasdf', 'asdfasdf', 'asdfasdf', 16, 10, '2017-03-11 04:41:48', NULL, 1),
 (3, 2, 'Vikram', 'Shah', 'vip_vicks@sify.com', '896789696', 5, 22, 1984, 'dfghdfhdfh dfhdfhdfhdf dfhdfhdf ', 't6t6t6', 3, 'dfghdfhdf dfhdfhdfh', 'rent', 5, '500', 'dfh dfhdfhdfh ', 'jkhjkh', '089789789', '897897.00', '', 3, 2, '2017-03-11 04:41:48', NULL, 1),
 (4, 1, 'Dhaval', 'Patel', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-11 11:53:58', 'dfdfmng dghjkdfgh djkfghjkdf ghdfjkg \r\n                        ', 1),
-(5, 1, 'snehal', 'panchal', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-12 21:15:53', 'jhfghfgh ghfgh fghf  \r\n                        ', 1);
+(5, 1, 'snehal', 'panchal', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-12 21:15:53', 'jhfghfgh ghfgh fghf  \r\n                        ', 1),
+(6, 1, 'Hardik', 'Amin', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-14 23:35:53', 'Looking for Honda CR-V \r\n                        ', 1),
+(7, 1, 'Hardik', 'Patel', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-14 23:59:22', 'jksdhgfjk jhfdsjk fhjsdkhfjsdkhf sdjhf \r\n                        ', 1),
+(8, 1, 'hjgdshjfgdshgf', 'hjgdsrfhgds', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-14 23:59:45', 'kjsdh hsdjk hkjdshg skjdhgskjd h \r\n                        ', 1),
+(9, 1, 'dflkgjdkfljg', 'utioerutioeru', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-15 00:00:10', 'lkzjfhksdla lkjdsafklsdj fklsdjf klsjdfkl dsj \r\n                        ', 1),
+(10, 1, 'iyuiwyruiwey', 'uiyruiweyrui', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-15 00:00:41', 'k ksdajf kasjfklas kalsjfklasjf \r\n                        ', 1);
 
 -- --------------------------------------------------------
 
@@ -277,6 +287,22 @@ CREATE TABLE `tblfilerelations` (
   `AffiliateId` int(11) DEFAULT NULL,
   `DealId` int(11) DEFAULT NULL,
   `Status` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbllogin`
+--
+
+CREATE TABLE `tbllogin` (
+  `Id` int(11) NOT NULL,
+  `CustomerId` int(11) NOT NULL,
+  `EmailId` varchar(50) NOT NULL,
+  `SALT` varchar(50) NOT NULL,
+  `HASH` varchar(50) NOT NULL,
+  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Status` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -407,6 +433,12 @@ ALTER TABLE `tblfilerelations`
   ADD KEY `FK_tblfilerelations_fileid_tblfile_id` (`FileId`);
 
 --
+-- Indexes for table `tbllogin`
+--
+ALTER TABLE `tbllogin`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Indexes for table `tblsupport`
 --
 ALTER TABLE `tblsupport`
@@ -435,12 +467,12 @@ ALTER TABLE `vehicle_types`
 -- AUTO_INCREMENT for table `affiliatetransaction`
 --
 ALTER TABLE `affiliatetransaction`
-  MODIFY `affiliatetransactionid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `affiliatetransactionid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `pages`
 --
@@ -461,6 +493,11 @@ ALTER TABLE `tblfile`
 --
 ALTER TABLE `tblfilerelations`
   MODIFY `Id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `tbllogin`
+--
+ALTER TABLE `tbllogin`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblsupport`
 --

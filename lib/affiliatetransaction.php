@@ -146,13 +146,18 @@ class AffiliateTransaction extends BaseClass{
 			return ($row) ? $row["affiliateid"] : false;
 		}
 	
-  	public function Count($affiliateid)
+  	public function Count($affiliateid, $condition='')
 	{
 		$SQL = "SELECT count(*) AS 'TotalLeads'
 				FROM affiliatetransaction 
 				WHERE affiliateid = " . $affiliateid
 
 		;
+
+		if($condition !='')
+		{
+			$SQL .= ' AND ' . $condition;
+		}
 
 		parent::GetDALInstance()->SQLQuery($SQL);
 		$row = parent::GetDALInstance()->GetRow();

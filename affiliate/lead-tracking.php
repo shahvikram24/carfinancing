@@ -59,7 +59,7 @@
                               <th>Contact&nbsp;Name</th>
                               <th>Description</th>
                               <th>Referal&nbsp;Amount</th>
-                              <th>Date&nbsp;Send</th>
+                              <th>Date&nbsp;Sent</th>
                             </tr>
                           </thead>
 
@@ -76,12 +76,13 @@
                     <tr class="">
                       
                       <td><?= $count ?></td>
-                      <td><?= Contact::GetFullName($ResultTransaction->Result[$x]['contactinfoid']) ?></td>
-                      <td><?= DealStatus::getStatusText($ResultTransaction->Result[$x]['description']) ?></td>
+                      <td><?= FormatInitCap(Contact::GetFullName($ResultTransaction->Result[$x]['contactinfoid'])) ?></td>
+                      <td><?= FormatInitCap(DealStatus::getStatusText($ResultTransaction->Result[$x]['description'])) ?></td>
                       <td><?= $ResultTransaction->Result[$x]['amount'] ?></td>
                       <td><?= FormatDate($ResultTransaction->Result[$x]['dateadded'],'Y-m-d h:i A')?></td>
                     </tr>       
                   <?php 
+                    $count++;
                   }
                   ?>
                               

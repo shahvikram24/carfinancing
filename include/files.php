@@ -32,6 +32,7 @@
 		require_once(APPLICATIONREQUIREROOT."contactinfo.php");
 		require_once(APPLICATIONREQUIREROOT."contact.php");
 		require_once(APPLICATIONREQUIREROOT."support.php");
+		require_once(APPLICATIONREQUIREROOT."user.php");
 
 
 		require_once(APPLICATIONREQUIREROOT."employment.php");

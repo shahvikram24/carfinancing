@@ -12,8 +12,8 @@
 {
 
      $Contact = new Contact();
-     $Contact->first_name = $_POST['FirstName'];
-     $Contact->last_name = $_POST['LastName'];
+     $Contact->first_name = FormatInitCap($_POST['FirstName']);
+     $Contact->last_name = FormatInitCap($_POST['LastName']);
      $Contact->email = $_POST['EmailAddress'] ;
      $Contact->phone = $_POST['Phone'];
      $Contact->created = date('Y-m-d H:i:s');
@@ -27,7 +27,7 @@
         $affiliateTransaction->description = 1;
         $affiliateTransaction->amount = 0.00;
         $affiliateTransaction->dateadded = date("Y-m-d H:i:s");
-        $affiliateTransaction->status = 3;
+        $affiliateTransaction->status = 1;
 
         $affiliateTransaction->addTransaction();
         header('Location:dashboard.php?' . $Encrypt->encrypt("Message=Lead information has been sent to our team.&Success=true&affiliate_id=".$_SESSION['affiliate_id']));
