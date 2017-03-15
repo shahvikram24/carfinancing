@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 14, 2017 at 08:02 PM
+-- Generation Time: Mar 15, 2017 at 01:55 PM
 -- Server version: 5.7.17-log
 -- PHP Version: 5.6.30
 
@@ -233,6 +233,90 @@ INSERT INTO `provinces` (`id`, `name`, `is_active`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbldealercredits`
+--
+
+CREATE TABLE `tbldealercredits` (
+  `Id` int(11) NOT NULL,
+  `DealerId` int(11) NOT NULL COMMENT 'tbldealership',
+  `DealerPackageId` int(11) NOT NULL COMMENT 'tbldealerpackages',
+  `Quantity` int(11) NOT NULL,
+  `Comment` text NOT NULL,
+  `IsQuantityPositive` int(11) NOT NULL DEFAULT '1',
+  `Timestamp` datetime NOT NULL,
+  `Status` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbldealerpackagefeatures`
+--
+
+CREATE TABLE `tbldealerpackagefeatures` (
+  `Id` int(11) NOT NULL,
+  `DealerId` int(11) NOT NULL COMMENT 'tbldealership',
+  `DealerPackageId` int(11) NOT NULL COMMENT 'tbldealerpackages',
+  `ContactId` int(11) NOT NULL COMMENT 'tblcontact',
+  `Timestamp` datetime NOT NULL,
+  `Status` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbldealerpackages`
+--
+
+CREATE TABLE `tbldealerpackages` (
+  `Id` int(10) UNSIGNED NOT NULL,
+  `AddDate` datetime NOT NULL,
+  `ExpireDate` datetime NOT NULL,
+  `PlanId` int(11) NOT NULL,
+  `Term` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `DealerId` int(11) NOT NULL COMMENT 'fk_tbldealership',
+  `Timestamp` datetime DEFAULT NULL,
+  `Status` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbldealerpackages`
+--
+
+INSERT INTO `tbldealerpackages` (`Id`, `AddDate`, `ExpireDate`, `PlanId`, `Term`, `DealerId`, `Timestamp`, `Status`) VALUES
+(1, '2016-05-05 16:58:06', '2017-06-04 16:58:06', 5, 0, 1, '2016-05-05 16:58:06', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbldealership`
+--
+
+CREATE TABLE `tbldealership` (
+  `Id` int(11) NOT NULL,
+  `DealershipName` varchar(100) NOT NULL,
+  `DealershipPlan` int(11) NOT NULL,
+  `Address` varchar(100) NOT NULL,
+  `Phone` varchar(100) NOT NULL,
+  `Fax` varchar(100) DEFAULT NULL,
+  `ContactName` varchar(100) NOT NULL,
+  `LicenceNo` varchar(100) DEFAULT '0',
+  `Remarks` text,
+  `CreatedDate` datetime NOT NULL,
+  `Approve` int(11) NOT NULL DEFAULT '2',
+  `Status` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbldealership`
+--
+
+INSERT INTO `tbldealership` (`Id`, `DealershipName`, `DealershipPlan`, `Address`, `Phone`, `Fax`, `ContactName`, `LicenceNo`, `Remarks`, `CreatedDate`, `Approve`, `Status`) VALUES
+(1, 'Car Financing', 5, '4404 - 66 Street, Edmonton AB T6K 4E7', '1.866.220.6166', '', 'Vikram Shah', '0', '', '2016-05-05 16:44:36', 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbldealstatus`
 --
 
@@ -297,13 +381,72 @@ CREATE TABLE `tblfilerelations` (
 
 CREATE TABLE `tbllogin` (
   `Id` int(11) NOT NULL,
-  `CustomerId` int(11) NOT NULL,
+  `Featured` int(1) NOT NULL DEFAULT '0',
+  `DealerId` int(11) NOT NULL,
   `EmailId` varchar(50) NOT NULL,
   `SALT` varchar(50) NOT NULL,
   `HASH` varchar(50) NOT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Status` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbllogin`
+--
+
+INSERT INTO `tbllogin` (`Id`, `Featured`, `DealerId`, `EmailId`, `SALT`, `HASH`, `Timestamp`, `Status`) VALUES
+(1, 1, 1, 'vipvicks71@gmail.com', 'e7f937da3989c33d0a31eb9eca14d66f', '67e600c7c6deadb91094d2a3c3c80368077739ac', '2017-03-15 05:43:19', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblpackage`
+--
+
+CREATE TABLE `tblpackage` (
+  `Id` int(10) UNSIGNED NOT NULL,
+  `Name` varchar(100) NOT NULL DEFAULT '',
+  `Description` text NOT NULL,
+  `Price` decimal(5,2) UNSIGNED NOT NULL DEFAULT '0.00',
+  `Apps` int(11) NOT NULL DEFAULT '0',
+  `RecurringId` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `Rank` int(11) NOT NULL DEFAULT '0',
+  `Status` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tblpackage`
+--
+
+INSERT INTO `tblpackage` (`Id`, `Name`, `Description`, `Price`, `Apps`, `RecurringId`, `Rank`, `Status`) VALUES
+(1, 'Trial', 'This is just a trial plan', '5.95', 5, 5, 1, 1),
+(2, 'Bronze', 'Bronze plan', '9.95', 10, 2, 2, 1),
+(3, 'Silver', 'Silver Plan', '15.95', 15, 2, 3, 1),
+(4, 'Gold', 'Gold Plan', '19.95', 19, 2, 4, 1),
+(5, 'Platinum', 'Platinum Plan', '25.95', 25, 2, 5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblrecurring`
+--
+
+CREATE TABLE `tblrecurring` (
+  `Id` int(10) UNSIGNED NOT NULL,
+  `Name` varchar(100) NOT NULL DEFAULT '',
+  `Status` int(11) DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tblrecurring`
+--
+
+INSERT INTO `tblrecurring` (`Id`, `Name`, `Status`) VALUES
+(1, 'Yearly', 1),
+(2, 'Monthly', 1),
+(3, 'Weekly', 1),
+(4, 'Daily', 1),
+(5, 'Indefinitely', 1);
 
 -- --------------------------------------------------------
 
@@ -314,6 +457,7 @@ CREATE TABLE `tbllogin` (
 CREATE TABLE `tblsupport` (
   `Id` int(11) NOT NULL,
   `AffiliateId` int(11) NOT NULL COMMENT 'affiliate',
+  `DealerId` int(11) NOT NULL COMMENT 'dealer assign',
   `Subject` text NOT NULL,
   `Message` text NOT NULL,
   `DateAdded` datetime NOT NULL,
@@ -325,8 +469,8 @@ CREATE TABLE `tblsupport` (
 -- Dumping data for table `tblsupport`
 --
 
-INSERT INTO `tblsupport` (`Id`, `AffiliateId`, `Subject`, `Message`, `DateAdded`, `SupportStatus`, `Status`) VALUES
-(1, 1, 'jkdfjkghjkdfhgdf', 'djkfghjkdf dfjkghdfjkghjdfkhgjkdf dfjkghdfjkghkdfjghdf ', '2017-03-11 05:54:43', 1, 1);
+INSERT INTO `tblsupport` (`Id`, `AffiliateId`, `DealerId`, `Subject`, `Message`, `DateAdded`, `SupportStatus`, `Status`) VALUES
+(1, 1, 0, 'jkdfjkghjkdfhgdf', 'djkfghjkdf dfjkghdfjkghjdfkhgjkdf dfjkghdfjkghkdfjghdf ', '2017-03-11 05:54:43', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -420,6 +564,30 @@ ALTER TABLE `provinces`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbldealercredits`
+--
+ALTER TABLE `tbldealercredits`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `tbldealerpackagefeatures`
+--
+ALTER TABLE `tbldealerpackagefeatures`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `tbldealerpackages`
+--
+ALTER TABLE `tbldealerpackages`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `tbldealership`
+--
+ALTER TABLE `tbldealership`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Indexes for table `tblfile`
 --
 ALTER TABLE `tblfile`
@@ -436,6 +604,19 @@ ALTER TABLE `tblfilerelations`
 -- Indexes for table `tbllogin`
 --
 ALTER TABLE `tbllogin`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `tblpackage`
+--
+ALTER TABLE `tblpackage`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `FK_tblpackage_recurringid_tblrecurring_id` (`RecurringId`);
+
+--
+-- Indexes for table `tblrecurring`
+--
+ALTER TABLE `tblrecurring`
   ADD PRIMARY KEY (`Id`);
 
 --
@@ -484,6 +665,26 @@ ALTER TABLE `pages`
 ALTER TABLE `provinces`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
+-- AUTO_INCREMENT for table `tbldealercredits`
+--
+ALTER TABLE `tbldealercredits`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbldealerpackagefeatures`
+--
+ALTER TABLE `tbldealerpackagefeatures`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `tbldealerpackages`
+--
+ALTER TABLE `tbldealerpackages`
+  MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tbldealership`
+--
+ALTER TABLE `tbldealership`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `tblfile`
 --
 ALTER TABLE `tblfile`
@@ -497,7 +698,17 @@ ALTER TABLE `tblfilerelations`
 -- AUTO_INCREMENT for table `tbllogin`
 --
 ALTER TABLE `tbllogin`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tblpackage`
+--
+ALTER TABLE `tblpackage`
+  MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `tblrecurring`
+--
+ALTER TABLE `tblrecurring`
+  MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tblsupport`
 --

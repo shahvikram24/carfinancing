@@ -64,8 +64,7 @@ function getAddress()
 {return $this->Address; }
 function getPhone()
 {return $this->Phone; }
-function getEmail()
-{return $this->Email; }
+
 function getFax()
 {return $this->Fax; }
 function getContactName()
@@ -108,10 +107,6 @@ function setPhone($val)
 $this->Phone =  $val;
 }
 
-function setEmail($val)
-{
-$this->Email =  $val;
-}
 
 function setFax($val)
 {
@@ -154,7 +149,6 @@ public function addDealershipInfo()
 					DealershipPlan = " . $this->DealershipPlan . ", 
 					Address = '" . $this->Address . "', 
 					Phone = '" . $this->Phone . "', 
-					Email = '" . $this->Email . "', 
 					Fax = '" . $this->Fax . "', 
 					ContactName = '" . $this->ContactName . "', 
 					
@@ -180,7 +174,6 @@ public function updateDealershipInfo()
 			DealershipPlan = " . $this->DealershipPlan . ", 
 			Address = '" . $this->Address . "', 
 			Phone = '" . $this->Phone . "', 
-			Email = '" . $this->Email . "', 
 			Fax = '" . $this->Fax . "', 
 			ContactName = '" . $this->ContactName . "', 
 			
@@ -223,7 +216,6 @@ public function loadDealershipInfo($Id, $Condition = false)
 				$this->DealershipPlan = $row['DealershipPlan'];
 				$this->Address = $row['Address'];
 				$this->Phone = $row['Phone'];
-				$this->Email = $row['Email'];
 				$this->Fax = $row['Fax'];
 				$this->ContactName = $row['ContactName'];
 				$this->LicenceNo = $row['LicenceNo'];
@@ -276,21 +268,7 @@ public function loadDealershipInfo($Id, $Condition = false)
 		return ($row) ? $row["TotalDealership"] : 0;
 	}
 
-public function GetDealerEmail($DealerId)
-	{
-		$SQL = "SELECT Email AS 'Email'
-				FROM tbldealership 
-				WHERE Status = 1
 
-		";
-
-		//echo  "\n". $SQL . "\n";
-
-		parent::GetDALInstance()->SQLQuery($SQL);
-		$row = parent::GetDALInstance()->GetRow();
-
-		return ($row) ? $row["Email"] : 0;
-	}
 
 } // class : end
 ?>

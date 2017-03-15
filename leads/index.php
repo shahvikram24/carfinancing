@@ -2,20 +2,19 @@
 
     require_once("../include/files.php");
     
-if(isset($_SESSION['affiliate_id']))
+if(isset($_SESSION['DealerId']))
 {
   header("Location: dashboard.php");
 }
 
-
-
+$DealerId = $_SESSION['DealerId'];
 if( isset($_POST['LostPassword']) && $_POST['LostPassword'] == 'AddIt' )
 {  
-  if(Security::CheckUserExistsByLogin($_POST['username'], ' AND STATUS IN (1)')) 
+  if(Security::CheckLeadsExist($_POST['username'], ' AND STATUS IN (1)')) 
     {
-      $login = new Affiliate();
-      $login->loadAffiliateByCode("email like '".$_POST['username'] . "'");
-      $Encryption = $Encrypt->encrypt('affiliate_id=' . $login->affiliate_id . '&ExpireDate=' . date("Y-m-d", mktime(0, 0, 0, date("m") , date("d") + 2, date("Y"))) . '&ResetAccount=true');
+      $login = new Login();
+      $login->loadAffiliateByCode("EmailId like '".$_POST['username'] . "'");
+      $Encryption = $Encrypt->encrypt('DealerId=' . $login->DealerId . '&ExpireDate=' . date("Y-m-d", mktime(0, 0, 0, date("m") , date("d") + 2, date("Y"))) . '&ResetAccount=true');
       
       if($login->sendRecoverPasswordLink($login->email,$Encryption))
       {
@@ -31,11 +30,12 @@ if( isset($_POST['LostPassword']) && $_POST['LostPassword'] == 'AddIt' )
 }
 
 
+
 if( isset($_POST['submit']) && $_POST['submit'] == 'Login' )   
 {   
   //echo "<br/>===================== 1454 <br/>"; 
   
-  if(Security::AuthorizeAffiliate($_POST['username'],$_POST['password']))
+  if(Security::AuthorizeDealer($_POST['username'],$_POST['password']))
   {
     header("Location: dashboard.php");
   }
@@ -96,20 +96,12 @@ function Validate()
               <div>
                 
                 <button type="submit" class="btn btn-default submit" name="submit" value="Login" onclick="return Validate();" > Login</button>
-
                 <a class="reset_pass" href="#signup"   name="lostpwd" value="lostpwd">Lost your password?</a>
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
-                <p class="change_link">New to site?
-                  <a href="#" onclick="myFunction()" class="to_register"> Create Account </a>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
                 <div>
                   <h1><i class="fa fa-car"></i> CAR FINANCING</h1>
                   <p>&copy; CAR FINANCING. All rights reserved. <br/> Powered By:  

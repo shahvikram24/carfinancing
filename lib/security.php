@@ -11,8 +11,37 @@ class Security extends BaseClass {
         $_SESSION[ISMOBILE] = serialize(IsMobile(true));
     }  
 
+    function AuthorizeDealer($UserLogin, $Password) {
+        $SQL = "SELECT Id, DealerId, SALT, HASH FROM tbllogin WHERE EmailId='$UserLogin' AND status=1 ";
+        
+        parent::GetDALInstance()->SQLQuery($SQL);
+        
+        $Result = parent::GetDALInstance()->GetRow();
 
-   function Authorize($UserLogin, $Password) {
+        $returnValue = false;
+        //debugObj(GenerateHASH($Result['SALT'], $Password));
+        //debugObj($Result['HASH']);
+        
+        if($Result) {
+            if(GenerateHASH($Result['SALT'], $Password) == $Result['HASH']) {
+                    Security::DestroyCookie();
+                  $_SESSION['DealerId'] = $Result['DealerId'];
+                 Security::CreateCookie($UserLogin);
+                $returnValue = true;
+            }
+            else {
+                $returnValue = false;
+            }
+        }
+        else {
+            $returnValue = false;
+        }
+
+        return $returnValue;
+    }
+
+
+   function AuthorizeAffiliate($UserLogin, $Password) {
         $SQL = "SELECT affiliate_id, SALT, HASH FROM affiliate WHERE email='$UserLogin' AND status=1 AND approved=1 ";
         //echo "<br/><br/><br/><br/><br/><br/>".$SQL;
         
@@ -77,44 +106,31 @@ class Security extends BaseClass {
         return $returnValue;
     }
 
-    function AuthorizeSuperAffiliate($UserLogin, $Password) {
-        $SQL = "SELECT superaffiliate_id, SALT, HASH FROM superaffiliate WHERE email='$UserLogin' AND status=1 AND approved=1 ";
-        //echo "<br/><br/><br/><br/><br/><br/>".$SQL;
-        
-        parent::GetDALInstance()->SQLQuery($SQL);
-        
-        $Result = parent::GetDALInstance()->GetRow();
+   function ChangeLeadsPassword($UserId, $OldPassword, $NewPassword)
+   {
+            if(NumberCheck($UserId))
+            {
+                // we have to check the user entered correct old passowrd or not
+                $SQL = "SELECT DealerId, SALT, HASH FROM tbllogin WHERE DealerId=".$UserId." AND status=1";
+                parent::GetDALInstance()->SQLQuery($SQL);
+                $Result = parent::GetDALInstance()->GetRow();
 
-        $returnValue = false;
+                if($Result)
+                {
+                    $Salt = $Result['salt'];
 
-        if($Result) {
-            if(GenerateHASH($Result['SALT'], $Password) == $Result['HASH']) {
-                global $affiliate;
+                    
+                        $Hash = GenerateHASH($Salt, $NewPassword);
+                        $SQL = "UPDATE tbllogin SET HASH='".$Hash."' WHERE affiliate_id=".$UserId." AND status=1";
+                        parent::GetDALInstance()->SQLQuery($SQL);
 
-                if(!isset($affiliate))
-                    $affiliate = new Affiliate();
-
-                $affiliate->loadAffiliate($Result['superaffiliate_id']);
-
-                /*if($RememberMe)
-                    Security::CreateCookie($User->UserLogin);
-                else
-                    Security::DestroyCookie();*/
-
-                  $_SESSION['superaffiliate_id'] = $Result['superaffiliate_id'];
-                 Security::CreateCookie($affiliate->email);
-                $returnValue = true;
+                        return parent::GetDALInstance()->AffectedRows();
+                  
+                }
             }
-            else {
-                $returnValue = false;
-            }
-        }
-        else {
-            $returnValue = false;
-        }
 
-        return $returnValue;
-    }
+            return false;
+   }
     
 	function ChangeUserPassword($UserId, $OldPassword, $NewPassword)
         {
@@ -142,31 +158,7 @@ class Security extends BaseClass {
             return false;
         }
 
-        function ChangeAffiliatePassword($UserId, $OldPassword, $NewPassword)
-        {
-            if(NumberCheck($UserId))
-            {
-                // we have to check the user entered correct old passowrd or not
-                $SQL = "SELECT superaffiliate_id, salt, HASH FROM superaffiliate WHERE superaffiliate_id=".$UserId." AND status=1";
-                parent::GetDALInstance()->SQLQuery($SQL);
-                $Result = parent::GetDALInstance()->GetRow();
-
-                if($Result)
-                {
-                    $Salt = $Result['salt'];
-
-                    
-                        $Hash = GenerateHASH($Salt, $NewPassword);
-                        $SQL = "UPDATE superaffiliate SET HASH='".$Hash."' WHERE superaffiliate_id=".$UserId." AND status=1";
-                        parent::GetDALInstance()->SQLQuery($SQL);
-
-                        return parent::GetDALInstance()->AffectedRows();
-                  
-                }
-            }
-
-            return false;
-        }
+       
 	
         function ChangeAdminPassword($UserId, $NewPassword, $OldPassword='')
         {
@@ -212,29 +204,7 @@ class Security extends BaseClass {
         }
         
 
-        function ChangeAccessCode($NewPassword)
-        {
-           
-                // we have to check the user entered correct old passowrd or not
-                $SQL = "SELECT SALT, HASH FROM inventoryaccess WHERE Id=1";
-                parent::GetDALInstance()->SQLQuery($SQL);
-                $Result = parent::GetDALInstance()->GetRow();
-
-                if($Result)
-                {
-                    $Salt = $Result['SALT'];
-
-                    
-                        $Hash = GenerateHASH($Salt, $NewPassword);
-                        $SQL = "UPDATE inventoryaccess SET HASH='".$Hash."' WHERE Id=1 ";
-                        parent::GetDALInstance()->SQLQuery($SQL);
-
-                        return parent::GetDALInstance()->AffectedRows();
-                  
-                }
-
-            return false;
-        }
+        
 
         public function AuthorizeInventoryAccess($Password) {
         $SQL = "SELECT Id, SALT, HASH FROM inventoryaccess WHERE Id=1";
@@ -297,7 +267,9 @@ class Security extends BaseClass {
             
         }
 
-        function CheckSuperAffiliateExistsByLogin($UserLogin, $Condition='')
+       
+
+        function CheckLeadsExist($UserLogin, $Condition='')
         {
             
             /*
@@ -308,9 +280,9 @@ class Security extends BaseClass {
                             3:  Account closed by admin. Only admin can undo. and set account to 1
             */
 
-            $SQL = "SELECT superaffiliate_id, salt , HASH 
-                    FROM superaffiliate 
-                    WHERE email like '".$UserLogin."' ". $Condition;
+            $SQL = "SELECT Id, SALT , HASH 
+                    FROM tbllogin 
+                    WHERE EmailId='".$UserLogin."' ". $Condition;
                 
                 parent::GetDALInstance()->SQLQuery($SQL);
                 //echo $SQL;
@@ -322,7 +294,6 @@ class Security extends BaseClass {
                     return false;
             
         }
-
 
     function CreateCookie($UserLogin) {
         @setcookie(COOKIENAME, "$UserLogin", time() + COOKIEEXPIRE, '/', "", false);
