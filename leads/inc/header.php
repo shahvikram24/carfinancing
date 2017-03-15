@@ -24,22 +24,30 @@
       <div class="menu_section">
         
         <ul class="nav side-menu">
-          <li><a href="dashboard.php"><i class="fa fa-home"></i> Home</a>
-          </li>
+          <li><a href="dashboard.php"><i class="fa fa-home"></i> Home</a></li>
           <li><a><i class="fa fa-edit"></i> Account <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="account-edit.php">Edit Profile</a></li>
               <li><a href="change-password.php">Change Password</a></li>
             </ul>
           </li>
+          
+          <li><a href="lead-tracking.php"><i class="fa fa-user"></i> Leads Tracking </a></li>
+          <?php 
+              if(Login::CheckFeaturedRights($_SESSION['DealerId']))
+              {
+          ?>
           <li><a><i class="fa fa-cogs"></i> Leads Generation <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="lead-tracking.php">Un-Assigned Leads</a></li>
-              <li><a href="referral-code.php">Assigned Leads</a></li>              
+              <li><a href="#">New Leads</a></li>
+              <li><a href="#">Assigned Leads</a></li>
+              <li><a href="#">Dealers Management</a></li>
             </ul>
           </li>
 
-          <li><a><i class="fa fa-cogs"></i> Dealers Management</a></li>
+
+          <?php } ?>
+
           
           <li><a href="support.php"><i class="fa fa-support"></i> Support </a></li>
           <li><a href="logout.php"><i class="fa fa-power-off"></i>Logout </a></li>

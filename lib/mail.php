@@ -44,7 +44,7 @@
 		function __construct($To = false, $From = false, $Subject = false, $Headers = false)
 		{
 			$this->To = $To;
-			$this->From = ($From) ? $From : 'SupeCarLoans' ;
+			$this->From = ($From) ? $From : 'CarFinancing' ;
 			$this->Subject = $Subject;
 			$this->Headers = $Headers;
 
@@ -154,7 +154,7 @@
 
 				//echo "<br/> SEND() - " . APPLICATIONREQUIREROOT . "<br/>";
                         $message = Swift_Message::newInstance($this->Subject);
-                        $message->setFrom(array('no-reply@supercarloans.ca' => $this->From));                        
+                        $message->setFrom(array('no-reply@carfinancing.help' => $this->From));                        
       
                         $message->setTo(explode(",", $this->To));
 

@@ -1,44 +1,35 @@
 <?php 
 	require_once("../include/files.php");
 
-	
-  if(!isset($_SESSION['affiliate_id']))
-  {
-      header('Location:login.php?'.$Encrypt->encrypt("MessageType=Error&Message=You must sign in to view your account."));
-      exit();
-  }
-	
-	$affiliate = new Affiliate();
-  $affiliate->loadAffiliate($_SESSION['affiliate_id']);
+	$DealerId = $_SESSION['DealerId'];
+  //$customer = new Customer();
+  //$customer->loadcustomer( $_SESSION['affiliate_id']);
 
-	//debugObj($affiliate);
   if(isset($_POST['update']) && $_POST['update'] == 'update')
   {
-
-    $affiliate = new Affiliate();
-    $affiliate->loadAffiliate($_SESSION['affiliate_id']);
-
-    $affiliate->firstname = $_POST['firstname'];
-    $affiliate->lastname = $_POST['lastname'];
-    $affiliate->telephone = $_POST['telephone'];
-    $affiliate->fax = $_POST['fax'];
-
-    $affiliate->company = $_POST['company'];
-    $affiliate->website = $_POST['website'];
-    $affiliate->address_1 = $_POST['address_1'];
-    $affiliate->address_2 = $_POST['address_2'];
-    $affiliate->city = $_POST['city'];
-    $affiliate->postcode = $_POST['postcode'];
-
-    $affiliate->payment = 'cheque';
-    $affiliate->cheque = $_POST['cheque'];
-
-    $affiliate->UpdateAffiliate();
-
-    header('Location:account-edit.php?' . $Encrypt->encrypt("Message=Affiliate personal information has been updated successfully.&Success=true&affiliate_id=".$_SESSION['affiliate_id']));
+    $dealership = new dealership();
+    $dealership->loadDealershipInfo($DealerId);
+    $dealership->DealershipName = FormatInitCap($_POST['DealershipName']); 
+    $dealership->Address = $_POST['Address']; 
+    $dealership->Phone = $_POST['Phone']; 
+    $dealership->Fax = $_POST['Fax']; 
+    $dealership->updateDealershipInfo();
+    header('Location:account-edit.php?' . $Encrypt->encrypt("Message=Personal information has been updated successfully.&Success=true&DealerId=".$DealerId));
     exit();
   }
+
+
+    $dealership = new dealership();
+    $dealership->loadDealershipInfo($DealerId);
+
+    $login = new Login();
+    $login->loadcustomerinfo($DealerId);
+
+    //$dealership->DealershipName;
 	
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +52,8 @@
                   else
                       echo '<div class="col-sm-12" style="color:red;">'.  $Message . '</div>';
               }
-            ?>             
+            ?>
+            <form class="form-horizontal form-label-left input_mask" method="post" action="#">
 		        <div class="row">
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
@@ -71,85 +63,52 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask" method="post" action="#">
 
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name" name="firstname" value="<?= $affiliate->firstname ?>" required >
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Contact Name</label>
+                            <input name="ContactName" id="ContactName" type="text" value="<?= $dealership->ContactName ?>" readonly class="form-control">
+                          </div>
+
+                          <div class="form-group">
+                            <label>Email Address</label>
+                            <input name="Email" id="Email" type="text" value="<?= $login->EmailId ?>"  class="form-control" readonly >
+                          </div>
+
+                          <div class="form-group">
+                            <label>Fax Number</label>
+                            <input name="Fax" id="Fax" type="text" value="<?= $dealership->Fax ?>" class="form-control" placeholder="Enter Fax Number" data-inputmask="'mask' : '1-999-999-9999'">
+                          </div>
+
+                          <div class="form-group">
+                            <label>Dealership Name</label>
+                            <input name="DealershipName" id="DealershipName" type="text" value="<?= $dealership->DealershipName ?>" class="form-control" placeholder="Enter Working Dealership Name">
+                          </div>
                       </div>
 
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="inputSuccess3" placeholder="Last Name" name="lastname" value="<?= $affiliate->lastname ?>" required>
-                        <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
-                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Dealership Address</label>
+                            <input name="Address" id="Address" type="text" value="<?= $dealership->Address ?>" required class="form-control" placeholder="Enter Working Dealership Address">
+                          </div>
+                          <div class="form-group">
+                            <label>Phone Number</label>
+                            <input name="Phone" id="Phone" type="text" value="<?= $dealership->Phone ?>" required class="form-control" placeholder="Phone number to contact" data-inputmask="'mask' : '(999) 999-9999'">
+                          </div>
 
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Phone Number" name="telephone" value="<?= $affiliate->telephone ?>"  >
-                        <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-                      </div>
+                          <div class="form-group">
+                            <label>AMVIC Licence No.</label>
+                            <input name="LicenceNo" id="LicenceNo" type="text" value="<?= $dealership->LicenceNo ?>" readonly class="form-control" placeholder="AMVIC Registeration Number" data-inputmask="'mask' : 'a999999'">
+                          </div>
 
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="inputSuccess3" name="email" value="<?= $affiliate->email ?>" disabled>
-                        <span class="fa fa-envelope form-control-feedback right" aria-hidden="true" ></span>
-                      </div>
+                          <div class="form-group">
+                            <label>Leads Package</label>
+                            <input type="text" class="form-control" id="DealershipPlan" name="DealershipPlan" readonly value="<?php echo Package::GetName($dealership->DealershipPlan) .  ' - ' .  Package::GetApps($dealership->DealershipPlan) . ' Leads ';  ?>">
+                          </div>
 
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Fax Number" name="fax" value="<?= $affiliate->fax ?>" required >
-                        <span class="fa fa-fax form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="inputSuccess3" placeholder="Business Name" name="company" value="<?= $affiliate->company ?>" required>
-                        <span class="fa fa-building-o form-control-feedback right" aria-hidden="true"></span>
-                      </div>
-
-
-                      <div class="col-md-6 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Your Address" name="address_1" value="<?= $affiliate->address_1 ?>" required>
-                        <span class="fa fa-home form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-
-                      
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="inputSuccess4" placeholder="Apt./Suite" name="address_2" value="<?= $affiliate->address_2 ?>">
-                        <span class="fa fa-building form-control-feedback right" aria-hidden="true"></span>
-                      </div>
-
-                      
-                      
-
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess5" placeholder="City" name="city" value="<?= $affiliate->city ?>" required>
-                        <span class="fa fa-home form-control-feedback left" aria-hidden="true"></span>
-                      </div>
-
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-right" id="inputSuccess4" placeholder="Postal Code" name="postcode" value="<?= $affiliate->postcode ?>" required>
-                        <span class="fa fa-location-arrow form-control-feedback right" aria-hidden="true"></span>
-                      </div>
-
-                      <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Website" name="website" value="<?= $affiliate->website ?>" required>
-                        <span class="fa fa-globe form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       
-                      <div class="clearfix"></div>
-                      <h2>Payment Information <small>Cheque Payee Name</small></h2>
-                      <div class="clearfix"></div>
-
-
-                      <div class="form-group">
-                        <label class="control-label col-md-6" for="first-name">Affiliate Payment Method: Cheque <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6">
-                          <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Cheque Payee Name" name="cheque" value="<?= $affiliate->cheque ?>" required>
-                          <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                      </div>
-
-
                       
-                      <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                           <a href='dashboard.php' class="btn btn-primary">Cancel</a>
@@ -157,16 +116,13 @@
                         </div>
                       </div>
 
-                      
-
-
-                    </form>
                   </div>
                 </div>
 
               </div>
               
             </div>	
+            </form>
 
 		    	<div class="clearfix"></div>
 
@@ -176,5 +132,13 @@
 
 		<!-- Footer Wrapper -->
 		<?php require_once ("inc/footer.php"); ?>  
+     <!-- input_mask -->
+          <script>
+            $(document).ready(function() {
+              $(":input").inputmask();
+            });
+          </script>
+          <!-- /input mask -->
+
 </body>
 </html>

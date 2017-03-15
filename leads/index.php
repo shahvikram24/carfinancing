@@ -16,14 +16,14 @@ if( isset($_POST['LostPassword']) && $_POST['LostPassword'] == 'AddIt' )
       $login->loadAffiliateByCode("EmailId like '".$_POST['username'] . "'");
       $Encryption = $Encrypt->encrypt('DealerId=' . $login->DealerId . '&ExpireDate=' . date("Y-m-d", mktime(0, 0, 0, date("m") , date("d") + 2, date("Y"))) . '&ResetAccount=true');
       
-      if($login->sendRecoverPasswordLink($login->email,$Encryption))
+      if($login->sendRecoverPasswordLink($login->EmailId,$Encryption))
       {
-        header("Location:".AFFILIATEURL . 'login.php?' . $Encrypt->encrypt("Message=Check your e-mail for the confirmation link.&Success=true"));
+        header("Location:".LEADASSIGNURL . 'index.php?' . $Encrypt->encrypt("Message=Check your e-mail for the confirmation link.&Success=true"));
         exit();
       }
     }
     else{
-      header("Location:".AFFILIATEURL . 'login.php?' . $Encrypt->encrypt("Message=User does not exist.&Success=false"));
+      header("Location:".LEADASSIGNURL . 'index.php?' . $Encrypt->encrypt("Message=User does not exist.&Success=false"));
         exit();
     }
 

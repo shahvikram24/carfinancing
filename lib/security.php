@@ -117,11 +117,12 @@ class Security extends BaseClass {
 
                 if($Result)
                 {
-                    $Salt = $Result['salt'];
+                    $Salt = $Result['SALT'];
 
-                    
-                        $Hash = GenerateHASH($Salt, $NewPassword);
-                        $SQL = "UPDATE tbllogin SET HASH='".$Hash."' WHERE affiliate_id=".$UserId." AND status=1";
+                    $Hash = GenerateHASH($Salt, $NewPassword);
+                    $SQL = "UPDATE tbllogin SET HASH='".$Hash."' WHERE DealerId=".$UserId." AND status=1";
+
+
                         parent::GetDALInstance()->SQLQuery($SQL);
 
                         return parent::GetDALInstance()->AffectedRows();

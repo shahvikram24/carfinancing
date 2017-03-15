@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 15, 2017 at 01:55 PM
+-- Generation Time: Mar 15, 2017 at 08:45 PM
 -- Server version: 5.7.17-log
 -- PHP Version: 5.6.30
 
@@ -111,8 +111,8 @@ CREATE TABLE `affiliatetransaction` (
 --
 
 INSERT INTO `affiliatetransaction` (`affiliatetransactionid`, `affiliateid`, `contactinfoid`, `description`, `amount`, `dateadded`, `status`) VALUES
-(1, 1, 4, '1', '0.0000', '2017-03-10 21:53:59', 3),
-(2, 1, 5, '2', '0.0000', '2017-03-12 09:15:53', 3),
+(1, 1, 1, '1', '0.0000', '2017-03-10 21:53:59', 3),
+(2, 1, 2, '2', '0.0000', '2017-03-12 09:15:53', 3),
 (3, 1, 6, '3', '0.0000', '2017-03-14 11:35:53', 3),
 (4, 1, 7, '4', '0.0000', '2017-03-14 11:59:22', 3),
 (5, 1, 8, '5', '0.0000', '2017-03-14 11:59:45', 3),
@@ -160,7 +160,7 @@ CREATE TABLE `contact` (
 
 INSERT INTO `contact` (`id`, `vehicle_type_id`, `first_name`, `last_name`, `email`, `phone`, `month_of_birth`, `day_of_birth`, `year_of_birth`, `address`, `postal_code`, `province_id`, `city`, `rent_or_own`, `residence_years`, `monthly_payment`, `company_name`, `job_title`, `work_phone`, `monthly_income`, `sin_number`, `years_on_job`, `months_on_job`, `created`, `notes`, `status`) VALUES
 (1, 2, 'Alex', 'Lesan', 'alex.lesan@gmail.com', '069630914', 2, 2, 1988, 'Chisinau, Moldova', 'MD2051', 11, 'Chisinau', 'own', 5, '150', 'Artsintez', 'PHP developer', '123456789', '1000', '9874561234567', 7, 10, '2017-03-11 04:41:48', NULL, 1),
-(2, 1, 'asdfasd', 'asdfasdf', 'asdfasdf@asdfas.com', 'asdfasdf', 3, 5, 2003, 'asdf', 'asdf', 4, 'asdf', 'rent', 2, 'asdfasdf', 'asdfadsf', 'asdfasdf', 'asdfasdf', 'asdfasdf', 'asdfasdf', 16, 10, '2017-03-11 04:41:48', NULL, 1),
+(2, 1, 'asdfasd', 'asdfasdf', 'asdfasdf@asdfas.com', '896789696', 3, 5, 2003, 'asdf', 'asdf', 4, 'asdf', 'rent', 2, 'asdfasdf', 'asdfadsf', 'asdfasdf', 'asdfasdf', 'asdfasdf', 'asdfasdf', 16, 10, '2017-03-11 04:41:48', NULL, 1),
 (3, 2, 'Vikram', 'Shah', 'vip_vicks@sify.com', '896789696', 5, 22, 1984, 'dfghdfhdfh dfhdfhdfhdf dfhdfhdf ', 't6t6t6', 3, 'dfghdfhdf dfhdfhdfh', 'rent', 5, '500', 'dfh dfhdfhdfh ', 'jkhjkh', '089789789', '897897.00', '', 3, 2, '2017-03-11 04:41:48', NULL, 1),
 (4, 1, 'Dhaval', 'Patel', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-11 11:53:58', 'dfdfmng dghjkdfgh djkfghjkdf ghdfjkg \r\n                        ', 1),
 (5, 1, 'snehal', 'panchal', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-12 21:15:53', 'jhfghfgh ghfgh fghf  \r\n                        ', 1),
@@ -257,10 +257,18 @@ CREATE TABLE `tbldealerpackagefeatures` (
   `Id` int(11) NOT NULL,
   `DealerId` int(11) NOT NULL COMMENT 'tbldealership',
   `DealerPackageId` int(11) NOT NULL COMMENT 'tbldealerpackages',
-  `ContactId` int(11) NOT NULL COMMENT 'tblcontact',
+  `ContactId` int(11) NOT NULL COMMENT 'contact',
   `Timestamp` datetime NOT NULL,
   `Status` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbldealerpackagefeatures`
+--
+
+INSERT INTO `tbldealerpackagefeatures` (`Id`, `DealerId`, `DealerPackageId`, `ContactId`, `Timestamp`, `Status`) VALUES
+(1, 1, 1, 1, '2017-03-14 00:00:00', 1),
+(2, 1, 1, 2, '2017-03-14 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -312,7 +320,7 @@ CREATE TABLE `tbldealership` (
 --
 
 INSERT INTO `tbldealership` (`Id`, `DealershipName`, `DealershipPlan`, `Address`, `Phone`, `Fax`, `ContactName`, `LicenceNo`, `Remarks`, `CreatedDate`, `Approve`, `Status`) VALUES
-(1, 'Car Financing', 5, '4404 - 66 Street, Edmonton AB T6K 4E7', '1.866.220.6166', '', 'Vikram Shah', '0', '', '2016-05-05 16:44:36', 1, 1);
+(1, 'We Drive Canda', 5, '17456 102 Avenue NW, Edmonton AB T5S 1K2', '(866) 220-6166', '1-878-978-9789', 'Vikram Shah', 'B123456', '', '2016-05-05 16:44:36', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -395,7 +403,7 @@ CREATE TABLE `tbllogin` (
 --
 
 INSERT INTO `tbllogin` (`Id`, `Featured`, `DealerId`, `EmailId`, `SALT`, `HASH`, `Timestamp`, `Status`) VALUES
-(1, 1, 1, 'vipvicks71@gmail.com', 'e7f937da3989c33d0a31eb9eca14d66f', '67e600c7c6deadb91094d2a3c3c80368077739ac', '2017-03-15 05:43:19', 1);
+(1, 1, 1, 'vipvicks71@gmail.com', '14438578653b8fc50d869a72ff3cae4a', '102dd38d7a9df30c645432debcad0ee32621a624', '2017-03-15 05:43:19', 1);
 
 -- --------------------------------------------------------
 
@@ -673,7 +681,7 @@ ALTER TABLE `tbldealercredits`
 -- AUTO_INCREMENT for table `tbldealerpackagefeatures`
 --
 ALTER TABLE `tbldealerpackagefeatures`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tbldealerpackages`
 --

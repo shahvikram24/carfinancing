@@ -16,17 +16,17 @@
     if(isset($_POST['change']) && $_POST['change'] == 'change')
     {
             
-            if(isset($_POST['affiliate_id']) && $_POST['affiliate_id']!='')
+            if(isset($_POST['DealerId']) && $_POST['DealerId']!='')
             {
                $login = new Login();
                 $login->loadcustomerinfo($DealerId);
 
             }
 
-           if(Security::ChangeUserPassword($login->affiliate_id, NULL, $_POST['NewPassword'])) 
+           if(Security::ChangeLeadsPassword($login->DealerId, NULL, $_POST['NewPassword'])) 
             {
-                if($login->sendConfirmedRecoveredPassword($login->email))
-                header("Location:".AFFILIATEURL . 'login.php?' . $Encrypt->encrypt("Message=The password has been reset successfully.&Success=true"));
+                if($login->sendConfirmedRecoveredPassword($login->EmailId))
+                header("Location:".LEADASSIGNURL . 'index.php?' . $Encrypt->encrypt("Message=The password for the username ".$login->EmailId." has been reset successfully.&Success=true"));
             }
        
     }
@@ -83,7 +83,7 @@ function confirmPass() {
 
                                 ?>
 
-                                <input type="hidden" name="affiliate_id" value="<?php echo $affiliate_id; ?>"/>
+                                <input type="hidden" name="DealerId" value="<?php echo $DealerId; ?>"/>
                                 
 
                                 <div>
@@ -106,12 +106,6 @@ function confirmPass() {
                         <div class="clearfix"></div>
 
                           <div class="separator">
-                            <p class="change_link">New to site?
-                              <a href="#" onclick="myFunction()" class="to_register"> Create Account </a>
-                            </p>
-
-                            <div class="clearfix"></div>
-                            <br />
 
                             <p class="change_link">Already a member ?
                                   <a href="login.php" class="to_register"> Log in </a>
@@ -134,12 +128,7 @@ function confirmPass() {
                     </section>
                 </div>
             </div>
-        
-    <script>
-    function myFunction() {
-        window.location.href = "<?=  AFFILIATEURL . 'register.php' ?>";
-    }
-  </script>
+   
 
 </body>
 </html>

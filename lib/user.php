@@ -122,6 +122,20 @@ class Login extends BaseClass{
 			
 
 		}
+
+		public function CheckFeaturedRights($DealerId)
+        {
+            $SQL = "SELECT Featured
+                    FROM tbllogin 
+                    WHERE DealerId=".$DealerId;
+                
+                parent::GetDALInstance()->SQLQuery($SQL);
+				//echo "<br/><br/><br/><br/><br/><br/>".$SQL;	
+				$row = parent::GetDALInstance()->GetRow();
+				return ($row[0] == 1) ? true : false;
+			
+
+		}
 		
   	
   	public function loadAffiliateByCode($Condition = false) {
@@ -228,7 +242,7 @@ class Login extends BaseClass{
   				 $to = $Email;
 
   				//define the subject of the email 
-				$subject = "Password Successfully Reset on SuperCarLoans";
+				$subject = "Password Successfully Reset on CarFinancing.Help";
 				//create a boundary string. It must be unique 
 				//so we use the MD5 algorithm to generate a random hash 
 				$random_hash = md5(date('r', time())); 
@@ -260,7 +274,7 @@ class Login extends BaseClass{
 		//replacing base template with logo
 		$baseStr = str_replace("emailTemplate/logo.png",$logo,$baseStr);
 		$baseStr = str_replace("###approot###",APPROOT,$baseStr);
-		$baseStr = str_replace("###affiliate###",AFFILIATEURL,$baseStr);
+		$baseStr = str_replace("###affiliate###",LEADASSIGNURL,$baseStr);
 
 		//replacing contents of forgetpassword link Email and activation link
 		$forgetpasswordlinkStr = str_replace("###EMAIL###", $Email, $forgetpasswordlinkStr);
