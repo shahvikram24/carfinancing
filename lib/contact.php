@@ -248,5 +248,20 @@ class Contact extends BaseClass
 		return ($row) ? $row["Fname"] . " " . $row["Lname"] : 0;
 		
 	}
+
+	public function GetProvince($Id)
+	{
+		$SQL = "SELECT name AS 'name' 
+				FROM provinces 
+				WHERE id = " . $Id ;
+
+		//echo  "\n". $SQL . "\n";
+
+		parent::GetDALInstance()->SQLQuery($SQL);
+		$row = parent::GetDALInstance()->GetRow();
+
+		return ($row) ? $row["name"] . " " . $row["Lname"] : 0;
+		
+	}
 }
 ?>

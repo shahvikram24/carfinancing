@@ -85,7 +85,10 @@
                                   for($x = 0; $x < count($DealerPackageFeaturesResultSet) ; $x++)
                                   {
                                       $AffiliateCode = AffiliateTransaction::getAffiliateCode($DealerPackageFeaturesResultSet[$x]->ContactRelation->id);
+                                      
                                       $ResultTransaction = $affiliateTransaction->loadTransactionByContactInfo($DealerPackageFeaturesResultSet[$x]->ContactRelation->id);
+
+                                      $link =  LEADASSIGNURL . 'profile.php?' . $Encrypt->encrypt('ContactId='.$DealerPackageFeaturesResultSet[$x]->ContactRelation->id);
                                 ?>
                                   <tr class="">
                                     
@@ -97,8 +100,8 @@
                                     <td><?= DealStatus::getStatusText($ResultTransaction->description) ?></td>
                                     <td><?= FormatDate($DealerPackageFeaturesResultSet[$x]->Timestamp,'Y-m-d h:i A')?></td>
                                     <td>
-                                      <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                                      <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                      <a href="<?= $link ?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                                      
                                       <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Hide </a>
                                     </td>
                                   </tr>       
