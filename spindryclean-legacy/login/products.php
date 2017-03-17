@@ -117,7 +117,7 @@
 		                    <table id="datatable-buttons" class="table table-hover table-striped table-bordered">
 		                      <thead>
 		                        <tr>
-		                          <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td></th>
+		                          <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></th>
 		                          <th>Name</th>
 		                          <th>Price</th>
 		                          <th>Action</th>

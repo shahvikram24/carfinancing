@@ -18,7 +18,8 @@
 
 	if(isset($_POST['change']) && $_POST['change'] == 'change')
   {
-      $Result = Security::ChangeLeadsPassword($login->DealerId, NULL, $_POST['newpwd']);
+    
+      $Result = Security::ChangeLeadsPassword($DealerId, NULL, $_POST['newpwd']);
       
           
         if($Result)

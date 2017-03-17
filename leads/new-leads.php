@@ -7,29 +7,6 @@
     exit();
   } 
 
-
-  if( isset($_POST['AssignAffiliate']) && $_POST['AssignAffiliate'] == 'AssignAffiliate' )   
-{  
-  //debugObj($_REQUEST); die();
-  if($_REQUEST['AffiliateId'] !='')
-  {
-    if(AffiliateTransaction::UpdateConditionally(' affiliateid = '. $_REQUEST['AffiliateId'] , ' contactinfoid =  '. $_REQUEST['ContactId']))
-    {
-      header('Location:lead-tracking.php?' . $Encrypt->encrypt("Message=Affiliate has been assigned successfully to the lead.&Success=true"));
-      exit();
-    }
-    else{
-      header('Location:lead-tracking.php?' . $Encrypt->encrypt("Message=Affiliate has NOT been assigned successfully to the lead.&Success=false"));
-      exit();
-    }
-  }
-  else{
-    header('Location:lead-tracking.php?' . $Encrypt->encrypt("Message=Select Affiliate first.&Success=false"));
-      exit();
-  }
-    
-}
-
 	
 	  $DealerId = $_SESSION['DealerId'];
   //$customer = new Customer();
@@ -38,11 +15,10 @@
     $dealership = new dealership();
     $dealership->loadDealershipInfo($DealerId);
 
-    $DealerPackageFeatures = new DealerPackageFeatures();
-    $DealerPackageFeaturesResultSet = $DealerPackageFeatures->LoadFeaturesByDealerId($dealership->Id,dealerpackages::GetIdByDealerId($dealership->Id),true);
-	 
-    //echo "<br/><br/><br/><br/><br/>";
-    //debugObj($DealerPackageFeaturesResultSet);
+    $Contact = new Contact();
+    $Result = $Contact->loadSearchInfo();
+
+    //debugObj($Result); die();
 
 ?>  
 
@@ -74,12 +50,12 @@
               <div class="col-md-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Transaction History <small>Lead Tracking History</small></h2>
+                      <h2>New Leads History <small>New Leads which are not assigned yet</small></h2>
                       <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
 
-                      <?php if($DealerPackageFeaturesResultSet)
+                      <?php if($Result->TotalResults>0)
                           {
                       ?>
                       
@@ -91,8 +67,8 @@
                               <th>Phone&nbsp;Number</th>
                               <th>Email</th>
                               <th>Referred&nbsp;By</th>
-                              <th>Deal&nbsp;Status</th>
-                              <th>Date&nbsp;Sent</th>
+                              <th>Assigned&nbsp;Dealer</th>
+                              <th>Date&nbsp;Created</th>
                               <th>&nbsp;</th>
                             </tr>
                           </thead>
@@ -105,28 +81,32 @@
                                   /* Deal Status of Contact */
                                   $affiliateTransaction = new AffiliateTransaction();
                                   $count =1;
-                                  for($x = 0; $x < count($DealerPackageFeaturesResultSet) ; $x++)
+                                  for($x = 0; $x < $Result->TotalResults ; $x++)
                                   {
-                                      $AffiliateCode = AffiliateTransaction::getAffiliateCode($DealerPackageFeaturesResultSet[$x]->ContactRelation->id);
+                                      $AffiliateCode = AffiliateTransaction::getAffiliateCode($Result->Result[$x]['id']);
 
                                       if($AffiliateCode)
                                         $ReferredPerson = Affiliate::GetFullName($AffiliateCode);
                                       else
-                                        $ReferredPerson = '<a class="affiliatereffered btn btn-primary" href="" data-toggle="modal" data-id="'. $DealerPackageFeaturesResultSet[$x]->ContactRelation->id . '" data-target="#AssignAffiliate">Assign Affiliate</a>';
+                                        $ReferredPerson = 'N/A';
                                       
-                                      $ResultTransaction = $affiliateTransaction->loadTransactionByContactInfo($DealerPackageFeaturesResultSet[$x]->ContactRelation->id);
+                                      $ResultTransaction = $affiliateTransaction->loadTransactionByContactInfo($Result->Result[$x]['id']);
 
-                                      $link =  LEADASSIGNURL . 'profile.php?' . $Encrypt->encrypt('ContactId='.$DealerPackageFeaturesResultSet[$x]->ContactRelation->id);
+                                      $link =  LEADASSIGNURL . 'profile.php?' . $Encrypt->encrypt('ContactId='.$Result->Result[$x]['id']);
+
+                                      $AssignedText = '<a class="btn btn-info btn-xs" href="dealers-management.php?' . $Encrypt->encrypt('ContactId='.$Result->Result[$x]['id'].'&Assigned=true') . '">Assign and Email to Dealer </a>';
+
+
                                 ?>
                                   <tr class="">
                                     
                                     <td><?= $count ?></td>
-                                    <td><?= FormatInitCap(FormatName($DealerPackageFeaturesResultSet[$x]->ContactRelation->first_name, $DealerPackageFeaturesResultSet[$x]->ContactRelation->last_name)) ?></td>
-                                    <td><?= $DealerPackageFeaturesResultSet[$x]->ContactRelation->phone ?></td>
-                                    <td><?= $DealerPackageFeaturesResultSet[$x]->ContactRelation->email ?></td>
+                                    <td><?= FormatInitCap(FormatName($Result->Result[$x]['first_name'], $Result->Result[$x]['last_name'])) ?></td>
+                                    <td><?= $Result->Result[$x]['phone'] ?></td>
+                                    <td><?= $Result->Result[$x]['email'] ?></td>
                                     <td><?= $ReferredPerson ?></td>
-                                    <td><?= DealStatus::getStatusText($ResultTransaction->description) ?></td>
-                                    <td><?= FormatDate($DealerPackageFeaturesResultSet[$x]->Timestamp,'Y-m-d h:i A')?></td>
+                                    <td><?= $AssignedText ?></td>
+                                    <td><?= FormatDate($Result->Result[$x]['created'],'Y-m-d h:i A')?></td>
                                     <td>
                                       <a href="<?= $link ?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
                                       
@@ -232,56 +212,7 @@
     </script>
     <!-- /Datatables -->
 
-    <!-- AssignAffiliate -->
-<form method="post" autocomplete="off" action="#">
-  <div class="modal fade" id="AssignAffiliate" tabindex="-1" role="dialog" aria-labelledby="AssignAffiliateLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="AssignAffiliateLabel">Please assign an affiliate to the lead.</h4>
-        </div>
-        <?php
-          $Affiliate = new Affiliate();
-          $AffiliateResultset = Affiliate::loadAllAffiliateInfo(' status = 1 and approved = 1 ');
-          //debugObj($AffiliateResultset);
-        ?>
-        <div class="modal-body">          
-              <div class="container-fluid">
-              <div class="row">                
-                
-                <select id="AffiliateId" name="AffiliateId"  class="form-control" >
-                <?php 
-                    for($x = 0; $x < $AffiliateResultset->TotalResults ; $x++)
-                    {
-                          echo "<option value='". $AffiliateResultset->Result[$x]['affiliate_id'] ."'>".
-                                    $AffiliateResultset->Result[$x]['firstname'] . " " . $AffiliateResultset->Result[$x]['lastname']
-                              . "</option>";
-                    }
-                ?>
-            </select>
-              </div>
-            </div>
-        </div>
-
-        <input type="hidden" id="ContactId" name="ContactId" value="">
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" id="applyNow">Assign&nbsp;Affiliate</button>
-          <input type="hidden" name="AssignAffiliate" value="AssignAffiliate" />
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
-
-<script>
-$(document).on("click", ".affiliatereffered", function () {
-    var contact= $(this).data('id');
-    $("#AssignAffiliate #ContactId").val( contact );
-});
-</script>
-
+    
 
 </body>
 </html>

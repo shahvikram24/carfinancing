@@ -12,7 +12,7 @@ class Security extends BaseClass {
     }  
 
     function AuthorizeDealer($UserLogin, $Password) {
-        $SQL = "SELECT Id, DealerId, SALT, HASH FROM tbllogin WHERE EmailId='$UserLogin' AND status=1 ";
+        $SQL = "SELECT Id, DealerId, SALT, HASH FROM tbllogin WHERE EmailId='$UserLogin' AND Status=1 ";
         
         parent::GetDALInstance()->SQLQuery($SQL);
         
@@ -107,22 +107,25 @@ class Security extends BaseClass {
     }
 
    function ChangeLeadsPassword($UserId, $OldPassword, $NewPassword)
-   {
+   {           
+            
             if(NumberCheck($UserId))
             {
                 // we have to check the user entered correct old passowrd or not
-                $SQL = "SELECT DealerId, SALT, HASH FROM tbllogin WHERE DealerId=".$UserId." AND status=1";
+                $SQL = "SELECT DealerId, SALT, HASH FROM tbllogin WHERE DealerId=".$UserId." AND Status=1";
                 parent::GetDALInstance()->SQLQuery($SQL);
                 $Result = parent::GetDALInstance()->GetRow();
 
+                
                 if($Result)
                 {
                     $Salt = $Result['SALT'];
 
                     $Hash = GenerateHASH($Salt, $NewPassword);
-                    $SQL = "UPDATE tbllogin SET HASH='".$Hash."' WHERE DealerId=".$UserId." AND status=1";
 
+                    $SQL = "UPDATE tbllogin SET HASH='".$Hash."' WHERE DealerId=".$UserId." AND Status=1";
 
+                    
                         parent::GetDALInstance()->SQLQuery($SQL);
 
                         return parent::GetDALInstance()->AffectedRows();

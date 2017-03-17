@@ -263,5 +263,61 @@ class Contact extends BaseClass
 		return ($row) ? $row["name"] . " " . $row["Lname"] : 0;
 		
 	}
+
+	public function loadSearchInfo($Condition = '')
+  	{
+				
+		$SQL = "SELECT C.* from contact C
+				WHERE C.id NOT IN (SELECT ContactId from tbldealerpackagefeatures  
+									WHERE 	Status = 1)
+				  ";
+
+
+		if($Condition !='')
+			$SQL .= $Condition;
+
+		$SQL .= ' ORDER BY C.id DESC';
+		//echo "<br/><br/><br/><br/><br/><br/>".$SQL;
+
+		parent::GetDALInstance()->SQLQuery($SQL);
+		$row = parent::GetDALInstance()->GetRow(false);			
+
+
+		$ResultSet = new ResultSet();
+	    if($ResultSet->LoadResult($SQL))
+	        return $ResultSet;
+
+	    
+		return false;
+
+	}
+
+	public function loadAssigned($Condition = '')
+  	{
+				
+		$SQL = "SELECT C.* from contact C
+				WHERE C.id IN (SELECT ContactId from tbldealerpackagefeatures  
+									WHERE 	Status = 1)
+				  ";
+
+
+		if($Condition !='')
+			$SQL .= $Condition;
+
+		$SQL .= ' ORDER BY C.id DESC';
+		//echo "<br/><br/><br/><br/><br/><br/>".$SQL;
+
+		parent::GetDALInstance()->SQLQuery($SQL);
+		$row = parent::GetDALInstance()->GetRow(false);			
+
+
+		$ResultSet = new ResultSet();
+	    if($ResultSet->LoadResult($SQL))
+	        return $ResultSet;
+
+	    
+		return false;
+
+	}
 }
 ?>

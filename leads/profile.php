@@ -12,6 +12,62 @@
     header("Location: dashboard.php");
   }
 
+if(isset($Apply) && $Apply == 'Apply')
+{
+  
+
+  //$DealerId = $Decrypt->decrypt($_POST['DealershipId']);
+  $DealerPackageFeatures = new DealerPackageFeatures();
+    $DealerPackageFeatures->DealerId = $DealerId;
+    $DealerPackageFeatures->DealerPackageId = dealerpackages::GetIdByDealerId($DealerId);
+    $DealerPackageFeatures->ContactId = $ContactId;
+    $DealerPackageFeatures->Timestamp = date('Y-m-d H:i:s');
+    $DealerPackageFeatures->Status = 1;
+
+    $AffiliateCode = AffiliateTransaction::getAffiliateCode($ContactId);
+    if($AffiliateCode)
+      $ReferredPerson = $AffiliateCode;
+    else
+      $ReferredPerson = 0;
+
+    $affiliateTransaction = new AffiliateTransaction();
+    $affiliateTransaction->affiliateid = $ReferredPerson;
+    $affiliateTransaction->contactinfoid = $ContactId;
+    $affiliateTransaction->description = 1;
+    $affiliateTransaction->amount = 0.00;
+    $affiliateTransaction->dateadded = date("Y-m-d H:i:s");
+    $affiliateTransaction->status = 1;
+
+        
+
+    $AppsWithPackage = Package::GetApps(dealerpackages::GetPlanId($DealerId));
+    $Positive = dealercredits::CountPositive($DealerId,dealerpackages::GetIdByDealerId($DealerId));
+    $Negative = dealercredits::CountNegative($DealerId,dealerpackages::GetIdByDealerId($DealerId));
+
+    $Total = $Positive - $Negative;
+    $Manage = $AppsWithPackage + $Total;
+
+    $AssignApp = DealerPackageFeatures::CountSentApplications($DealerId,dealerpackages::GetIdByDealerId($DealerId));
+    
+   
+
+    if($Manage > $AssignApp)
+    {
+
+      $DealerPackageFeatures->addDealerpackageFeatures();
+      $affiliateTransaction->addTransaction();
+
+      header("Location:".LEADASSIGNURL . 'geninfo.php?' . $Encrypt->encrypt('ContactId='.$ContactId."&DealerId=".$DealerId));
+
+      exit();
+    }
+    else
+    {
+       header("Location:".LEADASSIGNURL . 'dealers-management.php?' . $Encrypt->encrypt('Message=Dealer reached his Application limit.&Success=true&ContactId='.$ContactId));      
+       exit();
+    }
+    
+}
 
 if(isset($_POST['SubmitSearch']) && $_POST['SubmitSearch'] == 'Post Notes')
 {
@@ -411,7 +467,7 @@ if(isset($_POST['SubmitSearch']) && $_POST['SubmitSearch'] == 'Upload Files')
 
                                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                               <label>SIN</label>
-                                              <input  type="text" value="<?=  ($Contact->sin_number) ? $Contact->sin_number : 'N/A' ?>" readonly class="form-control">
+                                              <input  type="text" value="<?=  $Contact->sin_number ? $Contact->sin_number : 'N/A' ?>" readonly class="form-control">
                                             </div>
 
                                           <div class="clearfix"></div>

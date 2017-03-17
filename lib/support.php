@@ -4,6 +4,7 @@
 class Support extends BaseClass{
 	public $Id;
 	public $AffiliateId;
+	public $DealerId;
 	public $Subject;
 	public $Message;
 	public $SupportStatus;
@@ -15,6 +16,8 @@ class Support extends BaseClass{
 		{
 			parent::__construct();
 			$this->SupportStatus = 1;
+			$this->DealerId=0;
+			$this->AffiliateId = 0;
 		}
 
   	public function loadSupport($Condition = '') {
@@ -33,6 +36,7 @@ class Support extends BaseClass{
 			{
 				$this->Id = $row['Id'];
 				$this->AffiliateId = $row['AffiliateId'];
+				$this->DealerId = $row['DealerId'];
 				$this->Subject = $row['Subject'];
 				$this->Message = $row['Message'];
 				$this->SupportStatus = $row['SupportStatus'];
@@ -52,6 +56,7 @@ class Support extends BaseClass{
       		$SQL = " INSERT INTO tblsupport 
 				SET 
 					AffiliateId = " . $this->AffiliateId . ", 
+					DealerId = " . $this->DealerId . ", 
 					Subject = '" . $this->Subject . "', 
 					Message = '" . $this->Message . "', 
 					SupportStatus = " . $this->SupportStatus . ", 
@@ -69,6 +74,7 @@ class Support extends BaseClass{
       			$SQL = " UPDATE tblsupport 
 				SET 
 					AffiliateId = " . $this->AffiliateId . ", 
+					DealerId = " . $this->DealerId . ", 
 					Subject = '" . $this->Subject . "', 
 					Message = '" . $this->Message . "', 
 					SupportStatus = " . $this->SupportStatus . ", 

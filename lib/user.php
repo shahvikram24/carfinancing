@@ -307,7 +307,84 @@ class Login extends BaseClass{
 
 
 
-  		
+  		public function sendEmailDealer($DealerId,$Password)
+  		{
+  				
+				$Login = new Login();
+				$Login->loadDealerIdInfo($DealerId);
+
+  				 $to = $Login->EmailId;
+
+  				//define the subject of the email 
+				$subject = "CarFinancing.Help New User Registered!";
+				//create a boundary string. It must be unique 
+				//so we use the MD5 algorithm to generate a random hash 
+				$random_hash = md5(date('r', time())); 
+				
+				
+
+				// To send HTML mail, the Content-type header must be set
+				$headers  = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				$headers .= "From: no-reply@carfinancing.help" .  "\r\n";
+				//add boundary string and mime type specification 
+				//$headers .= "\r\nContent-Type: multipart/mixed; boundary=\"PHP-mixed-".$random_hash."\"".  "\r\n"; 
+
+				
+
+  				ob_start(); //Turn on output buffering
+
+		$ReturnString = "
+						<!DOCTYPE html>
+						<html lang='en'>
+						<head>
+								<meta charset='utf-8'>
+						</head>
+						<body id='page2'>
+							<table cellpadding='3' cellspacing='7' border='0' style='font-family:Verdana, Arial, Helvetica, sans-serif;  font-size:16px;'>
+								<tr>
+									<td colspan='2'></td>
+							        </tr>
+								<tr>
+									<td colspan='2'>Hello User, </td>
+							    </tr>
+							    
+							    <tr>
+									<td colspan='2'>Here are your account details:</td>
+							    </tr>
+								<tr>
+									<td align='right'>Login Email:</td><td>".$Login->EmailId."</td>
+							    </tr>
+							    <tr>
+									<td align='right'>Password:</td><td>".$Password."</td>
+							    </tr>
+							    
+								
+							</table>
+							</body>
+							</html>
+
+		";
+
+					
+
+                   ob_get_clean(); 
+					
+				
+				$mailObj = new Email($to, NULL, $subject);
+
+	        $mailObj->TextOnly = false;
+	        $mailObj->Headers = $headers;
+
+	        $mailObj->Content = $ReturnString;  
+
+
+		        //if($ok)
+		        if($mailObj->Send())
+					return true;
+		        else
+		        	return false;
+  		}
 
 }
 

@@ -39,9 +39,9 @@
           ?>
           <li><a><i class="fa fa-cogs"></i> Leads Generation <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="#">New Leads</a></li>
-              <li><a href="#">Assigned Leads</a></li>
-              <li><a href="#">Dealers Management</a></li>
+              <li><a href="new-leads.php">New Leads</a></li>
+              <li><a href="assigned-leads.php">Assigned Leads</a></li>
+              <li><a href="dealers-management.php">Dealers Management</a></li>
             </ul>
           </li>
 

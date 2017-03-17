@@ -268,7 +268,32 @@ public function loadDealershipInfo($Id, $Condition = false)
 		return ($row) ? $row["TotalDealership"] : 0;
 	}
 
+public function GetDealerEmail($DealerId)
+	{
+		$SQL = "SELECT EmailId AS 'Email'
+				FROM tbllogin 
+				WHERE Status = 1 AND DealerId = " . $DealerId
+		;
 
+		echo  "\n". $SQL . "\n";
+
+		parent::GetDALInstance()->SQLQuery($SQL);
+		$row = parent::GetDALInstance()->GetRow();
+
+		return ($row) ? $row["Email"] : 0;
+	}
+
+	public function archiveDealers($IdArray) 
+	{
+  		$SQL = " UPDATE tbldealership 
+				SET 
+					Approve = 3 
+				WHERE Id IN (" . $IdArray . ")
+
+			";
+		//echo "<br/><br/><br/><br/><br/><br/>".$SQL;		
+		return parent::GetDALInstance()->SQLQuery($SQL);
+	}
 
 } // class : end
 ?>
