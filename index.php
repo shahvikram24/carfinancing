@@ -1,168 +1,262 @@
 <?php 
 	require_once("include/files.php");
-
-	if(isset($_GET['logout']) && $_GET['logout'] == 'true')
-	{
-		Security::Logout();
-		header("Location: index.php");	
-	}
-
-
-	if(isset($_SESSION['customer_id']))
-	{
-		header('Location:dashboard.php');
-		exit();
-	}
-
-  if(isset($_POST['lost']) && $_POST['lost'] == 'lost')
-  {
-    if(Security::CheckUserExistsByLogin($_POST['email'], ' AND STATUS IN (0,1)')) 
-    {
-      $login = new Login();
-        $customer = new Customer();
-
-      $customerId = $login->CheckUserByLogin($_POST['email']);
-      $login->loadcustomerinfobycustomerid($customerId) ;
-      $customer->loadcustomerCheck($customerId);
-
-        $Encryption = $Encrypt->encrypt('CustomerId=' . $customerId . '&ExpireDate=' . date("Y-m-d", mktime(0, 0, 0, date("m") , date("d") + 2, date("Y"))) . '&ResetAccount=true');
-
-        if($login->Status==0)
-        {
-            if($login->sendRecoverPasswordLink($_POST['email'],$Encryption))
-            {
-              header("Location:index.php?".$Encrypt->encrypt("Message=We now provide service in your area. Further instructions have been sent to your e-mail address. Please check your email/junk email for your confirmation email."));
-              exit(); 
-            }
-
-        }
-
-      if($login->sendRecoverPasswordLink($_POST['email'],$Encryption))
-      {
-        header("Location:index.php?".$Encrypt->encrypt("Message=Further instructions have been sent to your e-mail address. Please check your email/junk email for your confirmation email."));
-        exit(); 
-      } 
-
-    }
-    else
-    {
-      header("Location:index.php?".$Encrypt->encrypt("Message=Email is not registered. Please try another email.&Success=false"));
-      exit();
-    } 
-    
-  }
-  
-
-	if(isset($_POST['login']) && $_POST['login'] == 'login')
-	{
-		
-		if(Security::Authorize($_POST['email'], $_POST['password'])) 
-		{
-			header("Location: dashboard.php");	
-		}
-		else
-		{
-			$Message = "Invalid Username/Password";
-		}
-		
-	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once ("include/title.php"); ?>  
-<body class="login">
-    <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
+<body>
+    <div class="preloader">
+    
+  </div>
+    <!-- Header Wrapper -->
+    <?php require_once ("include/header.php"); ?>  
 
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <form method="post" action="#">
-              <h1>Login Form</h1>
-              <header class="major">
-					<?php 
-						if($Message)
-							echo '<h2 style="text-align: left;color:#555;background:#e9ffd9;">'. $Message.'</h2>';
-					?>							
-				</header>
+    <!-- Image Wrapper -->
+    <?php require_once ("include/slider.php"); ?>  
 
-
-              <div>
-                <input type="email" name="email" class="form-control" placeholder="Enter email address" required="" />
-              </div>
-              <div>
-                <input type="password" name="password"  class="form-control" placeholder="Enter password" required="" />
-              </div>
-              <div>
-                
-                <button type="submit" class="btn btn-default submit" name="login" value="login">
-					Log in
-				</button>
-                <a class="reset_pass" href="#signup"   name="lostpwd" value="lostpwd">Lost your password?</a>
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-                <p class="change_link">New to site?
-                  <a href="#" onclick="myFunction()" class="to_register"> Create Account </a>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <h1><i class="fa fa-car"></i> CAR FINANCING</h1>
-                  <p>&copy; CAR FINANCING. All rights reserved. <br/> Powered By:  
-                      <a href="http://www.vstudiozzz.com" title="Vstudiozzz" target="_blank">Vstudiozzz </a>
-                  </p>
-                </div>
-              </div>
-            </form>
-          </section>
+    <section>
+    <div class="cut cut-top"></div>
+    <div class="container">
+      <div class="row intro-tables">
+        <div class="col-md-12">
+          <div class="intro-table intro-table-first text-center">
+            <h2 class="white heading">Welcome To CAR FINANCING HELP! We Can Offer You The Best Rates On Your LOAN, NO HIDDEN FEES AND NO CATCH.</h2>
+            <h5 class="white heading">BAD CREDIT? NO CREDIT? NO PROBLEM!</h5>
+            <a href="#" class="btn btn-white-fill">Sign Up Now</a>
+          </div>
         </div>
-
-        <div id="register" class="animate form registration_form">
-          <section class="login_content">
-            <form method="post" action="#">
-              <h1>Recover Password</h1>
-              <div>
-                <input type="email" class="form-control" required="" id="email" name="email" placeholder="Email address goes here" autocomplete="off"/>
+        <!-- <div class="col-md-4">
+          <div class="intro-table intro-table-hover">
+            <h5 class="white heading hide-hover">Premium Membership</h5>
+            <div class="bottom">
+              <h4 class="white heading small-heading no-margin regular">Register Today</h4>
+              <h4 class="white heading small-pt">20% Discount</h4>
+              <a href="#" class="btn btn-white-fill expand">Register</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="intro-table intro-table-third">
+            <h5 class="white heading">Happy Clients</h5>
+            <div class="owl-testimonials bottom">
+              <div class="item">
+                <h4 class="white heading content">I couldn't be more happy with the results!</h4>
+                <h5 class="white heading light author">Adam Jordan</h5>
               </div>
-              <div>
-                <button type="submit" class="btn btn-default submit" name="lost" value="lost">Get New Password</button>
+              <div class="item">
+                <h4 class="white heading content">I can't believe how much better I feel!</h4>
+                <h5 class="white heading light author">Greg Pardon</h5>
               </div>
-              <p class="change_link">You will receive a link to create a new password via email.</p>
-              <div class="clearfix"></div>
-
-              <div class="separator">
-                <p class="change_link">Already a member ?
-                  <a href="#signin" class="to_register"> Log in </a>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <h1><i class="fa fa-car"></i> CAR FINANCING</h1>
-                  <p>&copy; CAR FINANCING. All rights reserved. <br/> Powered By:  
-                  		<a href="http://www.vstudiozzz.com" title="Vstudiozzz" target="_blank">Vstudiozzz </a>
-                  </p>
-                </div>
+              <div class="item">
+                <h4 class="white heading content">Incredible transformation and I feel so healthy!</h4>
+                <h5 class="white heading light author">Christina Goldman</h5>
               </div>
-            </form>
-          </section>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </section>
+  <section id="services" class="section section-padded">
+    <div class="container">
+      <div class="row text-center title">
+        <h2>Services</h2>
+        <h4 class="light muted">Achieve the best results with our wide variety of training options!</h4>
+      </div>
+      <div class="row services">
+        <div class="col-md-4">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="img/icons/heart-blue.png" alt="" class="icon">
+            </div>
+            <h4 class="heading">Cardio Training</h4>
+            <p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="img/icons/guru-blue.png" alt="" class="icon">
+            </div>
+            <h4 class="heading">Yoga Pilates</h4>
+            <p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="img/icons/weight-blue.png" alt="" class="icon">
+            </div>
+            <h4 class="heading">Power Training</h4>
+            <p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>
+          </div>
         </div>
       </div>
     </div>
+    <div class="cut cut-bottom"></div>
+  </section>
+  <section id="team" class="section gray-bg">
+    <div class="container">
+      <div class="row title text-center">
+        <h2 class="margin-top">Team</h2>
+        <h4 class="light muted">We're a dream team!</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="team text-center">
+            <div class="cover" style="background:url('img/team/team-cover1.jpg'); background-size:cover;">
+              <div class="overlay text-center">
+                <h3 class="white">$69.00</h3>
+                <h5 class="light light-white">1 - 5 sessions / month</h5>
+              </div>
+            </div>
+            <img src="img/team/team3.jpg" alt="Team Image" class="avatar">
+            <div class="title">
+              <h4>Ben Adamson</h4>
+              <h5 class="muted regular">Fitness Instructor</h5>
+            </div>
+            <button data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill">Sign Up Now</button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="team text-center">
+            <div class="cover" style="background:url('img/team/team-cover2.jpg'); background-size:cover;">
+              <div class="overlay text-center">
+                <h3 class="white">$69.00</h3>
+                <h5 class="light light-white">1 - 5 sessions / month</h5>
+              </div>
+            </div>
+            <img src="img/team/team1.jpg" alt="Team Image" class="avatar">
+            <div class="title">
+              <h4>Eva Williams</h4>
+              <h5 class="muted regular">Personal Trainer</h5>
+            </div>
+            <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill ripple">Sign Up Now</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="team text-center">
+            <div class="cover" style="background:url('img/team/team-cover3.jpg'); background-size:cover;">
+              <div class="overlay text-center">
+                <h3 class="white">$69.00</h3>
+                <h5 class="light light-white">1 - 5 sessions / month</h5>
+              </div>
+            </div>
+            <img src="img/team/team2.jpg" alt="Team Image" class="avatar">
+            <div class="title">
+              <h4>John Phillips</h4>
+              <h5 class="muted regular">Personal Trainer</h5>
+            </div>
+            <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill ripple">Sign Up Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="pricing" class="section">
+    <div class="container">
+      <div class="row title text-center">
+        <h2 class="margin-top white">Pricing</h2>
+        <h4 class="light white">Choose your favorite pricing plan and sign up today!</h4>
+      </div>
+      <div class="row no-margin">
+        <div class="col-md-7 no-padding col-md-offset-5 pricings text-center">
+          <div class="pricing">
+            <div class="box-main active" data-img="img/pricing1.jpg">
+              <h4 class="white">Yoga Pilates</h4>
+              <h4 class="white regular light">$850.00 <span class="small-font">/ year</span></h4>
+              <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill">Sign Up Now</a>
+              <i class="info-icon icon_question"></i>
+            </div>
+            <div class="box-second active">
+              <ul class="white-list text-left">
+                <li>One Personal Trainer</li>
+                <li>Big gym space for training</li>
+                <li>Free tools &amp; props</li>
+                <li>Free locker</li>
+                <li>Free before / after shower</li>
+              </ul>
+            </div>
+          </div>
+          <div class="pricing">
+            <div class="box-main" data-img="img/pricing2.jpg">
+              <h4 class="white">Cardio Training</h4>
+              <h4 class="white regular light">$100.00 <span class="small-font">/ year</span></h4>
+              <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill">Sign Up Now</a>
+              <i class="info-icon icon_question"></i>
+            </div>
+            <div class="box-second">
+              <ul class="white-list text-left">
+                <li>One Personal Trainer</li>
+                <li>Big gym space for training</li>
+                <li>Free tools &amp; props</li>
+                <li>Free locker</li>
+                <li>Free before / after shower</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-padded blue-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="owl-twitter owl-carousel">
+            <div class="item text-center">
+              <i class="icon fa fa-twitter"></i>
+              <h4 class="white light">To enjoy the glow of good health, you must exercise.</h4>
+              <h4 class="light-white light">#health #training #exercise</h4>
+            </div>
+            <div class="item text-center">
+              <i class="icon fa fa-twitter"></i>
+              <h4 class="white light">To enjoy the glow of good health, you must exercise.</h4>
+              <h4 class="light-white light">#health #training #exercise</h4>
+            </div>
+            <div class="item text-center">
+              <i class="icon fa fa-twitter"></i>
+              <h4 class="white light">To enjoy the glow of good health, you must exercise.</h4>
+              <h4 class="light-white light">#health #training #exercise</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content modal-popup">
+        <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
+        <h3 class="white">Sign Up</h3>
+        <form action="" class="popup-form">
+          <input type="text" class="form-control form-white" placeholder="Full Name">
+          <input type="text" class="form-control form-white" placeholder="Email Address">
+          <div class="dropdown">
+            <button id="dLabel" class="form-control form-white dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Pricing Plan
+            </button>
+            <ul class="dropdown-menu animated fadeIn" role="menu" aria-labelledby="dLabel">
+              <li class="animated lightSpeedIn"><a href="#">1 month membership ($150)</a></li>
+              <li class="animated lightSpeedIn"><a href="#">3 month membership ($350)</a></li>
+              <li class="animated lightSpeedIn"><a href="#">1 year membership ($1000)</a></li>
+              <li class="animated lightSpeedIn"><a href="#">Free trial class</a></li>
+            </ul>
+          </div>
+          <div class="checkbox-holder text-left">
+            <div class="checkbox">
+              <input type="checkbox" value="None" id="squaredOne" name="check" />
+              <label for="squaredOne"><span>I Agree to the <strong>Terms &amp; Conditions</strong></span></label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
 
-    <script>
-		function myFunction() {
-		    window.location.href = "<?=  APPROOT . 'register.php' ?>";
-		}
-	</script>
-
+  <!-- Image Wrapper -->
+    <?php require_once ("include/footer.php"); ?> 
 
 </body>
 </html>

@@ -1,12 +1,45 @@
-<!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            &copy; SPIN. All rights reserved. - Powered By:  <a href="http://snowballmedia.com" title="Snowball Media" target="_blank">Snowball Media and Advertising</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-      </div>
+<footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 text-center-mobile">
+                    <h3 class="white">Reserve a Free Trial Class!</h3>
+                    <h5 class="light regular light-white">Shape your body and improve your health.</h5>
+                    <a href="#" class="btn btn-blue ripple trial-button">Start Free Trial</a>
+                </div>
+                <div class="col-sm-6 text-center-mobile">
+                    <h3 class="white">Opening Hours <span class="open-blink"></span></h3>
+                    <div class="row opening-hours">
+                        <div class="col-sm-6 text-center-mobile">
+                            <h5 class="light-white light">Mon - Fri</h5>
+                            <h3 class="regular white">9:00 - 22:00</h3>
+                        </div>
+                        <div class="col-sm-6 text-center-mobile">
+                            <h5 class="light-white light">Sat - Sun</h5>
+                            <h3 class="regular white">10:00 - 18:00</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row bottom-footer text-center-mobile">
+                <div class="col-sm-8">
+                    <p>&copy; 2016 - <script>document.write(new Date().getFullYear())</script> Car Financing Help | Powered By 
+        <a href="http://www.vstudiozzz.com/" target="_blank">Vstudiozzz Edmonton</a></p>
+                </div>
+                <div class="col-sm-4 text-right text-center-mobile">
+                    <ul class="social-footer">
+                        <li><a href="http://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="http://www.twitter.com/"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://plus.google.com/"><i class="fa fa-google-plus"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Holder for mobile navigation -->
+    <div class="mobile-nav">
+        <ul>
+        </ul>
+        <a href="#" class="close-link"><i class="arrow_up"></i></a>
     </div>
 
 <!--google analytics-->
@@ -28,62 +61,8 @@
     <!-- Bootstrap -->
     <script src="<?= APPROOT ?>vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     
-    <!-- Time Picker -->
-    <script type="text/javascript" src="<?= APPROOT ?>vendors/bootstrap-daterangepicker/dist/jquery.timepicker.js"></script>
-    <script type="text/javascript" src="<?= APPROOT ?>vendors/bootstrap-daterangepicker/dist/bootstrap-datepicker.js"></script>
-   
-
-    <!-- FastClick -->
-    <script src="<?= APPROOT ?>vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="<?= APPROOT ?>vendors/nprogress/nprogress.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="<?= APPROOT ?>vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="<?= APPROOT ?>vendors/iCheck/icheck.min.js"></script>
-    
-    <!-- bootstrap-wysiwyg -->
-    <script src="<?= APPROOT ?>vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
-    <script src="<?= APPROOT ?>vendors/google-code-prettify/src/prettify.js"></script>
-    <!-- jQuery Tags Input -->
-    <script src="<?= APPROOT ?>vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
-    <!-- Switchery -->
-    <script src="<?= APPROOT ?>vendors/switchery/dist/switchery.min.js"></script>
-    <!-- Select2 -->
-    <script src="<?= APPROOT ?>vendors/select2/dist/js/select2.full.min.js"></script>
-    <!-- Parsley -->
-    <script src="<?= APPROOT ?>vendors/parsleyjs/dist/parsley.min.js"></script>
-    <!-- Autosize -->
-    <script src="<?= APPROOT ?>vendors/autosize/dist/autosize.min.js"></script>
-    <!-- jQuery autocomplete -->
-    <script src="<?= APPROOT ?>vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
-    <!-- starrr -->
-    <script src="<?= APPROOT ?>vendors/starrr/dist/starrr.js"></script>
-    <!-- jQuery Sparklines -->
-    <script src="<?= APPROOT ?>vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-
-    <!-- Custom Theme Scripts -->
-    <script src="<?= APPROOT ?>build/js/custom.min.js"></script>
-
-    <!-- bootstrap-daterangepicker -->
-    <script src="<?= APPROOT ?>js/moment/moment.min.js"></script>
-    <script src="<?= APPROOT ?>js/datepicker/daterangepicker.js"></script>
-    <script src="<?= APPROOT ?>js/datepicker/dist/bootstrap-clockpicker.min.js"></script>
-
-    <!-- Datatables -->
-    <script src="<?= APPROOT ?>vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="<?= APPROOT ?>vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/jszip/dist/jszip.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="<?= APPROOT ?>vendors/pdfmake/build/vfs_fonts.js"></script>
+    <script src="<?= APPROOT ?>js/owl.carousel.min.js"></script>
+    <script src="<?= APPROOT ?>js/wow.min.js"></script>
+    <script src="<?= APPROOT ?>js/typewriter.js"></script>
+    <script src="<?= APPROOT ?>js/jquery.onepagenav.js"></script>
+    <script src="<?= APPROOT ?>js/main.js"></script>
