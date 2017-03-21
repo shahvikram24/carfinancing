@@ -20,9 +20,9 @@
       <div class="row intro-tables">
         <div class="col-md-12">
           <div class="intro-table intro-table-first text-center">
-            <h2 class="white heading">Welcome To CAR FINANCING HELP! We Can Offer You The Best Rates On Your LOAN, NO HIDDEN FEES AND NO CATCH.</h2>
-            <h5 class="white heading">BAD CREDIT? NO CREDIT? NO PROBLEM!</h5>
-            <a href="#" class="btn btn-white-fill">Sign Up Now</a>
+            <h2 class="white light">Welcome To CAR FINANCING HELP! We Can offer You the Best Rates on Your LOAN.</h2>
+            <h5 class="white heading">BAD CREDIT? NO CREDIT? New to Canada? Bankruptcy? New Job?... NO PROBLEM!</h5>
+            <a href="#" class="btn btn-white-fill">Get Approved Now!</a>
           </div>
         </div>
         <!-- <div class="col-md-4">
@@ -60,35 +60,35 @@
   <section id="services" class="section section-padded">
     <div class="container">
       <div class="row text-center title">
-        <h2>Services</h2>
-        <h4 class="light muted">Achieve the best results with our wide variety of training options!</h4>
+        <h2>Basic of Buying Car</h2>
+        <h4 class="light muted">Payments on car loans are calculated using three components:</h4>
       </div>
       <div class="row services">
         <div class="col-md-4">
           <div class="service">
             <div class="icon-holder">
-              <img src="img/icons/heart-blue.png" alt="" class="icon">
+              <img src="img/icons/principal-icon.png" alt="" class="icon">
             </div>
-            <h4 class="heading">Cardio Training</h4>
-            <p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>
+            <h4 class="heading">Principal</h4>
+            <p class="description">The total cost of a vehicle including any fees that the lender or dealership may have for the car loan and any options or add-ons you choose.</p>
           </div>
         </div>
         <div class="col-md-4">
           <div class="service">
             <div class="icon-holder">
-              <img src="img/icons/guru-blue.png" alt="" class="icon">
+              <img src="img/icons/term-icon.png" alt="" class="icon">
             </div>
-            <h4 class="heading">Yoga Pilates</h4>
-            <p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>
+            <h4 class="heading">Term</h4>
+            <p class="description">The length of time that payments will be made for. Typically terms will run anywhere between 36 Months and 72 Months (Shorter or longer terms are sometimes possible).</p>
           </div>
         </div>
         <div class="col-md-4">
           <div class="service">
             <div class="icon-holder">
-              <img src="img/icons/weight-blue.png" alt="" class="icon">
+              <img src="img/icons/interest-rates-icon.png" alt="" class="icon">
             </div>
-            <h4 class="heading">Power Training</h4>
-            <p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>
+            <h4 class="heading">Interest Rates</h4>
+            <p class="description">The percentage that the lender is charging for you to borrow money. Interest rates can vary depending on whether the vehicle and the risk the lender perceives in lending the loan.</p>
           </div>
         </div>
       </div>
@@ -97,101 +97,87 @@
   </section>
   <section id="team" class="section gray-bg">
     <div class="container">
-      <div class="row title text-center">
-        <h2 class="margin-top">Team</h2>
-        <h4 class="light muted">We're a dream team!</h4>
+      <div class="row text-center title">
+        <h2>What You Need</h2>
+        <h4 class="light muted">What You Need To Get Approved</h4>
       </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="team text-center">
-            <div class="cover" style="background:url('img/team/team-cover1.jpg'); background-size:cover;">
-              <div class="overlay text-center">
-                <h3 class="white">$69.00</h3>
-                <h5 class="light light-white">1 - 5 sessions / month</h5>
-              </div>
+      <div class="row services">
+        <div class="col-md-3">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="img/icons/principal-icon.png" alt="" class="icon">
             </div>
-            <img src="img/team/team3.jpg" alt="Team Image" class="avatar">
-            <div class="title">
-              <h4>Ben Adamson</h4>
-              <h5 class="muted regular">Fitness Instructor</h5>
-            </div>
-            <button data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill">Sign Up Now</button>
+            <h4 class="heading">Employment or Income</h4>
+            <p class="description">Typically you need to be at your current job for three or more months and make at least $1500/month.</p>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="team text-center">
-            <div class="cover" style="background:url('img/team/team-cover2.jpg'); background-size:cover;">
-              <div class="overlay text-center">
-                <h3 class="white">$69.00</h3>
-                <h5 class="light light-white">1 - 5 sessions / month</h5>
-              </div>
+        <div class="col-md-3">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="img/icons/term-icon.png" alt="" class="icon">
             </div>
-            <img src="img/team/team1.jpg" alt="Team Image" class="avatar">
-            <div class="title">
-              <h4>Eva Williams</h4>
-              <h5 class="muted regular">Personal Trainer</h5>
-            </div>
-            <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill ripple">Sign Up Now</a>
+            <h4 class="heading">Current Address</h4>
+            <p class="description">In order to complete your loan documents you must provide the lender with your current address.</p>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="team text-center">
-            <div class="cover" style="background:url('img/team/team-cover3.jpg'); background-size:cover;">
-              <div class="overlay text-center">
-                <h3 class="white">$69.00</h3>
-                <h5 class="light light-white">1 - 5 sessions / month</h5>
-              </div>
+        <div class="col-md-3">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="img/icons/interest-rates-icon.png" alt="" class="icon">
             </div>
-            <img src="img/team/team2.jpg" alt="Team Image" class="avatar">
-            <div class="title">
-              <h4>John Phillips</h4>
-              <h5 class="muted regular">Personal Trainer</h5>
+            <h4 class="heading">Driver's license</h4>
+            <p class="description">It is necessary to have a valid driver’s license and be the age of majority in the province that you live in. </p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="img/icons/principal-icon.png" alt="" class="icon">
             </div>
-            <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill ripple">Sign Up Now</a>
+            <h4 class="heading">Bank Account</h4>
+            <p class="description">The lender wants to be able to take the payment out of your bank account each month. The easiest way to do this is to get a void cheque.</p>
           </div>
         </div>
       </div>
     </div>
+    <div class="cut cut-bottom"></div>
   </section>
   <section id="pricing" class="section">
     <div class="container">
       <div class="row title text-center">
-        <h2 class="margin-top white">Pricing</h2>
-        <h4 class="light white">Choose your favorite pricing plan and sign up today!</h4>
+        <h2 class="margin-top white">SO WHY CAR FINANCING HELP?</h2>
+        <h4 class="light white">WITH CAR FINANCING HELP YOU COULD BE APPLYING TODAY AND DRIVING TOMORROW!</h4>
       </div>
       <div class="row no-margin">
         <div class="col-md-7 no-padding col-md-offset-5 pricings text-center">
           <div class="pricing">
             <div class="box-main active" data-img="img/pricing1.jpg">
-              <h4 class="white">Yoga Pilates</h4>
-              <h4 class="white regular light">$850.00 <span class="small-font">/ year</span></h4>
-              <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill">Sign Up Now</a>
+              <h4 class="white">CONVENIENT ONLINE APPLICATION</h4>
+              
+              <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill">Get Approved Now!</a>
               <i class="info-icon icon_question"></i>
             </div>
             <div class="box-second active">
               <ul class="white-list text-left">
-                <li>One Personal Trainer</li>
-                <li>Big gym space for training</li>
-                <li>Free tools &amp; props</li>
-                <li>Free locker</li>
-                <li>Free before / after shower</li>
+                <li>No Time Consuming</li>
+                <li>Takes 2 minutes to complete</li>
+                <li>We only ask for information we need</li>
+                <li>You can call us at 1-000-000-0000</li>
               </ul>
             </div>
           </div>
           <div class="pricing">
             <div class="box-main" data-img="img/pricing2.jpg">
-              <h4 class="white">Cardio Training</h4>
-              <h4 class="white regular light">$100.00 <span class="small-font">/ year</span></h4>
-              <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill">Sign Up Now</a>
+              <h4 class="white">Car Refinancing</h4>
+              <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill">Apply Today!</a>
               <i class="info-icon icon_question"></i>
             </div>
             <div class="box-second">
               <ul class="white-list text-left">
-                <li>One Personal Trainer</li>
-                <li>Big gym space for training</li>
-                <li>Free tools &amp; props</li>
-                <li>Free locker</li>
-                <li>Free before / after shower</li>
+                <li>You can re-finance your car</li>
+                <li>Has atleast 10 months payments</li>
+                <li>99.99% times reduced monthly payments </li>
+                <li>99.99% times reduced interest rates.</li>
               </ul>
             </div>
           </div>
@@ -205,19 +191,10 @@
         <div class="col-md-8 col-md-offset-2">
           <div class="owl-twitter owl-carousel">
             <div class="item text-center">
-              <i class="icon fa fa-twitter"></i>
-              <h4 class="white light">To enjoy the glow of good health, you must exercise.</h4>
-              <h4 class="light-white light">#health #training #exercise</h4>
-            </div>
-            <div class="item text-center">
-              <i class="icon fa fa-twitter"></i>
-              <h4 class="white light">To enjoy the glow of good health, you must exercise.</h4>
-              <h4 class="light-white light">#health #training #exercise</h4>
-            </div>
-            <div class="item text-center">
-              <i class="icon fa fa-twitter"></i>
-              <h4 class="white light">To enjoy the glow of good health, you must exercise.</h4>
-              <h4 class="light-white light">#health #training #exercise</h4>
+              <h4 class="white light">Car Financing Help - Finance Application</h4>
+              <h4 class="light-white light">Your online application takes only 2 minutes to complete and we only ask for information we actually need. Start by filling out now</h4>
+              <a href="#" class="btn btn-white-fill">Get Approved Now!</a>
+              <h4 class="light-white light">Or feel free to call us at 1-000-000-0000</h4>
             </div>
           </div>
         </div>
