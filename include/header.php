@@ -14,10 +14,9 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right main-nav">
           <li><a href="#intro">Home</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue">Sign Up</a></li>
+          <li><a href="contact.php">Contact Us</a></li>
+          <li><a href="tel:1-000-000-0000">1-000-000-0000</a></li>
+          <li><a href="#" class="btn btn-blue btn-sm">Get Approved Today</a></li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->

@@ -143,7 +143,7 @@ header .typed-cursor {
 	font-size: 60px;
 	display: inline-block;
 	margin: 0 10px;
-	color: #00a8ff;
+	color: #40aa46;
 	-webkit-animation-name: flash;
 	animation-name: flash;
 	-webkit-animation-duration: 1s;
@@ -154,7 +154,7 @@ header .typed-cursor {
 
 a {
 	text-decoration: none;
-	color: #00a8ff;
+	color: #40aa46;
 	-webkit-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
@@ -170,7 +170,7 @@ nav.navbar {
 }
 
 nav.navbar .navbar-nav li.active a:not(.btn) {
-	color: #00a8ff !important;
+	color: #40aa46 !important;
 }
 
 nav.navbar-fixed-top {
@@ -209,7 +209,7 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 }
 
 .btn.btn-blue {
-	background: #00a8ff;
+	background: #40aa46;
 }
 
 .btn.btn-blue:hover {
@@ -217,14 +217,14 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 }
 
 .btn.btn-blue-fill {
-	color: #00a8ff;
-	border-color: #00a8ff;
+	color: #40aa46;
+	border-color: #40aa46;
 	background: transparent;
 }
 
 .btn.btn-blue-fill:hover {
 	color: white;
-	background: #00a8ff;
+	background: #40aa46;
 }
 
 .btn.btn-white-fill {
@@ -235,7 +235,7 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 }
 
 .btn.btn-white-fill:hover {
-	color: #00a8ff;
+	color: #40aa46;
 	background: #fff;
 }
 
@@ -487,7 +487,7 @@ section {
 }
 
 .service:hover {
-	border-color: #00a8ff;
+	border-color: #40aa46;
 }
 
 .service:hover .icon-holder {
@@ -549,7 +549,7 @@ section {
 /* Pricing */
 
 #pricing {
-	background: #00a8ff url('../img/pricing1.jpg') no-repeat center center;
+	background: #40aa46 url('../img/pricing1.jpg') no-repeat center center;
 	-webkit-background-size: cover;
 	background-size: cover;
 	-webkit-transition: background-image 0.6s linear 0.3s;
@@ -618,7 +618,7 @@ section {
 }
 
 .pricings .pricing .box-main.active {
-	background: #00a8ff;
+	background: #40aa46;
 	-webkit-transform: translateX(-99%);
 	-ms-transform: translateX(-99%);
 	transform: translateX(-99%);
@@ -635,12 +635,12 @@ section {
 
 .pricings .pricing .box-second.active {
 	opacity: 1;
-	background: #00a8ff;
+	background: #40aa46;
 }
 
 .pricings .pricing.active .box-main,
 .pricings .pricing .box-second {
-	background: #00a8ff;
+	background: #40aa46;
 }
 
 .pricings .pricing .box-main a.btn {
@@ -720,7 +720,7 @@ footer .social-footer li a {
 }
 
 footer .social-footer li:hover a {
-	color: #00a8ff;
+	color: #40aa46;
 }
 /* Form Control */
 
@@ -839,12 +839,12 @@ footer .social-footer li:hover a {
 .popup-form .dropdown .dropdown-menu li a {
 	width: 100%;
 	padding: 15px 30px;
-	color: #00a8ff;
+	color: #40aa46;
 }
 
 .popup-form .dropdown .dropdown-menu li:hover a {
 	color: #fff;
-	background: #00a8ff;
+	background: #40aa46;
 }
 
 /* Checkbox */
@@ -915,7 +915,7 @@ footer .social-footer li:hover a {
 .btn.btn-submit {
 	width: 100%;
 	margin-top: 30px;
-	color: #00a8ff;
+	color: #40aa46;
 	border: 2px solid #fff;
 	background: #fff;
 }
@@ -925,7 +925,7 @@ footer .social-footer li:hover a {
 }
 
 .btn.btn-submit:hover {
-	color: #00a8ff;
+	color: #40aa46;
 	background: #fff;
 }
 
@@ -979,7 +979,7 @@ footer .social-footer li:hover a {
 	width: 100%;
 	padding: 15px 0;
 	color: #fff;
-	background: #00a8ff;
+	background: #40aa46;
 }
 
 .row.title {
@@ -1016,11 +1016,11 @@ footer .social-footer li:hover a {
 }
 
 .blue {
-	color: #00a8ff;
+	color: #40aa46;
 }
 
 .blue-bg {
-	background: #00a8ff;
+	background: #40aa46;
 }
 
 .muted {
@@ -1076,10 +1076,10 @@ footer .social-footer li:hover a {
 		width: 100%;
 		padding: 50px 50px 0;
 		text-align: left;
-		background: #00a8ff;
+		background: #40aa46;
 	}
 	.pricings .pricing .box-main.active {
-		background: #00a8ff;
+		background: #40aa46;
 		-webkit-transform: translateX(0%);
 		-ms-transform: translateX(0%);
 		transform: translateX(0%);
