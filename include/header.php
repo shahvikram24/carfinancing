@@ -8,16 +8,15 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#"><img src="img/logo.png" data-active-url="img/logo-active.png" alt=""></a>
+        <a class="navbar-brand" href="#"><img src="<?= APPROOT ?>img/logo.png" data-active-url="<?= APPROOT ?>img/logo-active.png" alt=""></a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right main-nav">
           <li><a href="#intro">Home</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue">Sign Up</a></li>
+          <li><a href="contact.php">Contact</a></li>
+          <li><a href="tel:1-800-000-0000">1(800) 000-0000</a></li>
+          <li><a href="#" class="btn btn-blue">Get Approved Today</a></li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->

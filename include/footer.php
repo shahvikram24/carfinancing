@@ -1,23 +1,13 @@
 <footer>
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 text-center-mobile">
-                    <h3 class="white">Reserve a Free Trial Class!</h3>
-                    <h5 class="light regular light-white">Shape your body and improve your health.</h5>
-                    <a href="#" class="btn btn-blue ripple trial-button">Start Free Trial</a>
+                <div class="col-sm-10 text-justify">
+                    <h3 class="white">Welcome to Car Financing Help!</h3>
+                    <h5 class="light regular light-white">We take pride in helping people get the vehicle of their dreams. A completely free service for Canadians of all credit types. Looking for car loan financing in Canada? We have the industries best financing solutions and we have a credit program that is just right for you.</h5>
+                    
                 </div>
-                <div class="col-sm-6 text-center-mobile">
-                    <h3 class="white">Opening Hours <span class="open-blink"></span></h3>
-                    <div class="row opening-hours">
-                        <div class="col-sm-6 text-center-mobile">
-                            <h5 class="light-white light">Mon - Fri</h5>
-                            <h3 class="regular white">9:00 - 22:00</h3>
-                        </div>
-                        <div class="col-sm-6 text-center-mobile">
-                            <h5 class="light-white light">Sat - Sun</h5>
-                            <h3 class="regular white">10:00 - 18:00</h3>
-                        </div>
-                    </div>
+                <div class="col-sm-2 text-center-mobile">
+                    <a href="#" class="btn btn-blue ripple trial-button">Get Car Loan Today!</a>
                 </div>
             </div>
             <div class="row bottom-footer text-center-mobile">

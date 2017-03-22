@@ -138,7 +138,7 @@ $this->Id = mysql_insert_id();
 
 function update($id)
 {
-$sql = " UPDATE admin SET  id = '$this->id',username = '$this->username',email = '$this->email',SALT = '$this->SALT',HASH = '$this->HASH',Status = '$this->Status' WHERE Id = $id ";
+$sql = " UPDATE admin SET  username = '$this->username',email = '$this->email',SALT = '$this->SALT',HASH = '$this->HASH',Status = '$this->Status' WHERE Id = $id ";
 $result = mysql_query($sql);
 }
 
@@ -187,7 +187,7 @@ public function sendRecoverPasswordLink($Email,$Encryption)
 		 $to = $Email;
 
 		//define the subject of the email 
-		$subject = "Password Reset Feature from SupeCarLoans";
+		$subject = "Password Reset Feature from Car Financing Help";
 		//create a boundary string. It must be unique 
 		//so we use the MD5 algorithm to generate a random hash 
 		$random_hash = md5(date('r', time())); 
@@ -197,7 +197,7 @@ public function sendRecoverPasswordLink($Email,$Encryption)
 		// To send HTML mail, the Content-type header must be set
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-		$headers .= "From: no-reply@SupeCarLoans.ca" .  "\r\n";
+		$headers .= "From: no-reply@carfinancing.help" .  "\r\n";
 		//add boundary string and mime type specification 
 		//$headers .= "\r\nContent-Type: multipart/mixed; boundary=\"PHP-mixed-".$random_hash."\""; 
 
@@ -208,7 +208,7 @@ public function sendRecoverPasswordLink($Email,$Encryption)
 		//emailtemplate for password reset starts here
 		
 		//setting reset password link
-		$resetPasswordLink = ADMINAPPROOT . "emailchangepassword.php?" . $Encryption;
+		$resetPasswordLink = ADMINAPPROOT . "change-password.php?" . $Encryption;
 		
 		//Fetch logo from server for email template
 		$logo = APPROOT."images/avatar/logo.png";

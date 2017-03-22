@@ -146,5 +146,42 @@ class Support extends BaseClass{
 		else
 			return false;
 	}
+
+	public function GetAffiliateSupportList()
+		{
+			
+				$SQL = "SELECT * FROM tblsupport S
+						WHERE Status = 1 AND SupportStatus IN (1)  AND AffiliateId <> 0 
+						Order By DateAdded
+						";
+
+					//echo "<br/>" . $SQL;
+
+				$ResultSet = new ResultSet();
+				if($ResultSet->LoadResult($SQL))
+					return $ResultSet;
+				else
+					return false;
+		}
+
+	public function GetDealerSupportList()
+		{
+			
+				$SQL = "SELECT * FROM tblsupport S
+						WHERE Status = 1 AND SupportStatus IN (1)  AND DealerId <> 0 
+						Order By DateAdded
+						";
+
+					//echo "<br/>" . $SQL;
+
+				$ResultSet = new ResultSet();
+				if($ResultSet->LoadResult($SQL))
+					return $ResultSet;
+				else
+					return false;
+		}
+
+
+
 }
 ?>

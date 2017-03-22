@@ -1,178 +1,182 @@
-<?php
-
-		require_once("../include/files.php");
-		
-if(isset($_SESSION['affiliate_id']))
-{
-	header("Location: dashboard.php");
-}
-
-
-
-if( isset($_POST['LostPassword']) && $_POST['LostPassword'] == 'AddIt' )
-{  
-	if(Security::CheckUserExistsByLogin($_POST['username'], ' AND STATUS IN (1)')) 
-    {
-    	$login = new Affiliate();
-    	$login->loadAffiliateByCode("email like '".$_POST['username'] . "'");
-    	$Encryption = $Encrypt->encrypt('affiliate_id=' . $login->affiliate_id . '&ExpireDate=' . date("Y-m-d", mktime(0, 0, 0, date("m") , date("d") + 2, date("Y"))) . '&ResetAccount=true');
-    	
-    	if($login->sendRecoverPasswordLink($login->email,$Encryption))
-    	{
-    		header("Location:".AFFILIATEURL . 'index.php?' . $Encrypt->encrypt("Message=Check your e-mail for the confirmation link.&Success=true"));
-    		exit();
-    	}
-    }
-    else{
-    	header("Location:".AFFILIATEURL . 'index.php?' . $Encrypt->encrypt("Message=User does not exist.&Success=false"));
-    		exit();
-    }
-
-}
-
-
-if( isset($_POST['submit']) && $_POST['submit'] == 'Login' )   
-{   
-	//echo "<br/>===================== 1454 <br/>"; 
-	
-	if(Security::Authorize($_POST['username'],$_POST['password']))
-	{
-		header("Location: account.php");
-	}
-	else
-	{
-		$Message="Invalid username / Password";
-	}
-
-}
+<?php 
+  require_once("../include/files.php");
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>SupeCarLoans | Affiliate </title>
-
-<!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="../css/normalize_login.css" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet">
-    
-
-    <!-- Custom Fonts -->
-    <link href="../font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../js/bootstrap.min.js"></script>
-	<script src="../js/index.js"></script>
-
-<script language = "Javascript">
-  
-function Validate()
-{
-
-    if (document.login_form.username.value == '') 
-    {
-        alert('Please fill in your username!');
-        return false;
-    }
-    if (document.login_form.password.value == '') 
-    {
-       alert('Please fill in your password!');
-      return false;
-    }
-
-    return true;
-}
-</script>
-
-
-</head>
-
+<!DOCTYPE html>
+<html lang="en">
+<?php require_once ("../include/title.php"); ?>  
 <body>
+    <div class="preloader">
+    
+  </div>
+    <!-- Header Wrapper -->
+    <?php require_once ("../include/header.php"); ?>  
 
-    <div class="form">
-      
-      <ul class="tab-group">
-        <li class="tab"><a href="../index.php">Home</a></li>
-        <li class="tab active"><a href="#login">Log In</a></li>
-        <li class="tab"><a href="signup.php">Register</a></li>
-      </ul>
-      
-      
-        
-        <div id="login">   
-          <h1>Welcome Back!</h1>
-          <?php   
-                                    
-            if( isset ($Message) && $Message != "" ) 
-            { 
-                if($Success && $Success == 'true')
-                    echo '<div class="col-sm-12" style="color:green;">'.  $Message . '</div>';
-                else
-                    echo '<div class="col-sm-12" style="color:red;">'.  $Message . '</div>';
-            }
-         ?>
-          <form name="login_form" method="post">
-          
-           	  <div class="field-wrap">
-	            <input type="text" placeholder="Email address" required="" id="username" name="username"/>
-	          </div>
-          
-	          <div class="field-wrap">
-	            <input type="password" placeholder="Password" required="" id="password" name="password"/>
-	          </div>
-          
-	          <p class="forgot"><a href="" data-toggle="modal" data-target="#lostPassword">Forgot Password?</a></p>
-	          
-	          <button name="submit" type="submit" value="Login" class="button button-block" onclick="return Validate();" >Login</button>
-          
-          </form>
+    <!-- Image Wrapper -->
+    <?php require_once ("../include/slider.php"); ?>  
 
+    <section>
+    <div class="cut cut-top"></div>
+    <div class="container">
+      <div class="row intro-tables">
+        <div class="col-md-12">
+          <div class="intro-table intro-table-first text-center">
+            <h2 class="white light">Welcome To CAR FINANCING HELP! We Can offer You the Best Rates on Your LOAN.</h2>
+            <h5 class="white heading">BAD CREDIT? NO CREDIT? New to Canada? Bankruptcy? New Job?... NO PROBLEM!</h5>
+            <a href="#" class="btn btn-white-fill">Get Approved Now!</a>
+          </div>
         </div>
         
-      
-      
-	</div> <!-- /form -->
-    
-    
-<form method="post" autocomplete="off" action="index.php">
-  <div class="modal fade" id="lostPassword" tabindex="-1" role="dialog" aria-labelledby="lostPasswordLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="lostPasswordLabel">Please enter your username or email address. 
-                      <br/>You will receive a link to create a new password via email.
-          </h4>
-        </div>
-        <div class="modal-body">          
-              <div class="container-fluid">
-              <div class="row">
-                
-                <input type="text" class="form-control" id="job-Location" name="username" placeholder="Enter your username here:" autocomplete="off" required>
-              </div>
+      </div>
+    </div>
+  </section>
+  <section id="services" class="section section-padded">
+    <div class="container">
+      <div class="row text-center title">
+        <h2>Basic of Buying Car</h2>
+        <h4 class="light muted">Payments on car loans are calculated using three components:</h4>
+      </div>
+      <div class="row services">
+        <div class="col-md-4">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="../img/icons/principal-icon.png" alt="" class="icon">
             </div>
+            <h4 class="heading">Principal</h4>
+            <p class="description">The total cost of a vehicle including any fees that the lender or dealership may have for the car loan and any options or add-ons you choose.</p>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" id="applyNow">Get&nbsp;New&nbsp;Password</button>
-          <input type="hidden" name="LostPassword" value="AddIt" />
+        <div class="col-md-4">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="../img/icons/term-icon.png" alt="" class="icon">
+            </div>
+            <h4 class="heading">Term</h4>
+            <p class="description">The length of time that payments will be made for. Typically terms will run anywhere between 36 Months and 72 Months (Shorter or longer terms are sometimes possible).</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="../img/icons/interest-rates-icon.png" alt="" class="icon">
+            </div>
+            <h4 class="heading">Interest Rates</h4>
+            <p class="description">The percentage that the lender is charging for you to borrow money. Interest rates can vary depending on whether the vehicle and the risk the lender perceives in lending the loan.</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</form>
-    
-  </body>
+    <div class="cut cut-bottom"></div>
+  </section>
+  <section id="team" class="section gray-bg">
+    <div class="container">
+      <div class="row text-center title">
+        <h2>What You Need</h2>
+        <h4 class="light muted">What You Need To Get Approved</h4>
+      </div>
+      <div class="row services">
+        <div class="col-md-3">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="../img/icons/principal-icon.png" alt="" class="icon">
+            </div>
+            <h4 class="heading">Employment or Income</h4>
+            <p class="description">Typically you need to be at your current job for three or more months and make at least $1500/month.</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="../img/icons/term-icon.png" alt="" class="icon">
+            </div>
+            <h4 class="heading">Current Address</h4>
+            <p class="description">In order to complete your loan documents you must provide the lender with your current address.</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="../img/icons/interest-rates-icon.png" alt="" class="icon">
+            </div>
+            <h4 class="heading">Driver's license</h4>
+            <p class="description">It is necessary to have a valid driver’s license and be the age of majority in the province that you live in. </p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="service">
+            <div class="icon-holder">
+              <img src="../img/icons/principal-icon.png" alt="" class="icon">
+            </div>
+            <h4 class="heading">Bank Account</h4>
+            <p class="description">The lender wants to be able to take the payment out of your bank account each month. The easiest way to do this is to get a void cheque.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cut cut-bottom"></div>
+  </section>
+  <section id="pricing" class="section">
+    <div class="container">
+      <div class="row title text-center">
+        <h2 class="margin-top white">SO WHY CAR FINANCING HELP?</h2>
+        <h4 class="light white">WITH CAR FINANCING HELP YOU COULD BE APPLYING TODAY AND DRIVING TOMORROW!</h4>
+      </div>
+      <div class="row no-margin">
+        <div class="col-md-7 no-padding col-md-offset-5 pricings text-center">
+          <div class="pricing">
+            <div class="box-main active" data-img="../img/pricing1.jpg">
+              <h4 class="white">CONVENIENT ONLINE APPLICATION</h4>
+              
+              <a href="#" class="btn btn-white-fill">Get Approved Now!</a>
+              <i class="info-icon icon_question"></i>
+            </div>
+            <div class="box-second active">
+              <ul class="white-list text-left">
+                <li>No Time Consuming</li>
+                <li>Takes 2 minutes to complete</li>
+                <li>We only ask for information we need</li>
+                <li>You can call us at 1-000-000-0000</li>
+              </ul>
+            </div>
+          </div>
+          <div class="pricing">
+            <div class="box-main" data-img="../img/pricing2.jpg">
+              <h4 class="white">Car Refinancing</h4>
+              <a href="#" class="btn btn-white-fill">Apply Today!</a>
+              <i class="info-icon icon_question"></i>
+            </div>
+            <div class="box-second">
+              <ul class="white-list text-left">
+                <li>You can re-finance your car</li>
+                <li>Has atleast 10 months payments</li>
+                <li>99.99% times reduced monthly payments </li>
+                <li>99.99% times reduced interest rates.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-padded blue-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="owl-twitter owl-carousel">
+            <div class="item text-center">
+              <h4 class="white light">Car Financing Help - Finance Application</h4>
+              <h4 class="light-white light">Your online application takes only 2 minutes to complete and we only ask for information we actually need. Start by filling out now</h4>
+              <a href="#" class="btn btn-white-fill">Get Approved Now!</a>
+              <h4 class="light-white light">Or feel free to call us at 1-000-000-0000</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <!-- Image Wrapper -->
+    <?php require_once ("../include/footer.php"); ?> 
+
+</body>
 </html>

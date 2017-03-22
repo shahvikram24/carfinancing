@@ -22,7 +22,7 @@ $Support = new Support();
     }
 
     
-    header("Location:support-tickets.php?".$Encrypt->encrypt("Message=Your choice has been successfully selected.&Success=true"));
+    header("Location:member-tickets.php?".$Encrypt->encrypt("Message=Your choice has been successfully selected.&Success=true"));
           exit();
   }
 
@@ -33,12 +33,12 @@ $Support = new Support();
     $IdArray = implode($_REQUEST['selected'],",");
     if(Support::archiveSupport($IdArray))
     {
-      header('Location:support-tickets.php?'.$Encrypt->encrypt("Success=True&Message=Success: You have modified support tickets!"));
+      header('Location:member-tickets.php?'.$Encrypt->encrypt("Success=True&Message=Success: You have modified support tickets!"));
       exit();
     }
     else
     {
-      header('Location:support-tickets.php?'.$Encrypt->encrypt("Success=False&Message=Failure: Something went wrong!"));
+      header('Location:member-tickets.php?'.$Encrypt->encrypt("Success=False&Message=Failure: Something went wrong!"));
       exit();
     }
   }
@@ -86,7 +86,7 @@ $Support = new Support();
                     <div class="x_content">
 
                       <?php
-                          $Result = Support::GetAffiliateSupportList();
+                          $Result = Support::GetDealerSupportList();
                           
                           if($Result->TotalResults>0)
                           {               
@@ -100,7 +100,7 @@ $Support = new Support();
                               <th><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td></th>
                               <th>Name</th>
                               <th>Phone Number</th>
-                              <th>Email</th>
+                              <th>Dealership Name</th>
                               <th>Subject</th>
                               <th>Message</th>
                               <th>DateAdded</th>
@@ -118,13 +118,15 @@ $Support = new Support();
                   for($x = 0; $x < $Result->TotalResults ; $x++)
                   {
                     echo '<input type="text" style="display:none;" name="Id[]" value="'. $Encrypt->encrypt($Result->Result[$x]['Id'])  .'" />';
+                    $Dealer = new dealership();
+                    $Dealer->loadDealershipInfo($Result->Result[$x]['DealerId']);
                   ?>
                     
                     <tr class="">
                       <td><input type="checkbox" name="selected[]" value="<?php echo $Result->Result[$x]['Id']; ?>" /></td>
-                      <td><?= Affiliate::GetFullName($Result->Result[$x]['AffiliateId']); ?></td>
-                      <td><?= Affiliate::GetPhone($Result->Result[$x]['AffiliateId']); ?></td>
-                      <td><?= Affiliate::GetEmail($Result->Result[$x]['AffiliateId']); ?></td>
+                      <td><?= $Dealer->ContactName; ?></td>
+                      <td><?= $Dealer->Phone; ?></td>
+                      <td><?= $Dealer->DealershipName; ?></td>
                       <td><?php echo $Result->Result[$x]['Subject']; ?></td>
                       
                       <td><?php echo $Result->Result[$x]['Message']; ?></td>

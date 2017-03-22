@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Car Financing Help | Leads Management</title>
+    <title>Car Financing Help | Referral Program | Alberta | Saskatchwewan </title>
 
     <!-- Bootstrap -->
     <link href="<?= APPROOT ?>vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,9 +29,7 @@
     
     <!-- Custom Theme Style -->
     <link href="<?= APPROOT ?>build/css/custom.min.css" rel="stylesheet">
-
-    <!-- Animate.css -->
-    <link href="<?= APPROOT ?>css/animate.min.css" rel="stylesheet">
+   <link href="<?= APPROOT ?>css/animate.min.css" rel="stylesheet">
 
     <!-- Time Picker -->
     

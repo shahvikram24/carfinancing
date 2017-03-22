@@ -301,6 +301,21 @@ class Affiliate extends BaseClass{
 		
 	}
 
+	public function GetPhone($Id)
+	{
+		$SQL = "SELECT telephone  
+				FROM affiliate 
+				WHERE affiliate_id = " . $Id ;
+
+		//echo  "\n". $SQL . "\n";
+
+		parent::GetDALInstance()->SQLQuery($SQL);
+		$row = parent::GetDALInstance()->GetRow();
+
+		return ($row) ? $row["telephone"]  : 0;
+		
+	}
+
 	public function GetEmail($Id)
 	{
 		$SQL = "SELECT email  

@@ -164,7 +164,7 @@ class Security extends BaseClass {
 
        
 	
-        function ChangeAdminPassword($UserId, $NewPassword, $OldPassword='')
+        function ChangeAdminPassword($UserId, $OldPassword, $NewPassword)
         {
             if(NumberCheck($UserId))
             {

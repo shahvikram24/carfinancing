@@ -32,7 +32,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php require_once ("../include/title.php"); ?>
+<?php require_once ("inc/title.php"); ?>
 <script language = "Javascript">
   
 function Validate()
