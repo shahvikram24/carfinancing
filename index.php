@@ -153,8 +153,7 @@
           <div class="pricing">
             <div class="box-main active" data-img="img/pricing1.jpg">
               <h4 class="white">CONVENIENT ONLINE APPLICATION</h4>
-              
-              <a href="#" class="btn btn-white-fill">Get Approved Now!</a>
+              <a href="#"  class="btn btn-white-fill">Get Vehicle Loan Now!</a>
               <i class="info-icon icon_question"></i>
             </div>
             <div class="box-second active">
@@ -170,6 +169,7 @@
             <div class="box-main" data-img="img/pricing2.jpg">
               <h4 class="white">Car Refinancing</h4>
               <a href="#" class="btn btn-white-fill">Apply Today!</a>
+
               <i class="info-icon icon_question"></i>
             </div>
             <div class="box-second">
