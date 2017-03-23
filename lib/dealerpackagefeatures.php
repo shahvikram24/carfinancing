@@ -92,7 +92,10 @@ function LoadFeaturesByDealerId($DealerId, $DealerPackageId, $GetChildren = fals
 			
 				$SQL = "SELECT * FROM tbldealerpackagefeatures 
 						WHERE 	DealerId=" . $DealerId 
-								. " AND DealerPackageId =" . $DealerPackageId;
+								. " AND DealerPackageId =" . $DealerPackageId
+						. " ORDER BY TIMESTAMP DESC "
+
+						;
 				parent::GetDALInstance()->SQLQuery($SQL);
 
 				//echo "<br/><br/><br/><br/><br/><br/>".$SQL;

@@ -199,9 +199,7 @@ if(isset($_POST['SubmitSearch']) && $_POST['SubmitSearch'] == 'Upload Files')
 }
 
 
-	  $DealerId = $_SESSION['DealerId'];
-    $dealership = new dealership();
-    $dealership->loadDealershipInfo($DealerId);
+	  
 
     $Contact = new Contact();
     $Contact->loadContact($ContactId);

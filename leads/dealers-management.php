@@ -314,7 +314,8 @@
             <h4 class="modal-title" id="newTitleLabel">Add New Dealer Here</h4>
           </div>
           <div class="modal-body">          
-                        
+              <div class="row">
+                  <div class="col-md-6">               
                           <div class="form-group">
                             <label>Contact Name*</label>
                             <input name="ContactName" id="ContactName" type="text" value="" required class="form-control">
@@ -334,7 +335,8 @@
                             <label>Dealership Name*</label>
                             <input name="DealershipName" id="DealershipName" type="text" value="" required class="form-control" placeholder="Enter Working Dealership Name">
                           </div>
-                      
+                  </div>
+                  <div class="col-md-6">       
                           <div class="form-group">
                             <label>Dealership Address*</label>
                             <input name="Address" id="Address" type="text" value="" required class="form-control" placeholder="Enter Working Dealership Address">
@@ -348,9 +350,8 @@
                             <label>AMVIC Licence No.*</label>
                             <input name="LicenceNo" id="LicenceNo" type="text" value="" required class="form-control" placeholder="AMVIC Registeration Number" data-inputmask="'mask' : 'a999999'">
                           </div>
-
-
-                           
+                  </div>
+                </div>                          
 
           </div>
           <div class="modal-footer">

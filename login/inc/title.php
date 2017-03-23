@@ -38,4 +38,7 @@
     
     <link rel="stylesheet" type="text/css" href="<?= APPROOT ?>vendors/bootstrap-daterangepicker/dist/bootstrap-datepicker.css" />
 
+    <!-- switchery -->
+  <link rel="stylesheet" href="<?= APPROOT ?>vendors/switchery/switchery.min.css" />
+
   </head>

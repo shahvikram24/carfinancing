@@ -54,6 +54,8 @@
     <script src="<?= APPROOT ?>vendors/starrr/dist/starrr.js"></script>
     <!-- jQuery Sparklines -->
     <script src="<?= APPROOT ?>vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <!-- switchery -->
+    <script src="<?= APPROOT ?>vendors/switchery/switchery.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="<?= APPROOT ?>build/js/custom.min.js"></script>

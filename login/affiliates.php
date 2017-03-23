@@ -9,85 +9,12 @@
     exit();
   } 
 
-   if(isset($_POST['AddIt']) && $_POST['AddIt'] == 'AddIt')
-  {
-        if(Security::CheckLeadsExist($_POST['Email']))
-        {
-          header('Location:dealers-management.php?' . $Encrypt->encrypt("Message=Email is already registered in the system.&Success=false"));
-          exit();
-        }
-        else{
-              $dealership = new dealership();
-              $dealership->DealershipName = FormatInitCap($_POST['DealershipName']); 
-              $dealership->DealershipPlan = 5; 
-              $dealership->Address = $_POST['Address']; 
-              $dealership->Phone = $_POST['Phone']; 
-              $dealership->Email = $_POST['Email']; 
-              $dealership->Fax = $_POST['Fax']; 
-              $dealership->ContactName = $_POST['ContactName']; 
-              $dealership->LicenceNo = FormatInitCap($_POST['LicenceNo']); 
-              $dealership->Remarks = $_POST['Remarks']; 
-              $dealership->CreatedDate  = date('Y-m-d H:i:s');
-              $dealership->Approve = 1; 
-              $dealership->Status = 1; 
-              $dealerId = $dealership->addDealershipInfo();
+   $affiliate = new Affiliate();
+$ResultApproved = $affiliate->loadAllAffiliateInfo(' approved=1 AND status=1 ');
 
-              $dealerpackages = new dealerpackages();
-              $dealerpackages->AddDate = date('Y-m-d H:i:s');
-              $dealerpackages->ExpireDate = FormatDate(date('Y-m-d H:i:s', strtotime("+30 days")));
-              $dealerpackages->PlanId = 5;
-              $dealerpackages->Term = 0;
-              $dealerpackages->DealerId = $dealerId;
-              $dealerpackages->Timestamp = date('Y-m-d H:i:s');
-              $dealerpackages->Status = 1;
-              $DealerPackageId = $dealerpackages->InsertDealerPackage();
+$ResultPending = $affiliate->loadAllAffiliateInfo(' approved=2 AND status=1 ');
 
-              $login = new Login();
-              $Salt = GenerateSALT();
-              $Password = uniqid();
-
-              $login->Featured = $_POST['Featured']; 
-              $login->DealerId = $dealerId;
-              $login->EmailId = $_POST['Email'];
-              $login->SALT = $Salt;
-              $login->HASH = GenerateHASH($Salt, $Password);
-              $login->Status = 1;
-              $login->addCustomerInfo();
-
-              $login->sendEmailDealer($dealerId,$Password);
-
-          header('Location:dealers-management.php?' . $Encrypt->encrypt("Message=New user has been created successfully.&Success=true"));
-          exit();
-        }
-  }
-
-
-  $act = isset($_REQUEST["act"])?trim($_REQUEST["act"]):"";
-  if($act == "action")
-  {
-    if(isset($_REQUEST['selected']) && $_REQUEST['selected']!='')
-    {
-      $IdArray = implode($_REQUEST['selected'],",");
-    }
-    else{
-          header('Location:dealers-management.php?'.$Encrypt->encrypt("Success=false&Message=Failure: Select atleast one field to proceed!"));
-          exit();
-    }
-    
-    if(dealership::archiveDealers($IdArray))
-    {
-      header('Location:dealers-management.php?'.$Encrypt->encrypt("Success=true&Message=Success: You have successfullly revoked access!"));
-      exit();
-    }
-    else
-    {
-      header('Location:dealers-management.php?'.$Encrypt->encrypt("Success=false&Message=Failure: Something went wrong!"));
-      exit();
-    }
-  }
-
-  $dealership = new dealership();
-  $Result = $dealership->loadAllDealershipInfo($SQLWhere);
+$ResultRejected = $affiliate->loadAllAffiliateInfo(' approved=3 AND status=1 ');
 
 
 ?>  
@@ -120,12 +47,9 @@
               <div class="col-md-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Dealers Management<small>List of all dealers which are in the system</small></h2>
+                      <h2>Affiliate Management<small>List of all affiliates which are in the system</small></h2>
                       <div class="pull-right">
                           <a href="" data-toggle="modal" title="Add New" class="btn btn-primary"  data-toggle="modal" data-target="#newTitle"><i class="fa fa-plus"></i></a>
-
-                          
-                          <button type="button" data-toggle="tooltip" title="Delete" class="btn btn-danger" onclick="confirm('Are you sure?') ? $('#form-coupon').submit() : false;"><i class="fa fa-trash-o"></i></button>
                           
                         </div>
                         <div class="clearfix"></div>
@@ -135,16 +59,12 @@
                         <table id="datatable-buttons" class="table table-striped table-bordered">
                           <thead>
                             <tr>
-                              <th style="width: 1%"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></th>
-                              <th>Sr#</th>
-                              <th>Name</th>
-                              <th>Plan</th>
-                              <th>Today's&nbsp;Apps</th>
-                              <th>Total&nbsp;Apps&nbsp;Delivered</th>
-                              <th>Balance&nbsp;Remaining</th>
-                              <th>Plan&nbsp;Start&nbsp;Date</th>
-                              <th>Plan&nbsp;End&nbsp;Date</th>
-                              <th>&nbsp;</th>
+                                <th>#</th>
+                                <th>Affiliate&nbsp;Full&nbsp;Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Date Signup</th>
+                                <th>Status</th>
                             </tr>
                           </thead>
 
@@ -152,68 +72,91 @@
                           <tbody>
 
                             <?php
-
-                              $count = 1;
-                              if($Result->TotalResults>0)
+                              if($ResultPending || $ResultApproved || $ResultRejected)
                               {
-                                for($x = 0; $x < $Result->TotalResults ; $x++)
-                                { 
-                                  $DealerId = $Result->Result[$x]['Id'];
-                                  $DealerPackageId = dealerpackages::GetIdByDealerId($DealerId);
-                                  $AppsWithPackage = Package::GetApps($Result->Result[$x]['DealershipPlan']);
-                                                $Positive = dealercredits::CountPositive($DealerId,$DealerPackageId);
-                                                $Negative = dealercredits::CountNegative($DealerId,$DealerPackageId);
+                                  $count = 1;
+                                  if($ResultPending->TotalResults>0)
+                                  {
+                                    for($x = 0; $x < $ResultPending->TotalResults ; $x++)
+                                    { 
+                                      $affiliate_id = $ResultPending->Result[$x]['affiliate_id'];
+                            ?>
+                                  <tr>
+                        <?php $link =  ADMINAPPROOT . 'affiliateinfo.php?' . $Encrypt->encrypt('affiliate_id='.$affiliate_id); ?>
+                        
+                              <td><?php echo $count; ?></td>
+                              <td>
+                                <a href="<?= $link ?>">
+                                  <?php echo $ResultPending->Result[$x]['firstname'] . " " . $ResultPending->Result[$x]['lastname'] ; ?>
+                                </a>
+                              </td>
+                              <td><?php echo $ResultPending->Result[$x]['email']; ?></td>
+                              <td><?php echo $ResultPending->Result[$x]['telephone']; ?></td>
+                              <td><?php echo FormatDate($ResultPending->Result[$x]['date_added'],'M d, Y'); ?></td>
+                              <td><i class="fa fa-exclamation-triangle" aria-hidden="true" title="Awaiting"></i></td>
+                          </tr>
+                  <?php
+                    $count++;
+                }
+              }
+              
 
-                                                $Total = $Positive - $Negative;
+              if($ResultApproved->TotalResults>0)
+              {
+                for($x = 0; $x < $ResultApproved->TotalResults ; $x++)
+                { 
+                  $affiliate_id = $ResultApproved->Result[$x]['affiliate_id'];
+                ?>
+                    <tr>
+                        <?php $link =  ADMINAPPROOT . 'affiliateinfo.php?' . $Encrypt->encrypt('affiliate_id='.$affiliate_id); ?>
+                        <?php $affcount = AffiliateTransaction::Count($affiliate_id); ?>
+                              <td><?php echo $count; ?></td>
+                              <td>
+                                <a href="<?= $link ?>">
+                                  <?php echo $ResultApproved->Result[$x]['firstname'] . " " . $ResultApproved->Result[$x]['lastname']. " (". $affcount . ")"; ?>
+                                </a>
+                              </td>
+                              <td><?php echo $ResultApproved->Result[$x]['email']; ?></td>
+                              <td><?php echo $ResultApproved->Result[$x]['telephone']; ?></td>
+                              <td><?php echo FormatDate($ResultApproved->Result[$x]['date_added'],'M d, Y'); ?></td>
+                              <td><i class="fa fa-check" aria-hidden="true" title="Approved"></i></td>
+                          </tr>
+                  <?php
+                    $count++;
+                }
+              }
+              
+              if($ResultRejected->TotalResults>0)
+              {
+                for($x = 0; $x < $ResultRejected->TotalResults ; $x++)
+                { 
+                  $affiliate_id = $ResultRejected->Result[$x]['affiliate_id'];
+                ?>
+                    <tr>
+                        <?php $link =  ADMINAPPROOT . 'affiliateinfo.php?' . $Encrypt->encrypt('affiliate_id='.$affiliate_id); ?>
+                              <td><?php echo $count; ?></td>
+                              <td>
+                                <a href="<?= $link ?>">
+                                  <?php echo $ResultRejected->Result[$x]['firstname'] . " " . $ResultRejected->Result[$x]['lastname']; ?>
+                                </a>
+                              </td>
+                              <td><?php echo $ResultRejected->Result[$x]['email']; ?></td>
+                              <td><?php echo $ResultRejected->Result[$x]['telephone']; ?></td>
+                              <td><?php echo FormatDate($ResultRejected->Result[$x]['date_added'],'M d, Y'); ?></td>
+                              <td><i class="fa fa-close" aria-hidden="true" title="Rejected"></i></td>
+                          </tr>
+                  <?php
+                    $count++;
+                }
+              }
+          }
+          else
+          {
+            echo "<tr><td colspan='6'>&nbsp;</td></tr>";
+            echo "<tr><td colspan='6' style='text-align:center;'>No Results found</td></tr>";
+          }
 
-                                                $Manage = $AppsWithPackage + $Total;
-
-                                                $TodaysApp = DealerPackageFeatures::CountSentApplications($DealerId,$DealerPackageId,date("Y-m-d"));
-                                                $Delivered = DealerPackageFeatures::CountSentApplications($DealerId,$DealerPackageId);
-
-                                                $dealerpackages = new dealerpackages();
-                                                $dealerpackages->LoadDealerPackageByDealerId($DealerId);
-                                ?>
-                                  <tr class="">
-                                    
-                                    <td><input type="checkbox" name="selected[]" value="<?php echo $Result->Result[$x]['Id']; ?>" /></td>
-                                    <td><?php echo $count; ?></td>
-                                    <td><?php echo $Result->Result[$x]['ContactName'] . "<br/> - " . $Result->Result[$x]['DealershipName']; ?></td>
-                                    <td><?= Package::GetName($Result->Result[$x]['DealershipPlan']) ?></td>
-                                    <td><?php echo $TodaysApp; ?></td>
-                                    <td><?php echo $Delivered; ?></td>
-                                    <td><?php echo ($Manage - $Delivered); ?></td>
-                                    <td><?php echo $dealerpackages->AddDate; ?></td>
-                                    <td><?php echo $dealerpackages->ExpireDate; ?></td>
-
-                                    <td><?php 
-
-                                      if($Assigned)
-                                      {
-                                        $link =  ADMINAPPROOT . 'profile.php?' . $Encrypt->encrypt('DealerId='.$DealerId.'&Apply=Apply&ContactId='.$ContactId);
-                                        echo '
-                                          <a class="btn btn-success" href="'.$link.'">Assign</a>
-                                        ';
-                                      }
-                                      else{
-                                          $link =  ADMINAPPROOT . 'dealer-profile.php?' . $Encrypt->encrypt('DealerId='.$DealerId);
-
-                                          echo '<a href="'.$link.'" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>';
-                                      }
-                                    ?></td>
-                                    
-                                  </tr>       
-                                <?php 
-                                  $count++;
-                                }
-                              }
-                              else
-                              {
-                                echo "<tr><td colspan='9'>&nbsp;</td></tr>";
-                                echo "<tr><td colspan='9' style='text-align:center;'>No Results found</td></tr>";
-                              }
-
-                              ?>
+          ?>
                               
                           </tbody>
                         </table>

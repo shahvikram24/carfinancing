@@ -27,7 +27,6 @@
           <li><a href="dashboard.php"><i class="fa fa-home"></i> Home</a></li>
           <li><a><i class="fa fa-edit"></i> Account <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="account-edit.php">Edit Profile</a></li>
               <li><a href="change-password.php">Change Password</a></li>
             </ul>
           </li>
@@ -40,6 +39,8 @@
             </ul>
           </li>
           
+          <li><a href="affiliates.php"><i class="fa fa-user"></i>Affiliates Portal</a></li>
+
           <li><a><i class="fa fa-support"></i> Support Tickets<span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="support-tickets.php">Affiliate</a></li>

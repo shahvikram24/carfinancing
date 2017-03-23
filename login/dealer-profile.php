@@ -7,6 +7,44 @@
     exit();
   } 
 
+
+if(isset($_POST['Finish']) && $_POST['Finish'] == 'Update Plan')
+{
+    $dealership = new dealership();
+    $dealership->loadDealershipInfo($DealerId);
+    $OldPlan = $dealership->DealershipPlan;
+
+    $dealership->DealershipPlan = $Decrypt->decrypt($_POST['DealershipPlan']); 
+    $dealership->updateDealershipInfo();
+
+    if($OldPlan != $Decrypt->decrypt($_POST['DealershipPlan']))
+    {
+        $Id = dealerpackages::GetIdByDealerId($DealerId);
+        $dp = new dealerpackages();
+        $dp->LoadDealerPackage($Id);
+        $dp->Status=0;
+        $dp->UpdateDealerPackage();
+
+        $dealerpackages = new dealerpackages();
+        $dealerpackages->AddDate = date('Y-m-d H:i:s');
+        if($Decrypt->decrypt($_POST['DealershipPlan']) == 1) 
+            $dealerpackages->ExpireDate = FormatDate(date('Y-m-d H:i:s', strtotime("+365 days")));
+        else
+            $dealerpackages->ExpireDate = FormatDate(date('Y-m-d H:i:s', strtotime("+30 days")));
+
+        $dealerpackages->PlanId = $Decrypt->decrypt($_POST['DealershipPlan']);
+        $dealerpackages->Term = 0;
+        $dealerpackages->DealerId = $DealerId;
+        $dealerpackages->Timestamp = date('Y-m-d H:i:s');
+        $dealerpackages->Status = 1;
+        $DealerPackageId = $dealerpackages->InsertDealerPackage();
+    }
+
+    header('Location:dealer-profile.php?' . $Encrypt->encrypt("Message=Dealer information has been updated successfully.&Success=true&DealerId=".$DealerId));
+    exit();
+}
+
+
   if(isset($_POST['Apply']) && $_POST['Apply'] == 'Apply')
 {
     $dealership = new dealership();
@@ -24,7 +62,7 @@
 
         if($Manage < $_POST['Quantity'])
         {
-            header('Location: dealerinfo.php?' . $Encrypt->encrypt("Message=Debit quantity should not exceeds your limited quantities.&Success=false&DealerId=".$_POST['DealerId']));
+            header('Location: dealer-profile.php?' . $Encrypt->encrypt("Message=Debit quantity should not exceeds your limited quantities.&Success=false&DealerId=".$_POST['DealerId']));
             exit();
         }
    }
@@ -236,6 +274,7 @@
                                                         ?>
                                                         </tbody>
                                               </table>
+                                              <a href="" class="btn btn-danger btn-xs modaldebit" data-id="<?php echo $DealerId; ?>" data-dealershipplan="<?php echo $Result->DealershipPlan; ?>"  data-toggle="modal" data-target="#examplePlan">Change Plan</a>
 
                                     </div>
 
@@ -412,6 +451,58 @@ $(document).on("click", ".modaldebit", function () {
     </div>
 </form>
 
+<script>
+          $(document).on("click", "#modaledit", function () {
+              $("#examplePlan #DealerId").val( $(this).data('id') );
+              $("#examplePlan #DealershipPlan").val( $(this).data('dealershipplan') );
+          });
+        </script>
 
+<form method="post" autocomplete="off" action="#">
+        <div class="modal fade" id="examplePlan" tabindex="-1" role="dialog" aria-labelledby="examplePlanLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="examplePlanLabel">Edit Paln Here</h4>
+              </div>
+              <div class="modal-body">
+                
+                  <input type="hidden" id="DealerId" name="DealerId">                  
+                    
+                   <div class="col-sm-12">
+                                <span><label>Dealership Plan *</label></span>
+                                    <span><select id="DealershipPlan" name="DealershipPlan" class="form-control">
+                                    <?php 
+                                        for($x = 0; $x < $PackageResultSet->TotalResults ; $x++)
+                                        {
+                                            if($PackageResultSet->Result[$x]['Id'] == $Result->DealershipPlan)
+                                            {
+                                                echo "<option value='". $Encrypt->encrypt($PackageResultSet->Result[$x]['Id']) ."' selected >".
+                                                        $PackageResultSet->Result[$x]['Name']
+                                                  . "</option>";
+                                            }
+                                            else
+                                            {
+                                                echo "<option value='". $Encrypt->encrypt($PackageResultSet->Result[$x]['Id']) ."'>".
+                                                        $PackageResultSet->Result[$x]['Name']
+                                                  . "</option>";
+                                            }
+                                                
+                                        }
+                                    ?>                                        
+                                </select></span>
+                            </div>
+
+              </div>
+              <div class="clearfix"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="edit" name="Finish" value="Update Plan">Change Plan</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
 </body>
 </html>
