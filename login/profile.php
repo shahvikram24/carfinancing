@@ -1,13 +1,13 @@
 <?php 
-	require_once("../include/files.php");
+    require_once("../include/files.php");
 
-	if(!isset($_SESSION['admin_id']))
+    if(!isset($_SESSION['admin_id']))
   {
     header('Location:index.php?'.$Encrypt->encrypt("MessageType=Error&Message=You must sign in to view your account."));
     exit();
   } 
 
-	if(!isset($ContactId))
+    if(!isset($ContactId))
   {
     header("Location: dashboard.php");
   }
@@ -199,7 +199,9 @@ if(isset($_POST['SubmitSearch']) && $_POST['SubmitSearch'] == 'Upload Files')
 }
 
 
-	  
+      $DealerId = $_SESSION['DealerId'];
+    $dealership = new dealership();
+    $dealership->loadDealershipInfo($DealerId);
 
     $Contact = new Contact();
     $Contact->loadContact($ContactId);
@@ -216,12 +218,12 @@ if(isset($_POST['SubmitSearch']) && $_POST['SubmitSearch'] == 'Upload Files')
     <div class="container body">
       <div class="main_container">
 
-			<!-- Header Wrapper -->
-			<?php require_once ("inc/header.php"); ?>  
-			
+            <!-- Header Wrapper -->
+            <?php require_once ("inc/header.php"); ?>  
+            
 
-			<!-- page content -->
-			<div class="right_col" role="main">  
+            <!-- page content -->
+            <div class="right_col" role="main">  
             <?php                   
               if( isset ($Message) && $Message != "" ) 
               { 
@@ -232,7 +234,7 @@ if(isset($_POST['SubmitSearch']) && $_POST['SubmitSearch'] == 'Upload Files')
               }
             ?>
 
-		        <div class="row">
+                <div class="row">
               <div class="col-md-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
@@ -548,16 +550,16 @@ if(isset($_POST['SubmitSearch']) && $_POST['SubmitSearch'] == 'Upload Files')
 
               </div>
               
-            </div>	
+            </div>  
 
-		    	<div class="clearfix"></div>
+                <div class="clearfix"></div>
 
-		          
-          	<!-- /top tiles -->
-	    	</div>
+                  
+            <!-- /top tiles -->
+            </div>
 
-		<!-- Footer Wrapper -->
-		<?php require_once ("inc/footer.php"); ?>  
+        <!-- Footer Wrapper -->
+        <?php require_once ("inc/footer.php"); ?>  
 <script>
       $(document).ready(function() {
         var handleDataTableButtons = function() {

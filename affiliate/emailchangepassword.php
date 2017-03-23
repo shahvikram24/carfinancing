@@ -39,7 +39,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<?php require_once ("../include/title.php"); ?> 
+<?php require_once ("inc/title.php"); ?> 
 <script language = "Javascript">
   
 function confirmPass() {

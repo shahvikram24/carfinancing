@@ -59,12 +59,13 @@ $ResultRejected = $affiliate->loadAllAffiliateInfo(' approved=3 AND status=1 ');
                         <table id="datatable-buttons" class="table table-striped table-bordered">
                           <thead>
                             <tr>
-                                <th>#</th>
+                                <th style="width: 1%">Sr#</th>
                                 <th>Affiliate&nbsp;Full&nbsp;Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Date Signup</th>
-                                <th>Status</th>
+                                <th style="width: 1%">Status</th>
+                                <th>Action</th>
                             </tr>
                           </thead>
 
@@ -82,7 +83,7 @@ $ResultRejected = $affiliate->loadAllAffiliateInfo(' approved=3 AND status=1 ');
                                       $affiliate_id = $ResultPending->Result[$x]['affiliate_id'];
                             ?>
                                   <tr>
-                        <?php $link =  ADMINAPPROOT . 'affiliateinfo.php?' . $Encrypt->encrypt('affiliate_id='.$affiliate_id); ?>
+                                <?php $link =  ADMINAPPROOT . 'affiliateinfo.php?' . $Encrypt->encrypt('affiliate_id='.$affiliate_id); ?>
                         
                               <td><?php echo $count; ?></td>
                               <td>
@@ -94,11 +95,12 @@ $ResultRejected = $affiliate->loadAllAffiliateInfo(' approved=3 AND status=1 ');
                               <td><?php echo $ResultPending->Result[$x]['telephone']; ?></td>
                               <td><?php echo FormatDate($ResultPending->Result[$x]['date_added'],'M d, Y'); ?></td>
                               <td><i class="fa fa-exclamation-triangle" aria-hidden="true" title="Awaiting"></i></td>
+                              <td><a href="<?= $link ?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a></td>
                           </tr>
-                  <?php
-                    $count++;
-                }
-              }
+                            <?php
+                              $count++;
+                          }
+                        }
               
 
               if($ResultApproved->TotalResults>0)
@@ -120,6 +122,7 @@ $ResultRejected = $affiliate->loadAllAffiliateInfo(' approved=3 AND status=1 ');
                               <td><?php echo $ResultApproved->Result[$x]['telephone']; ?></td>
                               <td><?php echo FormatDate($ResultApproved->Result[$x]['date_added'],'M d, Y'); ?></td>
                               <td><i class="fa fa-check" aria-hidden="true" title="Approved"></i></td>
+                              <td><a href="<?= $link ?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a></td>
                           </tr>
                   <?php
                     $count++;
@@ -144,6 +147,7 @@ $ResultRejected = $affiliate->loadAllAffiliateInfo(' approved=3 AND status=1 ');
                               <td><?php echo $ResultRejected->Result[$x]['telephone']; ?></td>
                               <td><?php echo FormatDate($ResultRejected->Result[$x]['date_added'],'M d, Y'); ?></td>
                               <td><i class="fa fa-close" aria-hidden="true" title="Rejected"></i></td>
+                              <td><a href="<?= $link ?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a></td>
                           </tr>
                   <?php
                     $count++;

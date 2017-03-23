@@ -84,20 +84,18 @@ function Validate()
                
               </div>
 
-              <div class="clearfix"></div>
-
-              <div class="separator">
-                
-
+              
                 <div class="clearfix"></div>
                 <br />
 
+                <div class="separator">
                 <div>
-                  <h1><i class="fa fa-paw"></i> SPIN</h1>
-                  <p>&copy; SPIN. All rights reserved. <br/> Powered By:  
-                  		<a href="http://snowballmedia.com" title="Snowball Media" target="_blank">Snowball Media and Advertising</a>
+                  <h1><i class="fa fa-car"></i> CAR FINANCING</h1>
+                  <p>&copy; CAR FINANCING. All rights reserved. <br/> Powered By:  
+                      <a href="http://www.vstudiozzz.com" title="Vstudiozzz" target="_blank">Vstudiozzz </a>
                   </p>
                 </div>
+              </div>
               </div>
             </form>
           </section>

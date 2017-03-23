@@ -59,13 +59,15 @@ $html .= "
                     
                      if($mailObj->Send())
                      {
-                        header("Location:".ADMINAPPROOT . 'new-leads.php?' . $Encrypt->encrypt('Message=Dealer assigned successfully to the contact. Informaion has been sent to dealer.&Success=true&ContactId='.$ContactId));    	
+                            echo "<br/><br/> ==== 1 <br/>";
+                        header("Location:".ADMINAPPROOT . 'new-leads.php?' . $Encrypt->encrypt('Message=Dealer assigned successfully to the contact. Informaion has been sent to dealer.&Success=true'));    	
 	    				exit();
                     }
 
                     else 
                     {
-                    	header("Location:".ADMINAPPROOT . 'new-leads.php?' . $Encrypt->encrypt('Message=Something went wrong while sending email.&Success=false&ContactId='.$ContactId));    	
+                        echo "<br/><br/> ==== 2 <br/>";
+                    	header("Location:".ADMINAPPROOT . 'new-leads.php?' . $Encrypt->encrypt('Message=Something went wrong while sending email.&Success=false'));    	
     	 				exit();
                     }
                 }

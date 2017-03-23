@@ -275,7 +275,7 @@ public function GetDealerEmail($DealerId)
 				WHERE Status = 1 AND DealerId = " . $DealerId
 		;
 
-		echo  "\n". $SQL . "\n";
+		//echo  "\n". $SQL . "\n";
 
 		parent::GetDALInstance()->SQLQuery($SQL);
 		$row = parent::GetDALInstance()->GetRow();

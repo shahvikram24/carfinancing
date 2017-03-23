@@ -30,4 +30,7 @@
     <link rel="stylesheet" type="text/css" href="<?= APPROOT ?>fonts/eleganticons/et-icons.css">
     <!-- Main style -->
     <link rel="stylesheet" type="text/css" href="<?= APPROOT ?>css/cardio.css">
+
+    <!-- Form style -->
+    <link rel="stylesheet" type="text/css" href="<?= APPROOT ?>css/site.css">
 </head>
