@@ -59,7 +59,7 @@ if(isset($_POST['SubmitSearch']) && $_POST['SubmitSearch'] == 'Post Notes')
 
 if(isset($_POST['Finish']) && $_POST['Finish'] == 'Update History')
 {
-
+    
     $affiliateTransaction = new AffiliateTransaction();
 
     for($x=0; $x < count($_POST['affiliatetransactionid']); $x++)
@@ -68,8 +68,10 @@ if(isset($_POST['Finish']) && $_POST['Finish'] == 'Update History')
         $affiliateTransaction->description = $Decrypt->decrypt($_POST['description'][$x]);
         $affiliateTransaction->amount = $_POST['amount'][$x];
         $affiliateTransaction->UpdateTransaction();
+        
     }
 
+    
     $affiliateEmail = Affiliate::GetEmail($affiliateTransaction->affiliateid);
     // To send HTML mail, the Content-type header must be set
                 $headers  = 'MIME-Version: 1.0' . "\r\n";
@@ -542,7 +544,7 @@ $dealStatusResult = $dealStatus->loadAllDealStatus();
                                                             $ContactId = $ResultTransaction->Result[$x]['contactinfoid'];
                                                             $link =  ADMINAPPROOT . 'profile.php?' . $Encrypt->encrypt('ContactId='.$ContactId); 
                                                   ?>
-                                                    <input type="hidden" name="affiliatetransactionid[]" value="<?= $ResultTransaction->Result[$x]['affiliatetransactionid'] ?>"/>
+                                                    <input type="text" name="affiliatetransactionid[]" value="<?= $ResultTransaction->Result[$x]['affiliatetransactionid'] ?>"  style="display: none;" />
                                                       <tr class="">
                                                           <td><?php echo $count; ?></td>           
                                                           <td><a href="<?= $link ?>">
