@@ -20,7 +20,7 @@
       <div class="row intro-tables">
         <div class="col-md-12">
           <div class="intro-table intro-table-first text-center">
-            <h2 class="white light">Welcome To CAR FINANCING HELP! We Can offer You the Best Rates on Your LOAN.</h2>
+            <h2 class="white light top">Welcome To CAR FINANCING HELP! We Can offer You the Best Rates on Your LOAN.</h2>
             <h5 class="white heading">BAD CREDIT? NO CREDIT? New to Canada? Bankruptcy? New Job?... NO PROBLEM!</h5>
             <a href="#" class="btn btn-white-fill">Get Approved Now!</a>
           </div>

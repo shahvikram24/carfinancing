@@ -1,4 +1,4 @@
-<header class="intro">
+<header class="affiliate">
     <div class="container">
       <div class="table">
         <div class="header-text">

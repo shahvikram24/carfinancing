@@ -3,16 +3,16 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php require_once ("../include/title.php"); ?>  
+<?php require_once ("inc/indextitle.php"); ?>  
 <body>
     <div class="preloader">
     
   </div>
     <!-- Header Wrapper -->
-    <?php require_once ("../include/header.php"); ?>  
+    <?php require_once ("inc/indexheader.php"); ?>  
 
     <!-- Image Wrapper -->
-    <?php require_once ("../include/slider.php"); ?>  
+    <?php require_once ("inc/indexslider.php"); ?>  
 
     <section>
     <div class="cut cut-top"></div>
@@ -20,7 +20,7 @@
       <div class="row intro-tables">
         <div class="col-md-12">
           <div class="intro-table intro-table-first text-center">
-            <h2 class="white light">Welcome To CAR FINANCING HELP! We Can offer You the Best Rates on Your LOAN.</h2>
+            <h2 class="white light top">Welcome To CAR FINANCING HELP! We Can offer You the Best Rates on Your LOAN.</h2>
             <h5 class="white heading">BAD CREDIT? NO CREDIT? New to Canada? Bankruptcy? New Job?... NO PROBLEM!</h5>
             <a href="#" class="btn btn-white-fill">Get Approved Now!</a>
           </div>
@@ -176,7 +176,7 @@
   
 
   <!-- Image Wrapper -->
-    <?php require_once ("../include/footer.php"); ?> 
+    <?php require_once ("inc/indexfooter.php"); ?> 
 
 </body>
 </html>
