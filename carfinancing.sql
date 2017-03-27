@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 15, 2017 at 08:45 PM
+-- Generation Time: Mar 27, 2017 at 04:20 PM
 -- Server version: 5.7.17-log
 -- PHP Version: 5.6.30
 
@@ -101,7 +101,7 @@ CREATE TABLE `affiliatetransaction` (
   `affiliateid` int(11) NOT NULL,
   `contactinfoid` int(11) NOT NULL,
   `description` text NOT NULL COMMENT 'tbldealstatus',
-  `amount` decimal(15,4) NOT NULL,
+  `amount` decimal(15,2) NOT NULL,
   `dateadded` datetime NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -111,13 +111,16 @@ CREATE TABLE `affiliatetransaction` (
 --
 
 INSERT INTO `affiliatetransaction` (`affiliatetransactionid`, `affiliateid`, `contactinfoid`, `description`, `amount`, `dateadded`, `status`) VALUES
-(1, 1, 1, '1', '0.0000', '2017-03-10 21:53:59', 3),
-(2, 1, 2, '2', '0.0000', '2017-03-12 09:15:53', 3),
-(3, 1, 6, '3', '0.0000', '2017-03-14 11:35:53', 3),
-(4, 1, 7, '4', '0.0000', '2017-03-14 11:59:22', 3),
-(5, 1, 8, '5', '0.0000', '2017-03-14 11:59:45', 3),
-(6, 1, 9, '6', '500.0000', '2017-03-14 12:00:10', 3),
-(7, 1, 10, '6', '500.0000', '2017-03-14 12:00:41', 3);
+(1, 1, 1, '1', '0.00', '2017-03-10 21:53:59', 3),
+(2, 1, 2, '2', '0.00', '2017-03-12 09:15:53', 3),
+(3, 1, 6, '3', '150.00', '2017-03-14 11:35:53', 3),
+(4, 1, 7, '4', '0.00', '2017-03-14 11:59:22', 3),
+(5, 1, 8, '5', '0.00', '2017-03-14 11:59:45', 3),
+(6, 1, 9, '6', '500.00', '2017-03-14 12:00:10', 3),
+(7, 1, 10, '6', '500.00', '2017-03-14 12:00:41', 3),
+(8, 1, 10, '1', '0.00', '2017-03-23 08:09:24', 1),
+(9, 1, 11, '1', '0.00', '2017-03-27 14:14:33', 3),
+(10, 1, 12, '1', '0.00', '2017-03-27 14:33:08', 3);
 
 -- --------------------------------------------------------
 
@@ -168,7 +171,10 @@ INSERT INTO `contact` (`id`, `vehicle_type_id`, `first_name`, `last_name`, `emai
 (7, 1, 'Hardik', 'Patel', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-14 23:59:22', 'jksdhgfjk jhfdsjk fhjsdkhfjsdkhf sdjhf \r\n                        ', 1),
 (8, 1, 'hjgdshjfgdshgf', 'hjgdsrfhgds', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-14 23:59:45', 'kjsdh hsdjk hkjdshg skjdhgskjd h \r\n                        ', 1),
 (9, 1, 'dflkgjdkfljg', 'utioerutioeru', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-15 00:00:10', 'lkzjfhksdla lkjdsafklsdj fklsdjf klsjdfkl dsj \r\n                        ', 1),
-(10, 1, 'iyuiwyruiwey', 'uiyruiweyrui', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-15 00:00:41', 'k ksdajf kasjfklas kalsjfklasjf \r\n                        ', 1);
+(10, 1, 'iyuiwyruiwey', 'uiyruiweyrui', '', '', 0, 0, 0, '', '', 1, '', 'rent', 0, '', '', '', '', '', '', 0, 0, '2017-03-15 00:00:41', 'k ksdajf kasjfklas kalsjfklasjf \r\n                        ', 1),
+(11, 4, 'sjgdfdsf', 'dekjhgjkdfhg', 'jkdshgsjkdghjksd@gmail.com', '9867678678', 3, 3, 1995, 'shdfhsdgfhgds', 't6t6t6', 10, 'gfdgfdg', 'own', 3, '4', 'sdiuufjksdfjk', 'jksdhgsjdkhg', '87785785', '87678678.0', '', 2, 2, '2017-03-27 14:14:33', NULL, 1),
+(12, 4, 'vikram', 'shah', 'jfjfjfj@gmail.com', '76786876', 3, 4, 1997, 'sdgsdg', 't6t6t6', 2, 'dsfsdfsdf', 'rent', 5, '400', 'gsdgsdg', 'sdgsdgsd', '4576547547', '56456.00', '', 3, 3, '2017-03-27 14:33:08', NULL, 1),
+(13, 4, 'hsfkgf', 'kjshjkdshgkjsd', 'jksdhgkjdsfhg@gmail.com', '9834589', 3, 4, 1996, 'sdgdgdsg', 't6t6t6', 5, 'sdgsdg', 'rent', 1, '457457', 'jhgfs', 'kdjsagfdsgfhjgdsf', '87566756', '875875.00', '586765765', 3, 2, '2017-03-27 15:22:26', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -190,7 +196,7 @@ CREATE TABLE `pages` (
 --
 
 INSERT INTO `pages` (`id`, `keyword`, `slug_url`, `title`, `description`, `is_active`) VALUES
-(1, 'tems', 'terms-and-conditions', 'Terms and Conditions', '<p> Terms and Conditions</p>', 1),
+(1, 'terms', 'terms-and-conditions', 'Terms and Conditions', '<!DOCTYPE html>\r\n<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p>Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;Terms and Conditions.&nbsp;</p>\r\n</body>\r\n</html>', 1),
 (2, 'privacy', 'privacy-policy', 'Privacy Policy', '<p>Privacy Policy</p>', 1),
 (3, 'index', '', 'Index page', '<!DOCTYPE html>\r\n<html>\r\n<head>\r\n</head>\r\n<body>\r\n<p><span class=\"example1\">GET THE CAR YOU WANT</span><br /><br /><span class=\"example1\">We understand you have a budget in mind and want the best deal possible</span></p>\r\n</body>\r\n</html>', 1),
 (4, 'step_c_inf', 'contact-information', 'Step1: Contact Information', '<p>Now we need to ask you for some personal information to verify your identity.</p> \r\n<p>This info is kept private and secure.</p>', 1),
@@ -268,7 +274,8 @@ CREATE TABLE `tbldealerpackagefeatures` (
 
 INSERT INTO `tbldealerpackagefeatures` (`Id`, `DealerId`, `DealerPackageId`, `ContactId`, `Timestamp`, `Status`) VALUES
 (1, 1, 1, 1, '2017-03-14 00:00:00', 1),
-(2, 1, 1, 2, '2017-03-14 00:00:00', 1);
+(2, 1, 1, 2, '2017-03-14 00:00:00', 1),
+(3, 1, 1, 10, '2017-03-23 14:09:24', 1);
 
 -- --------------------------------------------------------
 
@@ -408,6 +415,56 @@ INSERT INTO `tbllogin` (`Id`, `Featured`, `DealerId`, `EmailId`, `SALT`, `HASH`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblnotes`
+--
+
+CREATE TABLE `tblnotes` (
+  `Id` int(11) NOT NULL,
+  `Notes` text NOT NULL,
+  `DatePosted` datetime NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tblnotes`
+--
+
+INSERT INTO `tblnotes` (`Id`, `Notes`, `DatePosted`, `Status`) VALUES
+(1, 'dshfjkdshg jkdfhgjkhdfjkghkjfd ', '2017-03-23 14:07:16', 1),
+(2, 'dfnbgfd ghfdghjdkfhgjkdfhg ', '2017-03-23 14:07:20', 1),
+(3, 'dssdgfsdgsdg', '2017-03-23 14:46:29', 1),
+(4, 'sdgsdgsdgsd sdgsdgsdgsd g', '2017-03-23 14:46:34', 1),
+(5, 'fghfghfgh', '2017-03-23 14:49:46', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblnotesrelation`
+--
+
+CREATE TABLE `tblnotesrelation` (
+  `Id` int(11) NOT NULL,
+  `NotesId` int(11) NOT NULL,
+  `ContactId` int(11) DEFAULT NULL,
+  `ContactInfoId` int(11) DEFAULT NULL,
+  `AffiliateId` int(11) DEFAULT NULL,
+  `Status` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tblnotesrelation`
+--
+
+INSERT INTO `tblnotesrelation` (`Id`, `NotesId`, `ContactId`, `ContactInfoId`, `AffiliateId`, `Status`) VALUES
+(1, 1, 1, NULL, NULL, 1),
+(2, 2, 1, NULL, NULL, 1),
+(3, 3, NULL, NULL, 2, 1),
+(4, 4, NULL, NULL, 2, 1),
+(5, 5, NULL, NULL, 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblpackage`
 --
 
@@ -503,7 +560,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'ofOiFks2m_zq5OOqem-x9QSqwwRAhYmf', '$2y$13$BubCgggvqLa1FlcyTzB3x.6qA3/eyjbkV4ePCjevH/.LbFLBO4TIe', NULL, 'admin@admin.com', 10, 1480946923, 1488538041);
+(1, 'admin', 'ofOiFks2m_zq5OOqem-x9QSqwwRAhYmf', '$2y$13$VL9S9uTipCmdq6uoDTlgfOXvXbypfkxZy4L3ImvUUZHa.igiyf4jS', NULL, 'vipvicks71@gmail.com', 10, 1480946923, 1488538041);
 
 -- --------------------------------------------------------
 
@@ -549,7 +606,9 @@ ALTER TABLE `affiliate`
 -- Indexes for table `affiliatetransaction`
 --
 ALTER TABLE `affiliatetransaction`
-  ADD PRIMARY KEY (`affiliatetransactionid`);
+  ADD PRIMARY KEY (`affiliatetransactionid`),
+  ADD KEY `contactinfoid` (`contactinfoid`),
+  ADD KEY `affiliateid` (`affiliateid`);
 
 --
 -- Indexes for table `contact`
@@ -615,6 +674,18 @@ ALTER TABLE `tbllogin`
   ADD PRIMARY KEY (`Id`);
 
 --
+-- Indexes for table `tblnotes`
+--
+ALTER TABLE `tblnotes`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `tblnotesrelation`
+--
+ALTER TABLE `tblnotesrelation`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Indexes for table `tblpackage`
 --
 ALTER TABLE `tblpackage`
@@ -656,12 +727,12 @@ ALTER TABLE `vehicle_types`
 -- AUTO_INCREMENT for table `affiliatetransaction`
 --
 ALTER TABLE `affiliatetransaction`
-  MODIFY `affiliatetransactionid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `affiliatetransactionid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `pages`
 --
@@ -681,7 +752,7 @@ ALTER TABLE `tbldealercredits`
 -- AUTO_INCREMENT for table `tbldealerpackagefeatures`
 --
 ALTER TABLE `tbldealerpackagefeatures`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tbldealerpackages`
 --
@@ -707,6 +778,16 @@ ALTER TABLE `tblfilerelations`
 --
 ALTER TABLE `tbllogin`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tblnotes`
+--
+ALTER TABLE `tblnotes`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `tblnotesrelation`
+--
+ALTER TABLE `tblnotesrelation`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tblpackage`
 --
