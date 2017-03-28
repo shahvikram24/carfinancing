@@ -55,7 +55,7 @@ class Contact extends \yii\db\ActiveRecord
     {
         return [
             [['vehicle_type_id', 'first_name', 'last_name', 'email', 'phone', 'month_of_birth', 'day_of_birth', 'year_of_birth', 'address', 'province_id', 'city', 'residence_years', 'monthly_payment', 'company_name', 'job_title', 'work_phone', 'monthly_income', 'years_on_job', 'months_on_job'], 'required'],
-            [['vehicle_type_id', 'month_of_birth', 'day_of_birth', 'year_of_birth', 'province_id', 'residence_years', 'years_on_job', 'months_on_job', 'monthly_payment', 'phone', 'work_phone'], 'integer'],
+            [['vehicle_type_id', 'month_of_birth', 'day_of_birth', 'year_of_birth', 'province_id', 'residence_years', 'years_on_job', 'months_on_job', 'monthly_payment', 'phone', 'work_phone', 'status'], 'integer'],
             [['rent_or_own', 'notes'], 'string'],
             [['created'], 'safe'],
             [['email'], 'email'],

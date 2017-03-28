@@ -38,7 +38,7 @@ class Contact extends BaseClass
   	{
 		
 				
-		$SQL = "SELECT * FROM contact WHERE id = " . $Id . " AND status IN (0,1,2)  ";
+		$SQL = "SELECT * FROM contact WHERE id = " . $Id . " AND status IN (0,1,2,3)  ";
 		//echo "<br/><br/><br/><br/><br/><br/>".$SQL;		
 		parent::GetDALInstance()->SQLQuery($SQL);
 		$row = parent::GetDALInstance()->GetRow(false);

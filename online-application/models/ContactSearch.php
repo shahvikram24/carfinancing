@@ -10,7 +10,7 @@ use app\models\Application;
 /**
  * ApplicationSearch represents the model behind the search form about `app\models\Application`.
  */
-class ApplicationSearch extends Application
+class ContactSearch extends Application
 {
     /**
      * @inheritdoc

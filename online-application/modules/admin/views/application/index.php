@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\ApplicationSearch */
+/* @var $searchModel app\models\ContactSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Application';
@@ -94,6 +94,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'phone',
             'address',
+            [
+            	'label' => 'Status',
+                'value' => function($data){
+					return ($data->status == 1) ? 'finished' : 'unfinished';
+                }
+            ],
             'province.name',
             [
             	'class' => 'yii\grid\ActionColumn',

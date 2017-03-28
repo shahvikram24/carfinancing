@@ -2,11 +2,12 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Contact;
 use app\models\Provinces;
 use app\models\VehicleTypes;
 use Yii;
 use app\models\Application;
-use app\models\ApplicationSearch;
+use app\models\ContactSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -49,7 +50,7 @@ class ApplicationController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ApplicationSearch();
+        $searchModel = new ContactSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -77,7 +78,7 @@ class ApplicationController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Application();
+        $model = new Contact();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

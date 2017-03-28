@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		$aView['vehicle'] = $model->vehicleType->name;
 		$aView['birth_day'] = date("F j, Y", strtotime($model->year_of_birth . '-' . $model->month_of_birth . '-' . $model->day_of_birth));
 		$aView['full_name'] = $model->first_name . ' ' . $model->last_name;
-		$aView['province'] = $model->province->name;
+		$aView['province'] = (!empty($model->province->name)) ? $model->province->name : '(not set)';
 	}
 	?>
     <?= DetailView::widget([

@@ -2,7 +2,7 @@
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-      <a href="index.php" class="site_title"><span><img src="../images/logo.png" /></span></a>
+      <a href="index.php" class="site_title"><span><img src="../img/panel_logo.png" /></span></a>
     </div>
 
     <div class="clearfix"></div>

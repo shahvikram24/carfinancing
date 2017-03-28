@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use app\models\Affiliate;
 use app\models\AffiliateTransaction;
-use app\models\Application;
 use app\models\Contact;
 use app\models\Pages;
 use app\models\Provinces;
@@ -133,20 +132,22 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionFinish(){
+    /**
+     * save first step of application
+     * @return array
+     */
+    public function actionSaveStep(){
         $model = new Contact();
-        $oPageModel = new Pages();
-        $content = $oPageModel::find()->where(array('keyword' => 'step_f_inf'))->one();
+        $aImputs = array( 'vehicle_type_id', 'first_name', 'last_name', 'email', 'phone', 'month_of_birth', 'day_of_birth', 'year_of_birth', 'status');
+        $referral = Yii::$app->request->post('referral');
+        $response = array('type' => 'error', 'msg' => "Something went wrong please try again.");
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $referral = Yii::$app->request->post('referral');
-            if($model->save()) {
-                if(!empty($referral)){
-
+        if ($model->load(Yii::$app->request->post()) && $model->validate($aImputs)) {
+            if($model->save(true, $aImputs)){
+                if (!empty($referral)) {
                     $modelAffiliate = new Affiliate();
                     $oAffiliate = $modelAffiliate::find()->where(array('code' => $referral))->one();
-
-                    if(!empty($oAffiliate)){
+                    if (!empty($oAffiliate)) {
                         $modelAffiliateTransaction = new AffiliateTransaction();
                         $modelAffiliateTransaction->affiliateid = $oAffiliate['affiliate_id'];
                         $modelAffiliateTransaction->contactinfoid = $model->id;
@@ -154,47 +155,84 @@ class SiteController extends Controller
                         $modelAffiliateTransaction->amount = 0;
                         $modelAffiliateTransaction->dateadded = date("Y-m-d H:i:s");
                         $modelAffiliateTransaction->status = 3;
-
                         $modelAffiliateTransaction->save();
                     }
                 }
-                $subject = "New application was created.";
-
-                $headers = "From: " . strip_tags(Yii::$app->request->post('email')) . PHP_EOL;
-                $headers .= "MIME-Version: 1.0" . PHP_EOL;
-                $headers .= "Content-Type: text/html; charset=ISO-8859-1" . PHP_EOL;
-
-                $message = "Hello, " . PHP_EOL;
-                $message .= $this->renderPartial('email/application', array('model' => $model::findOne($model->id)));
-
-                @mail(Yii::$app->params['adminEmail'], $subject, $message, $headers);
-
-                $msg = $this->renderPartial('order_thanks_message', array('content' => $content));
-                $response = array('type' => 'success', 'msg' => $msg);
+                $response = array('type' => 'success', 'id' => $model->id);
             } else {
-                $response = array('type' => 'error', 'msg' => 'Something went wrong please try again.');
+                $response = array('type' => 'error', 'msg' => "iaca aici.");
             }
-        } else {
+        }
+        else {
             $errors = $model->errors;
             $msg = 'Please check all inputs to fix the error: ' . PHP_EOL;
-            if(!empty($errors)) {
-                foreach($errors as $k => $v){
+            if (!empty($errors)) {
+                foreach ($errors as $k => $v) {
                     $msg .= $v[0] . PHP_EOL;
                 }
-
             } else{
-                $msg = 'Something went wrong please try again.';
+                $response = array('type' => 'error', 'msg' => "deamu aici.");
             }
             $response = array('type' => 'error', 'msg' => $msg);
         }
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $response;
-
     }
 
+    /**
+     * update the application data
+     * @return array
+     */
+    public function actionFinish(){
+
+        $nContactId = Yii::$app->request->post('app_id');
+        $response = array('type' => 'error', 'msg' => "Can't save your application because of a technical error.");
+
+        if(!empty($nContactId)){
+            $modelContact = Contact::findOne($nContactId);
+            $oPageModel = new Pages();
+            $content = $oPageModel::find()->where(array('keyword' => 'step_f_inf'))->one();
+
+            if($modelContact->load(Yii::$app->request->post())) {
+                if($modelContact->save()){
+                    $subject = "New application was created.";
+
+                    $headers = "From: " . strip_tags(Yii::$app->request->post('email')) . PHP_EOL;
+                    $headers .= "MIME-Version: 1.0" . PHP_EOL;
+                    $headers .= "Content-Type: text/html; charset=ISO-8859-1" . PHP_EOL;
+
+                    $message = "Hello, " . PHP_EOL;
+                    $message .= $this->renderPartial('email/application', array('model' => $modelContact));
+
+                    @mail(Yii::$app->params['adminEmail'], $subject, $message, $headers);
+
+                    $msg = $this->renderPartial('order_thanks_message', array('content' => $content));
+                    $response = array('type' => 'success', 'msg' => $msg);
+                }
+            }
+            else {
+                $errors = $modelContact->errors;
+                $msg = 'Please check all inputs to fix the error: ' . PHP_EOL;
+                if (!empty($errors)) {
+                    foreach ($errors as $k => $v) {
+                        $msg .= $v[0] . PHP_EOL;
+                    }
+                }
+                $response = array('type' => 'error', 'msg' => $msg);
+            }
+        }
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $response;
+    }
+
+    /**
+     * validate form inputs
+     * @return bool
+     */
     public function actionValidate(){
-        $model = new Application();
+        $model = new Contact();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             return TRUE;
@@ -204,6 +242,9 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionTerms(){
         $oPageModel = new Pages();
         $content = $oPageModel::find()->where(array('keyword' => 'terms'))->one();
@@ -218,6 +259,9 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionPrivacy(){
         $oPageModel = new Pages();
         $content = $oPageModel::find()->where(array('keyword' => 'privacy'))->one();

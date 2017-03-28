@@ -60,6 +60,7 @@ $config = [
                 'admin/logout' => 'admin/site/logout',
                 'online-application' => 'site/vehicle',
                 'online-application/<referral:\w+>' => 'site/vehicle',
+                'save-step' => 'site/save-step',
                 'submit-order' => 'site/finish',
                 'validate-order' => 'site/validate',
                 'privacy-policy' => 'site/privacy',

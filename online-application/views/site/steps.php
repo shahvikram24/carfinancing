@@ -43,6 +43,7 @@
     ]); ?>
 		    <?php
 			    echo $form->field($oModel, 'vehicle_type_id')->hiddenInput(['value' => $vehicle])->label(FALSE);
+			    echo $form->field($oModel, 'status')->hiddenInput(['value' => 3])->label(FALSE);
             ?>
     <div class="row setup-content" id="step-1">
 		<div class="headingWrap">
@@ -261,6 +262,7 @@
 
 				<div class="footerNavWrap clearfix">
 					<input type="hidden" name="referral" value="<?php echo $referral;?>"/>
+					<input type="hidden" name="step_url" value="<?php echo Yii::$app->urlManager->createUrl('save-step');?>"/>
 					<button type="submit" class="btn btn-info pull-right btn-fyi" onclick="submitOrder(this);">Submit</button>
 				</div>
     </div>
@@ -273,63 +275,6 @@
     </div>
 
 <?php ActiveForm::end();?>
-
-		    <script>
-
-			    function submitOrder(elem){
-					var oForm = $(elem).closest('form#step-form');
-					var oFormData = $(oForm).serialize();
-					var oFormUrl = $(oForm).attr('action');
-
-					$.ajax({
-					    type: 'POST',
-						dataType: 'json',
-						url: oFormUrl,
-						data: oFormData,
-						beforeSend: function(){
-							$(elem).addClass('disabled');
-						},
-						success: function (data) {
-                            $(elem).removeClass('disabled')
-							if(typeof(data) != 'undefined'){
-							    if(typeof(data.type) != 'undefined') {
-							        if(data.type == 'success'){
-                                        $('div.setup-panel div a[href="#step-1"]').addClass('disabled');
-                                        $('div.setup-panel div a[href="#step-2"]').addClass('disabled');
-                                        $('div.setup-panel div a[href="#step-3"]').addClass('disabled');
-                                        $('div.setup-panel div a[href="#step-4"]').removeClass('disabled');
-                                        $('div.setup-panel div a[href="#step-4"]').removeAttr('disabled').trigger('click');
-										$('div#thanks-message').html(data.msg);
-							        } else {
-                                        swal("Error...", data.msg, 'error');
-							        }
-							    }
-							}
-                        },
-                        error: function (jqXHR, exception) {
-                            var msg = '';
-                            if (jqXHR.status === 0) {
-                                msg = 'Not connect.\n Verify Network.';
-                            } else if (jqXHR.status == 404) {
-                                msg = 'Requested page not found. [404]';
-                            } else if (jqXHR.status == 500) {
-                                msg = 'Internal Server Error [500].';
-                            } else if (exception === 'parsererror') {
-                                msg = 'Requested JSON parse failed.';
-                            } else if (exception === 'timeout') {
-                                msg = 'Time out error.';
-                            } else if (exception === 'abort') {
-                                msg = 'Ajax request aborted.';
-                            } else {
-                                msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                            }
-                            swal("Error...", msg, 'error');
-                        }
-
-					})
-			    }
-
-		    </script>
 </div>
     <?php } ?>
 </div>

@@ -13,9 +13,9 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right main-nav">
-          <li><a href="#intro">Home</a></li>
+          <li><a href="index.php#intro">Home</a></li>
 
-          <li><a href="contact.php">Contact</a></li>
+          <li><a href="<?= APPROOT ?>contact.php">Contact</a></li>
           <li><a href="tel:1-800-000-0000">1(800) 000-0000</a></li>
           <li><a href="#" class="btn btn-blue">Get Approved Today</a></li>
 
