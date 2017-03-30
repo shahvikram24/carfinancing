@@ -4,9 +4,8 @@
         <div class="header-text">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h3 class="light white">GET THE CAR YOU WANT</h3>
-              <h1 class="white typed">We understand you have a budget in mind and want the best deal possible</h1>
-              <span class="typed-cursor">|</span>
+              <h3 class="light white">Become an Affiliate</h3>
+              <h1 class="white typed">Make money with the best Car Financing Help Affiliate Program</h1>
             </div>
           </div>
         </div>

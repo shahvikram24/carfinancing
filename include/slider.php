@@ -4,9 +4,9 @@
         <div class="header-text">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h3 class="light white">GET THE CAR YOU WANT</h3>
-              <h1 class="white typed">We understand you have a budget in mind and want the best deal possible</h1>
-              <span class="typed-cursor">|</span>
+              <h3 class="light white">Buy Your Dream Car</h3>
+              <h1 class="white typed">Car Financing Help takes the Waiting out of Wanting</h1>
+              
             </div>
           </div>
         </div>
